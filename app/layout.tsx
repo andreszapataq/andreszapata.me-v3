@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "^Z",
-  description: "andreszapata.me",
+  title: "andreszapata.me",
+  description: "Z^",
 };
 
 export default function RootLayout({
