@@ -2,17 +2,17 @@ import Link from "next/link";
 
 export default function Navbar() {
   return (
-    <header className="border-b border-neutral-200 dark:border-neutral-800 sticky top-0 z-10">
+    <header className="border-b border-gray-200 dark:border-neutral-800 sticky top-0 z-10">
         <nav className="px-6 md:px-16 flex items-center justify-between w-full h-[60px]">
             <ul className="flex flex-1 items-center gap-6 justify-start">
                 <li>
-                    <Link href="/">Hole</Link>
+                    <Link href="/">Hello!</Link>
                 </li>
                 <li>
-                    <Link href="/">Qué Hubo</Link>
+                    <Link href="/">Benefits</Link>
                 </li>
                 <li>
-                    <Link href="/">Ciao</Link>
+                    <Link href="/">About</Link>
                 </li>
             </ul>
 
