@@ -18,8 +18,8 @@ const satoshi = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "andreszapata.me",
-  description: "Z^",
+  title: "Andres Zapata",
+  description: "Diseño y desarrollo",
 };
 
 export default function RootLayout({

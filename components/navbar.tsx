@@ -1,22 +1,11 @@
 import Link from "next/link";
+import { Globe } from "lucide-react";
 
 export default function Navbar() {
   return (
     <header className="border-b border-gray-200">
-        <nav className="px-6 md:px-16 flex items-center justify-between w-full h-[60px]">
-            <ul className="flex flex-1 items-center gap-6 justify-start">
-                <li>
-                    <Link href="/">Hello!</Link>
-                </li>
-                <li>
-                    <Link href="/">Benefits</Link>
-                </li>
-                <li>
-                    <Link href="/">About</Link>
-                </li>
-            </ul>
-
-            <div className="flex items-center justify-center">
+        <nav className="px-6 md:px-23 flex items-center justify-between w-full h-[60px]">
+            <div className="flex flex-1 items-center justify-start">
                 <Link href="/" aria-label="Home">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -31,8 +20,9 @@ export default function Navbar() {
                 </Link>
             </div>
 
-            <div className="flex flex-1 items-center justify-end">
-                <Link href="/">
+            <div className="flex flex-1 items-center justify-end text-sm">
+                <Link href="/" className="flex items-center gap-2">
+                    <Globe className="w-5 h-5" />
                     Español
                 </Link>
             </div>
