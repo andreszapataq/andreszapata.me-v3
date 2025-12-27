@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Navbar() {
   return (
-    <header className="border-b border-gray-200 dark:border-neutral-800 sticky top-0 z-10">
+    <header className="border-b border-gray-200">
         <nav className="px-6 md:px-16 flex items-center justify-between w-full h-[60px]">
             <ul className="flex flex-1 items-center gap-6 justify-start">
                 <li>
@@ -33,7 +33,7 @@ export default function Navbar() {
 
             <div className="flex flex-1 items-center justify-end">
                 <Link href="/">
-                    Login
+                    Español
                 </Link>
             </div>
         </nav>
