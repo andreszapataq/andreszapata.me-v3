@@ -27,3 +27,27 @@ body {
   color: var(--foreground);
   font-family: var(--font-satoshi), sans-serif;
 }
+
+@keyframes live-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.live-dot {
+  position: relative;
+}
+
+.live-dot::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: #22c55e;
+  border-radius: 50%;
+  animation: live-pulse 3s ease-in-out infinite;
+}
