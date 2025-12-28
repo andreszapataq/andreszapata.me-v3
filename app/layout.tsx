@@ -20,6 +20,18 @@ const satoshi = localFont({
 export const metadata: Metadata = {
   title: "Andres Zapata",
   description: "Diseño y desarrollo",
+  icons: {
+    icon: [
+      {
+        url: "/favicon-light.png",
+        media: "(prefers-color-scheme: light)",
+      },
+      {
+        url: "/favicon-dark.png",
+        media: "(prefers-color-scheme: dark)",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
