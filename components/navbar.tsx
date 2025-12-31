@@ -23,7 +23,7 @@ export default function Navbar() {
             <div className="flex flex-1 items-center justify-end text-sm">
                 <Link href="/" className="flex items-center gap-2">
                     <Globe className="w-5 h-5" />
-                    Español
+                    English
                 </Link>
             </div>
         </nav>

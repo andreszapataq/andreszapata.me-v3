@@ -9,9 +9,9 @@ export default function Now() {
         <span className="live-dot inline-block w-2 h-2 bg-green-500 rounded-full" />
       </h2>
       <div className="space-y-6">
-        <NowItem icon={Disc3} label="Escuchando" value="Come Together - The Beatles" />
-        <NowItem icon={Clapperboard} label="Viendo" value="Perfect Days - 2023" />
-        <NowItem icon={BookOpen} label="Leyendo" value="El Idiota - Fiódor Dostoyevski" />
+        <NowItem icon={Disc3} label="Escuchando" value="Scenery - Ryo Fukui" />
+        <NowItem icon={Clapperboard} label="Viendo" value="Big Little Lies (S1) - 2017" />
+        <NowItem icon={BookOpen} label="Leyendo" value="1493 - Charles C. Mann" />
       </div>
     </section>
   );
