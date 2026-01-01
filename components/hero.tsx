@@ -18,10 +18,8 @@ export default function Hero() {
           <p className="text-[22px] font-medium leading-tight">Diseño y desarrollo</p>
         </div>
       </div>
-      <p className="text-xl text-paragraph">
-        Este sitio reúne ideas, trabajo y procesos que dan forma
-        <br />
-        a productos digitales con impacto real.
+      <p className="text-xl text-paragraph max-w-[500px]">
+        Este sitio reúne ideas, trabajo y procesos que dan forma a productos digitales con impacto real.
       </p>
     </section>
   );
