@@ -19,9 +19,9 @@ export default function Hero() {
         </div>
       </div>
       <p className="text-xl text-paragraph">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Este sitio reúne ideas, trabajo y procesos detrás
         <br />
-        Vivamus vel lorem sed urna tempor volutpat.
+        de la creación de productos digitales con impacto real.
       </p>
     </section>
   );

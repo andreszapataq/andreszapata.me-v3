@@ -13,31 +13,49 @@ export default function Home() {
 
         <Section title="Cosas que he construido">
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed accumsan malesuada felis,
-            vitae gravida arcu porta id. Suspendisse dignissim, lorem et dictum volutpat, lacus justo
-            consectetur felis, eu suscipit ipsum erat eget velit. Praesent mattis, mauris sed rhoncus
-            facilisis, libero mi finibus magna, vitae ultricies tortor nisl ut neque.
+            Soy creador de <span className="font-bold underline">Zanto</span>, una marca de ropa lanzada en 2013 junto a mi hermano <span className="font-bold underline">Gustavo</span>. También he participado en el desarrollo de <span className="font-bold underline">Ness Digital</span>, un SaaS enfocado en la gestión centralizada y la optimización de procesos en el sector salud.
           </p>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed accumsan malesuada felis,
-            vitae gravida arcu porta id. Suspendisse dignissim, lorem et dictum volutpat, lacus justo
-            consectetur felis, eu suscipit ipsum erat eget velit. Praesent mattis, mauris sed rhoncus
-            facilisis, libero mi finibus magna, vitae ultricies tortor nisl ut neque.
+            Actualmente me desempeño como Gerente de Operaciones en <span className="font-bold underline">BioTissue Colombia</span>, donde trabajo en la mejora continua de procesos, logística y operaciones.
+          </p>
+          <p>
+            He construido proyectos digitales con <span className="font-bold">Astro</span>, como el sitio web de <span className="font-bold underline">Jhonny Aponza</span>, conferencista motivacional.
+          </p>
+          <p>
+            Con <span className="font-bold">Framer</span>, he desarrollado sitios para <span className="font-bold underline">GMC Remodeling & Construction</span> y <span className="font-bold underline">Derwin&apos;s Roofing</span>, enfocándome en claridad, rendimiento y simplicidad.
           </p>
         </Section>
 
         <Section title="Cómo pienso">
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed accumsan malesuada felis,
-            vitae gravida arcu porta id. Suspendisse dignissim, lorem et dictum volutpat, lacus justo
-            consectetur felis, eu suscipit ipsum erat eget velit. Praesent mattis, mauris sed rhoncus
-            facilisis, libero mi finibus magna, vitae ultricies tortor nisl ut neque.
+            Creo en hacer un mundo mejor a través del análisis, la optimización y el uso responsable de la tecnología.
           </p>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed accumsan malesuada felis,
-            vitae gravida arcu porta id. Suspendisse dignissim, lorem et dictum volutpat, lacus justo
-            consectetur felis, eu suscipit ipsum erat eget velit. Praesent mattis, mauris sed rhoncus
-            facilisis, libero mi finibus magna, vitae ultricies tortor nisl ut neque.
+            Crear —cuando se hace bien— le da sentido a nuestra existencia. Tenemos una sola oportunidad y vale la pena usarla para generar impacto positivo en los demás.
+          </p>
+          <p>
+            Aunque cada persona ejerce su libre albedrío, somos una sola especie y compartimos responsabilidades. Diseñar, construir y decidir bien importa, incluso en los detalles pequeños.
+          </p>
+          <p>
+            Me muevo entre el diseño, el desarrollo y la resolución de problemas, siempre con una fuerte orientación al servicio.
+          </p>
+          <p>
+            Trabajo principalmente con <span className="font-bold">React</span>, <span className="font-bold">Node.js</span>, <span className="font-bold">Tailwind CSS</span> y <span className="font-bold">AWS</span>. Utilizo herramientas como <span className="font-bold">Figma</span> y <span className="font-bold">Adobe Illustrator</span> para diseñar y prototipar ideas.
+          </p>
+          <p>
+            Me interesa crear productos honestos, útiles, sencillos y elegantes.
+          </p>
+          <p>
+            Trabajo de forma transparente, con disciplina y entusiasmo, buscando que cada proyecto tenga un impacto real.
+          </p>
+          <p>
+            Si quieres trabajar conmigo por un mundo mejor, puedes escribirme al correo que encontrarás al final de esta página.
+          </p>
+          <p>
+            Muchas veces, los grandes aportes empiezan resolviendo bien los problemas pequeños.
+          </p>
+          <p>
+            Gracias por leer hasta aquí.
           </p>
         </Section>
 
