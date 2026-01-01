@@ -48,6 +48,8 @@ export default function Highlight({ children, tooltip }: HighlightProps) {
         }`}
       >
         {tooltip}
+        {/* Arrow/punta del tooltip */}
+        <span className="absolute left-1/2 -translate-x-1/2 top-full border-4 border-transparent border-t-foreground" />
       </span>
     </span>
   );
