@@ -28,25 +28,16 @@ export default function Home() {
 
         <Section title="Cómo pienso">
           <p>
-            Creo en hacer un mundo mejor a través del análisis, la optimización y el uso responsable de la tecnología.
-          </p>
-          <p>
-            Crear —cuando se hace bien— le da sentido a nuestra existencia. Tenemos una sola oportunidad y vale la pena usarla para generar impacto positivo en los demás.
+            Creo en hacer un mundo mejor a través del análisis, la optimización y el uso responsable de la tecnología. Crear —cuando se hace bien— le da sentido a nuestra existencia. Tenemos una sola oportunidad y vale la pena usarla para generar impacto positivo en los demás.
           </p>
           <p>
             Aunque cada persona ejerce su libre albedrío, somos una sola especie y compartimos responsabilidades. Diseñar, construir y decidir bien importa, incluso en los detalles pequeños.
           </p>
           <p>
-            Me muevo entre el diseño, el desarrollo y la resolución de problemas, siempre con una fuerte orientación al servicio.
+            Me muevo entre el diseño, el desarrollo y la resolución de problemas, siempre con una fuerte orientación al servicio. Trabajo principalmente con <span className="font-bold">React</span>, <span className="font-bold">Node.js</span>, <span className="font-bold">Tailwind CSS</span> y <span className="font-bold">AWS</span>. Utilizo herramientas como <span className="font-bold">Figma</span> y <span className="font-bold">Adobe Illustrator</span> para diseñar y prototipar ideas.
           </p>
           <p>
-            Trabajo principalmente con <span className="font-bold">React</span>, <span className="font-bold">Node.js</span>, <span className="font-bold">Tailwind CSS</span> y <span className="font-bold">AWS</span>. Utilizo herramientas como <span className="font-bold">Figma</span> y <span className="font-bold">Adobe Illustrator</span> para diseñar y prototipar ideas.
-          </p>
-          <p>
-            Me interesa crear productos honestos, útiles, sencillos y elegantes.
-          </p>
-          <p>
-            Trabajo de forma transparente, con disciplina y entusiasmo, buscando que cada proyecto tenga un impacto real.
+            Me interesa crear productos honestos, útiles, sencillos y elegantes. Trabajo de forma transparente, con disciplina y entusiasmo, buscando que cada proyecto tenga un impacto real.
           </p>
           <p>
             Si quieres trabajar conmigo por un mundo mejor, puedes escribirme al correo que encontrarás al final de esta página.
