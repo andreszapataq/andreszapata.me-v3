@@ -3,6 +3,8 @@ import Hero from "@/components/hero";
 import Section from "@/components/section";
 import Now from "@/components/now";
 import Footer from "@/components/footer";
+import Highlight from "@/components/highlight";
+import TextLink from "@/components/text-link";
 
 export default function Home() {
   return (
@@ -13,16 +15,16 @@ export default function Home() {
 
         <Section title="Cosas que he construido">
           <p>
-            Soy creador de <span className="font-bold underline">Zanto</span>, una marca de ropa lanzada en 2013 junto a mi hermano <span className="font-bold underline">Gustavo</span>. También he participado en el desarrollo de <span className="font-bold underline">Ness Digital</span>, un SaaS enfocado en la gestión centralizada y la optimización de procesos en el sector salud.
+            Soy creador de <Highlight tooltip="Zanto">Zanto</Highlight>, una marca de ropa lanzada en 2013 junto a mi hermano <TextLink href="https://gustavozapata.com/">Gustavo</TextLink>. También he participado en el desarrollo de <TextLink href="https://nessdigital.framer.website/">Ness Digital</TextLink>, un SaaS enfocado en la gestión centralizada y la optimización de procesos en el sector salud.
           </p>
           <p>
-            Actualmente me desempeño como Gerente de Operaciones en <span className="font-bold underline">BioTissue Colombia</span>, donde trabajo en la mejora continua de procesos, logística y operaciones.
+            Actualmente me desempeño como Gerente de Operaciones en <TextLink href="https://biotissue.com.co/">BioTissue Colombia</TextLink>, donde trabajo en la mejora continua de procesos, logística y operaciones.
           </p>
           <p>
-            He construido proyectos digitales con <span className="font-bold">Astro</span>, como el sitio web de <span className="font-bold underline">Jhonny Aponza</span>, conferencista motivacional.
+            He construido proyectos digitales con <Highlight tooltip="Astro">Astro</Highlight>, como el sitio web de <TextLink href="https://jhonnyaponza.org/">Jhonny Aponza</TextLink>, conferencista motivacional.
           </p>
           <p>
-            Con <span className="font-bold">Framer</span>, he desarrollado sitios para <span className="font-bold underline">GMC Remodeling & Construction</span> y <span className="font-bold underline">Derwin&apos;s Roofing</span>, enfocándome en claridad, rendimiento y simplicidad.
+            Con <Highlight tooltip="Framer">Framer</Highlight>, he desarrollado sitios para <TextLink href="https://gmcbuilds.com/">GMC Remodeling & Construction</TextLink> y <TextLink href="https://derwinsroofing.co/">Derwin&apos;s Roofing</TextLink>, enfocándome en claridad, rendimiento y simplicidad.
           </p>
         </Section>
 
@@ -34,7 +36,7 @@ export default function Home() {
             Aunque cada persona ejerce su libre albedrío, somos una sola especie y compartimos responsabilidades. Diseñar, construir y decidir bien importa, incluso en los detalles pequeños.
           </p>
           <p>
-            Me muevo entre el diseño, el desarrollo y la resolución de problemas, siempre con una fuerte orientación al servicio. Trabajo principalmente con <span className="font-bold">React</span>, <span className="font-bold">Node.js</span>, <span className="font-bold">Tailwind CSS</span> y <span className="font-bold">AWS</span>. Utilizo herramientas como <span className="font-bold">Figma</span> y <span className="font-bold">Adobe Illustrator</span> para diseñar y prototipar ideas.
+            Me muevo entre el diseño, el desarrollo y la resolución de problemas, siempre con una fuerte orientación al servicio. Trabajo principalmente con <Highlight tooltip="React">React</Highlight>, <Highlight tooltip="Node.js">Node.js</Highlight>, <Highlight tooltip="Tailwind CSS">Tailwind CSS</Highlight> y <Highlight tooltip="AWS">AWS</Highlight>. Utilizo herramientas como <Highlight tooltip="Figma">Figma</Highlight> y <Highlight tooltip="Adobe Illustrator">Adobe Illustrator</Highlight> para diseñar y prototipar ideas.
           </p>
           <p>
             Me interesa crear productos honestos, útiles, sencillos y elegantes. Trabajo de forma transparente, con disciplina y entusiasmo, buscando que cada proyecto tenga un impacto real.
