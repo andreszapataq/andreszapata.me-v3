@@ -14,8 +14,8 @@ export default function Hero() {
             />
         </div>
         <div>
-          <h1 className="text-[32px] font-bold">Andres Zapata</h1>
-          <p className="text-[22px] font-medium">Diseño y desarrollo</p>
+          <h1 className="text-[32px] font-bold leading-[1.15] mb-2">Andres Zapata</h1>
+          <p className="text-[22px] font-medium leading-tight">Diseño y desarrollo</p>
         </div>
       </div>
       <p className="text-xl text-paragraph">
