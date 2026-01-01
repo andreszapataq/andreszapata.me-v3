@@ -19,9 +19,9 @@ export default function Hero() {
         </div>
       </div>
       <p className="text-xl text-paragraph">
-        Este sitio reúne ideas, trabajo y procesos detrás
+        Este sitio reúne ideas, trabajo y procesos que dan forma
         <br />
-        de la creación de productos digitales con impacto real.
+        a productos digitales con impacto real.
       </p>
     </section>
   );
