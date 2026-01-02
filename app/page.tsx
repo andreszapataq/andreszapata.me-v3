@@ -33,9 +33,6 @@ export default function Home() {
             Creo en hacer un mundo mejor a través del análisis, la optimización y el uso responsable de la tecnología. Crear —cuando se hace bien— le da sentido a nuestra existencia. Tenemos una sola oportunidad y vale la pena usarla para generar impacto positivo en los demás.
           </p>
           <p>
-            Aunque cada persona ejerce su libre albedrío, somos una sola especie y compartimos responsabilidades. Diseñar, construir y decidir bien importa, incluso en los detalles pequeños.
-          </p>
-          <p>
             Me muevo entre el diseño, el desarrollo y la resolución de problemas, siempre con una fuerte orientación al servicio. Trabajo principalmente con <Highlight tooltip="React">React</Highlight>, <Highlight tooltip="Node.js">Node.js</Highlight>, <Highlight tooltip="Tailwind CSS">Tailwind CSS</Highlight> y <Highlight tooltip="AWS">AWS</Highlight>. Utilizo herramientas como <Highlight tooltip="Figma">Figma</Highlight> y <Highlight tooltip="Adobe Illustrator">Adobe Illustrator</Highlight> para diseñar y prototipar ideas.
           </p>
           <p>
