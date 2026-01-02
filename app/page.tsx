@@ -15,16 +15,16 @@ export default function Home() {
 
         <Section title="Cosas que he construido">
           <p>
-            Soy creador de <Highlight tooltip="Zanto">Zanto</Highlight>, una marca de ropa lanzada en 2013 junto a mi hermano <TextLink href="https://gustavozapata.com/">Gustavo</TextLink>. También he participado en el desarrollo de <TextLink href="https://nessdigital.framer.website/">Ness Digital</TextLink>, un SaaS enfocado en la gestión centralizada y la optimización de procesos en el sector salud.
+            Soy creador de <Highlight icon="/icons/zanto_dark.svg">Zanto</Highlight>, una marca de ropa lanzada en 2013 junto a mi hermano <TextLink href="https://gustavozapata.com/">Gustavo</TextLink>. También he participado en el desarrollo de <TextLink href="https://nessdigital.framer.website/">Ness Digital</TextLink>, un SaaS enfocado en la gestión centralizada y la optimización de procesos en el sector salud.
           </p>
           <p>
             Actualmente me desempeño como Gerente de Operaciones en <TextLink href="https://biotissue.com.co/">BioTissue Colombia</TextLink>, donde trabajo en la mejora continua de procesos, logística y operaciones.
           </p>
           <p>
-            He construido proyectos digitales con <Highlight tooltip="Astro">Astro</Highlight>, como el sitio web de <TextLink href="https://jhonnyaponza.org/">Jhonny Aponza</TextLink>, conferencista motivacional.
+            He construido proyectos digitales con <Highlight icon="/icons/astro-icon-dark.svg">Astro</Highlight>, como el sitio web de <TextLink href="https://jhonnyaponza.org/">Jhonny Aponza</TextLink>, conferencista motivacional.
           </p>
           <p>
-            Con <Highlight tooltip="Framer">Framer</Highlight>, he desarrollado sitios para <TextLink href="https://gmcbuilds.com/">GMC Remodeling & Construction</TextLink> y <TextLink href="https://derwinsroofing.co/">Derwin&apos;s Roofing</TextLink>, enfocándome en claridad, rendimiento y simplicidad.
+            Con <Highlight icon="/icons/framer_dark.svg">Framer</Highlight>, he desarrollado sitios para <TextLink href="https://gmcbuilds.com/">GMC Remodeling & Construction</TextLink> y <TextLink href="https://derwinsroofing.co/">Derwin&apos;s Roofing</TextLink>, enfocándome en claridad, rendimiento y simplicidad.
           </p>
         </Section>
 
@@ -33,7 +33,7 @@ export default function Home() {
             Creo en hacer un mundo mejor a través del análisis, la optimización y el uso responsable de la tecnología. Crear —cuando se hace bien— le da sentido a nuestra existencia. Tenemos una sola oportunidad y vale la pena usarla para generar impacto positivo en los demás.
           </p>
           <p>
-            Me muevo entre el diseño, el desarrollo y la resolución de problemas, siempre con una fuerte orientación al servicio. Trabajo principalmente con <Highlight tooltip="React">React</Highlight>, <Highlight tooltip="Node.js">Node.js</Highlight>, <Highlight tooltip="Tailwind CSS">Tailwind CSS</Highlight> y <Highlight tooltip="AWS">AWS</Highlight>. Utilizo herramientas como <Highlight tooltip="Figma">Figma</Highlight> y <Highlight tooltip="Adobe Illustrator">Adobe Illustrator</Highlight> para diseñar y prototipar ideas.
+            Me muevo entre el diseño, el desarrollo y la resolución de problemas, siempre con una fuerte orientación al servicio. Trabajo principalmente con <Highlight icon="/icons/react_dark.svg">React</Highlight>, <Highlight icon="/icons/nodejsHex.svg">Node.js</Highlight>, <Highlight icon="/icons/tailwindcss.svg">Tailwind CSS</Highlight> y <Highlight icon="/icons/aws_dark.svg">AWS</Highlight>. Utilizo herramientas como <Highlight icon="/icons/figma.svg">Figma</Highlight> y <Highlight icon="/icons/illustrator.svg">Adobe Illustrator</Highlight> para diseñar y prototipar ideas.
           </p>
           <p>
             Me interesa crear productos honestos, útiles, sencillos y elegantes. Trabajo de forma transparente, con disciplina y entusiasmo, buscando que cada proyecto tenga un impacto real.
