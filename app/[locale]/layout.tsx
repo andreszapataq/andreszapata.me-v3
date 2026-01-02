@@ -36,6 +36,29 @@ export async function generateMetadata({
   return {
     title: messages.metadata.title,
     description: messages.metadata.description,
+    metadataBase: new URL('https://andreszapata.me'),
+    openGraph: {
+      title: messages.metadata.title,
+      description: messages.metadata.description,
+      url: 'https://andreszapata.me',
+      siteName: 'Andres Zapata',
+      images: [
+        {
+          url: '/og-image.png',
+          width: 1200,
+          height: 630,
+          alt: 'Andres Zapata - Design and development',
+        },
+      ],
+      locale: locale === 'es' ? 'es_ES' : 'en_US',
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: messages.metadata.title,
+      description: messages.metadata.description,
+      images: ['/og-image.png'],
+    },
     icons: {
       icon: [
         {
