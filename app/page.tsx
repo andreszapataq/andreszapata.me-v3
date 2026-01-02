@@ -24,7 +24,7 @@ export default function Home() {
             He construido proyectos digitales con <Highlight icon="/icons/astro-icon-dark.svg">Astro</Highlight>, como el sitio web de <TextLink href="https://jhonnyaponza.org/">Jhonny Aponza</TextLink>, conferencista motivacional.
           </p>
           <p>
-            Con <Highlight icon="/icons/framer_dark.svg">Framer</Highlight>, he desarrollado sitios para <TextLink href="https://gmcbuilds.com/">GMC Remodeling & Construction</TextLink> y <TextLink href="https://derwinsroofing.co/">Derwin&apos;s Roofing</TextLink>, enfocándome en claridad, rendimiento y simplicidad.
+            Con <Highlight icon="/icons/framer_dark.svg">Framer</Highlight>, he desarrollado sitios para <TextLink href="https://gmcbuilds.com/">GMC Remodeling & Construction</TextLink> y <TextLink href="https://derwinsroofing.co/">Derwin&apos;s Roofing</TextLink>, enfocándome en la claridad, el rendimiento y la simplicidad.
           </p>
         </Section>
 
@@ -36,7 +36,7 @@ export default function Home() {
             Me muevo entre el diseño, el desarrollo y la resolución de problemas, siempre con una fuerte orientación al servicio. Trabajo principalmente con <Highlight icon="/icons/react_dark.svg">React</Highlight>, <Highlight icon="/icons/nodejsHex.svg">Node.js</Highlight>, <Highlight icon="/icons/tailwindcss.svg">Tailwind CSS</Highlight> y <Highlight icon="/icons/aws_dark.svg">AWS</Highlight>. Utilizo herramientas como <Highlight icon="/icons/figma.svg">Figma</Highlight> y <Highlight icon="/icons/illustrator.svg">Adobe Illustrator</Highlight> para diseñar y prototipar ideas.
           </p>
           <p>
-            Me interesa crear productos honestos, útiles, sencillos y elegantes. Trabajo de forma transparente, con disciplina y entusiasmo, buscando que cada proyecto tenga un impacto real.
+            Me interesa crear productos honestos, útiles, sencillos y elegantes. Trabajo de forma transparente, con disciplina y entusiasmo, buscando que cada proyecto genere valor real.
           </p>
           <p>
             Si quieres trabajar conmigo por un mundo mejor, puedes escribirme al correo que encontrarás al final de esta página.

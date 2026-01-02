@@ -19,7 +19,7 @@ export default function Hero() {
         </div>
       </div>
       <p className="text-xl text-paragraph max-w-[500px]">
-        Este sitio reúne ideas, trabajo y procesos que dan forma a productos digitales con impacto real.
+        Este sitio reúne ideas, trabajo y procesos que dan forma a productos digitales con impacto positivo.
       </p>
     </section>
   );
