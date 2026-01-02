@@ -1,0 +1,37 @@
+{
+  "metadata": {
+    "title": "Andres Zapata",
+    "description": "Design and development"
+  },
+  "navbar": {
+    "switchLang": "Español"
+  },
+  "hero": {
+    "subtitle": "Design and development",
+    "description": "This site gathers ideas, work, and processes that shape impactful digital products."
+  },
+  "sections": {
+    "built": {
+      "title": "Things I've built",
+      "p1": "I'm the creator of <zanto>Zanto</zanto>, a clothing brand launched in 2013 with my brother <gustavo>Gustavo</gustavo>. I've also been involved in developing <ness>Ness Digital</ness>, a SaaS focused on centralized management and process optimization in the healthcare sector.",
+      "p2": "I currently work as COO at <biotissue>BioTissue Colombia</biotissue>, where I focus on continuous improvement of processes, logistics, and operations.",
+      "p3": "I've built digital projects with <astro>Astro</astro>, like the website for <jhonny>Jhonny Aponza</jhonny>, a motivational speaker.",
+      "p4": "With <framer>Framer</framer>, I've developed sites for <gmc>GMC Remodeling & Construction</gmc> and <derwins>Derwin's Roofing</derwins>, focusing on clarity, performance, and simplicity."
+    },
+    "thinking": {
+      "title": "How I think",
+      "p1": "I believe in making a better world through analysis, optimization, and responsible use of technology. Creating —when done well— gives meaning to our existence. We only get one shot, and it's worth using it to make a positive impact on others.",
+      "p2": "I move between design, development, and problem-solving, always with a strong service orientation. I work mainly with <react>React</react>, <node>Node.js</node>, <tailwind>Tailwind CSS</tailwind> and <aws>AWS</aws>. I use tools like <figma>Figma</figma> and <illustrator>Adobe Illustrator</illustrator> to design and prototype ideas.",
+      "p3": "I'm interested in creating honest, useful, simple, and elegant products. I work transparently, with discipline and enthusiasm, seeking to make each project generate real value.",
+      "p4": "If you want to work with me for a better world, you can reach me at the email you'll find at the bottom of this page.",
+      "p5": "Great contributions often start by solving small problems well.",
+      "p6": "Thanks for reading this far."
+    }
+  },
+  "now": {
+    "title": "Now",
+    "listening": "Listening",
+    "watching": "Watching",
+    "reading": "Reading"
+  }
+}
