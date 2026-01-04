@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import Section from "./section";
 import Highlight from "./highlight";
+import TextLink from "./text-link";
 
 export default function ThinkingSection() {
   const t = useTranslations("sections.thinking");
@@ -33,7 +34,15 @@ export default function ThinkingSection() {
         })}
       </p>
       <p>{t("p3")}</p>
-      <p>{t("p4")}</p>
+      <p>
+        {t.rich("p4", {
+          email: (chunks) => (
+            <TextLink href="mailto:contacto@andreszapata.me">
+              {chunks}
+            </TextLink>
+          ),
+        })}
+      </p>
       <p>{t("p5")}</p>
       <p>{t("p6")}</p>
     </Section>
