@@ -18,7 +18,7 @@ export default function Now() {
         <NowItem
           icon={Clapperboard}
           label={t("watching")}
-          value="Big Little Lies (S1) - 2017"
+          value="Big Little Lies (S2) - 2019"
         />
         <NowItem icon={BookOpen} label={t("reading")} value="1493 - Charles C. Mann" />
       </div>
