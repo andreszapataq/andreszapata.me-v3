@@ -14,7 +14,7 @@ export default function Now() {
         <span className="live-dot inline-block w-2 h-2 bg-green-500 rounded-full" />
       </h2>
       <div className="space-y-6">
-        <NowItem icon={Disc3} label={t("listening")} value="Scenery - Ryo Fukui" />
+        <NowItem icon={Disc3} label={t("listening")} value="Volta por Cima - Noite Ilustrada" />
         <NowItem
           icon={Clapperboard}
           label={t("watching")}
