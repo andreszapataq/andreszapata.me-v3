@@ -14,11 +14,11 @@ export default function Now() {
         <span className="live-dot inline-block w-2 h-2 bg-green-500 rounded-full" />
       </h2>
       <div className="space-y-6">
-        <NowItem icon={Disc3} label={t("listening")} value="Volta por Cima - Noite Ilustrada" />
+        <NowItem icon={Disc3} label={t("listening")} value="Chet Baker in Tokyo - Chet Baker" />
         <NowItem
           icon={Clapperboard}
           label={t("watching")}
-          value="Big Little Lies (S2) - 2019"
+          value="Mystic River - 2003"
         />
         <NowItem icon={BookOpen} label={t("reading")} value="1493 - Charles C. Mann" />
       </div>
