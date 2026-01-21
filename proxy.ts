@@ -8,4 +8,3 @@ export const config = {
   // Excludes: api, _next, _vercel, and any file with extension (favicon.ico, images, etc.)
   matcher: ['/((?!api|_next|_vercel|.*\\..*).*)']
 };
-
