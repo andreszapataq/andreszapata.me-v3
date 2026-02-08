@@ -45,9 +45,6 @@ export default function BuiltSection() {
           framer: (chunks) => (
             <Highlight icon="/icons/framer_dark.svg">{chunks}</Highlight>
           ),
-          gmc: (chunks) => (
-            <TextLink href="https://gmcbuilds.com/">{chunks}</TextLink>
-          ),
           derwins: (chunks) => (
             <TextLink href="https://derwinsroofing.co/">{chunks}</TextLink>
           ),

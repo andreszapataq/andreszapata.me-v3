@@ -1,30 +1,30 @@
 {
   "metadata": {
     "title": "Andres Zapata",
-    "description": "Diseño y desarrollo"
+    "description": "Tecnología con criterio humano"
   },
   "navbar": {
     "switchLang": "English"
   },
   "hero": {
-    "subtitle": "Diseño y desarrollo",
-    "description": "Este sitio reúne ideas, trabajo y procesos que dan forma a productos digitales con impacto positivo."
+    "subtitle": "Tecnología con criterio humano",
+    "description": "Este sitio reúne ideas, procesos y trabajo enfocados en crear productos con significado."
   },
   "sections": {
     "built": {
       "title": "Cosas que he construido",
-      "p1": "Soy creador de <zanto>Zanto</zanto>, una marca de ropa lanzada en 2013 junto a mi hermano <gustavo>Gustavo</gustavo>. También he participado en el desarrollo de <ness>Ness Digital</ness>, un SaaS enfocado en la gestión centralizada y la optimización de procesos en el sector salud.",
+      "p1": "Soy creador de <zanto>Zanto</zanto>, una marca de ropa lanzada en 2013 junto a mi hermano <gustavo>Gustavo</gustavo>, la cual tiene como consigna, la mezcla precisa entre lo formal y lo informal. He participado en la creación y desarrollo de <ness>Ness Digital</ness>, un SaaS enfocado en la gestión centralizada y la optimización de procesos en el sector salud, priorizando la atención y la seguridad de los pacientes.",
       "p2": "Actualmente me desempeño como Gerente de Operaciones en <biotissue>BioTissue Colombia</biotissue>, donde trabajo en la mejora continua de procesos, logística y operaciones.",
       "p3": "He construido proyectos digitales con <astro>Astro</astro>, como el sitio web de <jhonny>Jhonny Aponza</jhonny>, conferencista motivacional.",
-      "p4": "Con <framer>Framer</framer>, he desarrollado sitios para <gmc>GMC Remodeling & Construction</gmc> y <derwins>Derwin's Roofing</derwins>, enfocándome en la claridad, el rendimiento y la simplicidad."
+      "p4": "Con <framer>Framer</framer>, he desarrollado el sitio web para <derwins>DER'S ROOFING</derwins>, enfocándome en la claridad, el rendimiento y la simplicidad."
     },
     "thinking": {
       "title": "Cómo pienso",
-      "p1": "Creo en hacer un mundo mejor a través del análisis, la optimización y el uso responsable de la tecnología. Crear —cuando se hace bien— le da sentido a nuestra existencia. Tenemos una sola oportunidad y vale la pena usarla para generar impacto positivo en los demás.",
-      "p2": "Me muevo entre el diseño, el desarrollo y la resolución de problemas, siempre con una fuerte orientación al servicio. Trabajo principalmente con <react>React</react>, <node>Node.js</node>, <tailwind>Tailwind CSS</tailwind> y <aws>AWS</aws>. Utilizo herramientas como <figma>Figma</figma> y <illustrator>Adobe Illustrator</illustrator> para diseñar y prototipar ideas.",
-      "p3": "Me interesa crear productos honestos, útiles, sencillos y elegantes. Trabajo de forma transparente, con disciplina y entusiasmo, buscando que cada proyecto genere valor real.",
-      "p4": "Si quieres trabajar conmigo por un mundo mejor, puedes <email>escribirme</email>.",
-      "p5": "Muchas veces, los grandes aportes empiezan resolviendo bien los problemas pequeños.",
+      "p1": "Creo en hacer un mundo mejor a través del análisis, la optimización y el uso responsable de la tecnología y de la IA 🧠. Crear —cuando se hace con significado— le da sentido a nuestra existencia en esta nueva era. Tenemos una sola oportunidad y vale la pena usarla para generar impacto positivo en los demás a través del sentido y la identidad.",
+      "p2": "Me muevo entre el diseño, el desarrollo y la resolución de problemas, con una orientación clara al servicio humano. Trabajo principalmente con herramientas como <cursor>Cursor</cursor>, <supabase>Supabase</supabase> y <vercel>Vercel</vercel>. Utilizo <figma>Figma</figma> y <illustrator>Adobe Illustrator</illustrator> para diseñar y prototipar ideas.",
+      "p3": "Me interesa crear productos honestos, sencillos, útiles y elegantes. Trabajo con transparencia, disciplina y entusiasmo, cuidando que cada proyecto genere valor real para las personas.",
+      "p4": "Creo que los grandes aportes empiezan resolviendo bien los problemas pequeños.",
+      "p5": "Si te interesa trabajar conmigo, puedes <email>escribirme</email>.",
       "p6": "Gracias por leer hasta aquí."
     }
   },

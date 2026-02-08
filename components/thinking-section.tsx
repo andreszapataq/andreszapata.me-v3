@@ -13,17 +13,14 @@ export default function ThinkingSection() {
       <p>{t("p1")}</p>
       <p>
         {t.rich("p2", {
-          react: (chunks) => (
-            <Highlight icon="/icons/react_dark.svg">{chunks}</Highlight>
+          cursor: (chunks) => (
+            <Highlight icon="/icons/cursor_dark.svg">{chunks}</Highlight>
           ),
-          node: (chunks) => (
-            <Highlight icon="/icons/nodejsHex.svg">{chunks}</Highlight>
+          supabase: (chunks) => (
+            <Highlight icon="/icons/supabase.svg">{chunks}</Highlight>
           ),
-          tailwind: (chunks) => (
-            <Highlight icon="/icons/tailwindcss.svg">{chunks}</Highlight>
-          ),
-          aws: (chunks) => (
-            <Highlight icon="/icons/aws_dark.svg">{chunks}</Highlight>
+          vercel: (chunks) => (
+            <Highlight icon="/icons/vercel_dark.svg">{chunks}</Highlight>
           ),
           figma: (chunks) => (
             <Highlight icon="/icons/figma.svg">{chunks}</Highlight>
@@ -34,8 +31,9 @@ export default function ThinkingSection() {
         })}
       </p>
       <p>{t("p3")}</p>
+      <p>{t("p4")}</p>
       <p>
-        {t.rich("p4", {
+        {t.rich("p5", {
           email: (chunks) => (
             <TextLink href="mailto:contacto@andreszapata.me">
               {chunks}
@@ -43,7 +41,6 @@ export default function ThinkingSection() {
           ),
         })}
       </p>
-      <p>{t("p5")}</p>
       <p>{t("p6")}</p>
     </Section>
   );
