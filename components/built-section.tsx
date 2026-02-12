@@ -46,7 +46,7 @@ export default function BuiltSection() {
             <Highlight icon="/icons/framer_dark.svg">{chunks}</Highlight>
           ),
           derwins: (chunks) => (
-            <TextLink href="https://derwinsroofing.co/">{chunks}</TextLink>
+            <TextLink href="https://dersroofing.com/">{chunks}</TextLink>
           ),
         })}
       </p>
