@@ -14,9 +14,15 @@ interface SpotifyData {
   songUrl?: string;
 }
 
+interface NowStatusData {
+  watching?: string;
+  reading?: string;
+}
+
 export default function Now() {
   const t = useTranslations("now");
   const [spotify, setSpotify] = useState<SpotifyData | null>(null);
+  const [nowStatus, setNowStatus] = useState<NowStatusData | null>(null);
 
   useEffect(() => {
     async function fetchSpotify() {
@@ -29,9 +35,21 @@ export default function Now() {
       }
     }
 
+    async function fetchNowStatus() {
+      try {
+        const res = await fetch("/api/now");
+        const data = await res.json();
+        setNowStatus(data);
+      } catch (error) {
+        console.error("Error fetching now status:", error);
+      }
+    }
+
     fetchSpotify();
-    const interval = setInterval(fetchSpotify, 30000);
-    return () => clearInterval(interval);
+    fetchNowStatus();
+
+    const spotifyInterval = setInterval(fetchSpotify, 30000);
+    return () => clearInterval(spotifyInterval);
   }, []);
 
   const listeningValue = spotify?.title
@@ -49,9 +67,13 @@ export default function Now() {
         <NowItem
           icon={Clapperboard}
           label={t("watching")}
-          value="It Was Just An Accident - 2025"
+          value={nowStatus?.watching ?? "..."}
         />
-        <NowItem icon={BookOpen} label={t("reading")} value="1493 - Charles C. Mann" />
+        <NowItem
+          icon={BookOpen}
+          label={t("reading")}
+          value={nowStatus?.reading ?? "..."}
+        />
       </div>
     </section>
   );
