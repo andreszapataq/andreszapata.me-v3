@@ -2,10 +2,41 @@
 
 import { Disc3, Clapperboard, BookOpen } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useEffect, useState } from "react";
 import NowItem from "./now-item";
+
+interface SpotifyData {
+  isPlaying: boolean;
+  title?: string;
+  artist?: string;
+  album?: string;
+  albumImageUrl?: string;
+  songUrl?: string;
+}
 
 export default function Now() {
   const t = useTranslations("now");
+  const [spotify, setSpotify] = useState<SpotifyData | null>(null);
+
+  useEffect(() => {
+    async function fetchSpotify() {
+      try {
+        const res = await fetch("/api/spotify");
+        const data = await res.json();
+        setSpotify(data);
+      } catch (error) {
+        console.error("Error fetching Spotify data:", error);
+      }
+    }
+
+    fetchSpotify();
+    const interval = setInterval(fetchSpotify, 30000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const listeningValue = spotify?.title
+    ? `${spotify.title} - ${spotify.artist}`
+    : "...";
 
   return (
     <section className="mt-16">
@@ -14,7 +45,7 @@ export default function Now() {
         <span className="live-dot inline-block w-2 h-2 bg-green-500 rounded-full" />
       </h2>
       <div className="space-y-6">
-        <NowItem icon={Disc3} label={t("listening")} value="Olé Coltrane (Deluxe Edition) - John Coltrane" />
+        <NowItem icon={Disc3} label={t("listening")} value={listeningValue} />
         <NowItem
           icon={Clapperboard}
           label={t("watching")}
