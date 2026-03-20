@@ -38,6 +38,12 @@ export default function BuiltSection() {
           jhonny: (chunks) => (
             <TextLink href="https://jhonnyaponza.org/">{chunks}</TextLink>
           ),
+          nextjs: (chunks) => (
+            <Highlight icon="/icons/nextjs_dark.svg">{chunks}</Highlight>
+          ),
+          neuronahub: (chunks) => (
+            <TextLink href="https://www.neuronahub.com/">{chunks}</TextLink>
+          ),
         })}
       </p>
       <p>
