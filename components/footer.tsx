@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
     <footer className="mt-25 py-6 border-t border-gray-200">
-      <div className="px-6 md:px-23 text-sm text-gray-600">
+      <div className="px-6 md:px-23 text-gray-600">
         © {new Date().getFullYear()} Andres Zapata · {" "}
         <a href="mailto:contacto@andreszapata.me" className="hover:underline">
           Email
@@ -14,6 +14,15 @@ export default function Footer() {
           className="hover:underline"
         >
           GitHub
+        </a>
+        {" "} · {" "}
+        <a
+          href="https://x.com/andreszapataq"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:underline"
+        >
+          X
         </a>
       </div>
     </footer>
