@@ -51,3 +51,14 @@ body {
   border-radius: 50%;
   animation: live-pulse 2s ease-out infinite;
 }
+
+/* Print styles for propuestas */
+@media print {
+  @page {
+    margin: 2cm;
+  }
+
+  body {
+    padding-bottom: 0 !important;
+  }
+}

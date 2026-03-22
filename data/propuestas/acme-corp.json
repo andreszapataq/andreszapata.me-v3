@@ -1,0 +1,82 @@
+{
+  "slug": "acme-corp",
+  "clientName": "Acme Corp",
+  "projectName": "Rediseño sitio web corporativo",
+  "date": "2026-03-21",
+  "validUntil": "2026-04-21",
+  "contexto": {
+    "paragraphs": [
+      "Acme Corp busca renovar su presencia digital con un sitio web que refleje la evolución de la marca y conecte de manera más efectiva con su audiencia objetivo.",
+      "El proyecto contempla un rediseño completo que priorice la experiencia del usuario, la velocidad de carga y la conversión de visitantes en clientes potenciales."
+    ]
+  },
+  "deliverables": {
+    "intro": "El proyecto incluye los siguientes entregables:",
+    "items": [
+      {
+        "title": "Diseño UI/UX",
+        "description": "Prototipo interactivo en Figma con 5 pantallas principales y sistema de diseño"
+      },
+      {
+        "title": "Desarrollo frontend",
+        "description": "Implementación en Next.js con Tailwind CSS, optimizado para performance"
+      },
+      {
+        "title": "Integración CMS",
+        "description": "Panel de administración para gestionar contenido de blog y páginas"
+      },
+      {
+        "title": "Optimización SEO",
+        "description": "Estructura semántica, meta tags, sitemap y configuración de analytics"
+      },
+      {
+        "title": "Responsive design",
+        "description": "Adaptación completa para móvil, tablet y desktop"
+      }
+    ]
+  },
+  "inversion": {
+    "items": [
+      {
+        "concept": "Diseño y desarrollo web completo",
+        "amount": "$3,500 USD"
+      }
+    ],
+    "paymentTerms": "50% al iniciar el proyecto, 50% al entregar",
+    "note": "No incluye hosting, dominio ni generación de contenido"
+  },
+  "tiempos": {
+    "totalDuration": "6 semanas",
+    "phases": [
+      {
+        "name": "Investigación y estrategia",
+        "duration": "1 semana",
+        "description": "Análisis de competencia, definición de arquitectura de información"
+      },
+      {
+        "name": "Diseño UI/UX",
+        "duration": "2 semanas",
+        "description": "Wireframes, prototipo de alta fidelidad y sistema de diseño"
+      },
+      {
+        "name": "Desarrollo",
+        "duration": "2 semanas",
+        "description": "Maquetación, integración CMS y funcionalidades"
+      },
+      {
+        "name": "Ajustes y entrega",
+        "duration": "1 semana",
+        "description": "QA, optimización de performance y deploy a producción"
+      }
+    ]
+  },
+  "siguientePaso": {
+    "text": "Si esta propuesta se alinea con lo que buscas, el siguiente paso es agendar una llamada para afinar detalles, resolver dudas y definir fecha de inicio.",
+    "calendarUrl": "https://cal.com/andreszapata/30min"
+  },
+  "footer": {
+    "name": "Andrés Zapata",
+    "email": "contacto@andreszapata.me",
+    "website": "andreszapata.me"
+  }
+}
