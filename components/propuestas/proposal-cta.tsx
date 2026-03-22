@@ -15,7 +15,7 @@ export default function ProposalCta({ text, calendarUrl }: ProposalCtaProps) {
           href={calendarUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 bg-foreground text-white rounded-xl px-8 py-4 text-lg font-semibold hover:opacity-90 transition-opacity"
+          className="inline-flex items-center gap-2 bg-teal-600 text-white rounded-xl px-8 py-4 text-lg font-semibold hover:bg-teal-700 transition-colors"
         >
           Agendar llamada
           <ArrowRight className="w-5 h-5" />

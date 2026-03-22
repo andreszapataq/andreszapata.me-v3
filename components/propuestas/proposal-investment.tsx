@@ -17,23 +17,24 @@ export default function ProposalInvestment({
   const displayAmount = total ?? items[0]?.amount;
 
   return (
-    <ProposalSection title="Inversión">
-      <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6 md:p-8 print:bg-white print:border-gray-300">
+    <ProposalSection title="Inversión" className="print:break-before-page">
+      <div className="bg-linear-to-br from-teal-600 to-teal-700 text-white rounded-2xl p-6 md:p-8 print:bg-teal-700 print:text-black print:border print:border-gray-300">
         {items.length > 1 ? (
           <div className="space-y-3 mb-6">
             {items.map((item, i) => (
-              <div key={i} className="flex justify-between items-baseline">
-                <span className="text-paragraph">{item.concept}</span>
-                <span className="font-semibold text-foreground">
-                  {item.amount}
-                </span>
+              <div
+                key={i}
+                className="flex justify-between items-baseline py-3 border-b border-white/15 last:border-0"
+              >
+                <span className="opacity-90">{item.concept}</span>
+                <span className="font-semibold">{item.amount}</span>
               </div>
             ))}
             {total && (
-              <div className="border-t border-gray-200 pt-4 mt-4">
-                <div className="flex justify-between items-baseline">
-                  <span className="font-semibold text-foreground">Total</span>
-                  <span className="text-[40px] font-bold text-foreground leading-none">
+              <div className="bg-white/15 rounded-xl p-4 mt-4">
+                <div className="flex justify-between items-center">
+                  <span className="text-lg font-medium">Total</span>
+                  <span className="text-[36px] md:text-[40px] font-bold leading-none">
                     {total}
                   </span>
                 </div>
@@ -42,20 +43,23 @@ export default function ProposalInvestment({
           </div>
         ) : (
           <div className="mb-4">
-            <p className="text-paragraph mb-2">{items[0]?.concept}</p>
-            <p className="text-[40px] md:text-[48px] font-bold text-foreground leading-none">
+            <p className="opacity-90 mb-2">{items[0]?.concept}</p>
+            <p className="text-[40px] md:text-[48px] font-bold leading-none">
               {displayAmount}
             </p>
           </div>
         )}
 
         {paymentTerms && (
-          <p className="text-paragraph">
-            {paymentTerms}
-          </p>
+          <div className="mt-4">
+            <p className="text-sm font-semibold opacity-80 mb-1">
+              Forma de pago
+            </p>
+            <p className="opacity-90">{paymentTerms}</p>
+          </div>
         )}
         {note && (
-          <p className="text-sm text-now-title mt-2">{note}</p>
+          <p className="text-sm mt-3 opacity-70">{note}</p>
         )}
       </div>
     </ProposalSection>
