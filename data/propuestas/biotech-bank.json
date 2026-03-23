@@ -1,0 +1,78 @@
+{
+  "slug": "biotech-bank",
+  "clientName": "BioTech Bank",
+  "projectName": "Landing page institucional",
+  "date": "2026-03-24",
+  "validUntil": "2026-04-24",
+  "contexto": {
+    "paragraphs": [
+      "BioTech Bank es un banco de tejidos colombiano que ha completado con éxito todos los procesos regulatorios y de aprobación, y ahora se encuentra en un momento decisivo: el inicio de su etapa de comercialización. Este paso requiere una presencia digital que refleje la rigurosidad técnica, la innovación y el propósito transformador que hay detrás de cada injerto que producen.",
+      "La landing page será su carta de presentación ante hospitales, clínicas, cirujanos y especialistas. Un sitio diseñado para comunicar con claridad las ventajas técnicas de sus productos, la confianza que respalda sus procesos, y el impacto real que tienen en la recuperación y calidad de vida de los pacientes.",
+      "El enfoque es directo: construir sitio web funcional, profesional y visualmente potente en el menor tiempo posible, sin comprometer calidad."
+    ]
+  },
+  "deliverables": {
+    "intro": "El proyecto contempla una landing page de hasta 5 secciones, con los siguientes entregables:",
+    "items": [
+      {
+        "title": "Prototipo interactivo",
+        "description": "Diseño de interfaz con prototipo navegable para validar estructura, jerarquía de contenido y flujo de usuario antes de escribir una sola línea de código"
+      },
+      {
+        "title": "Desarrollo frontend",
+        "description": "Desarrollo a medida con Next.js, Tailwind CSS y animaciones profesionales con Motion — sin plantillas ni tecnologías preestablecidas, todo construido desde cero para BioTech Bank"
+      },
+      {
+        "title": "Hosting y dominio",
+        "description": "Configuración y puesta en marcha del dominio biotechbank.com.co con hosting incluido durante el primer año de operación"
+      },
+      {
+        "title": "Optimización SEO",
+        "description": "Estructura semántica, meta tags dinámicos, sitemap y optimización de performance para posicionamiento en buscadores"
+      },
+      {
+        "title": "Diseño responsive",
+        "description": "Adaptación completa y testeada para móviles, tablets y escritorio, garantizando una experiencia consistente en cualquier dispositivo"
+      }
+    ]
+  },
+  "inversion": {
+    "items": [
+      {
+        "concept": "Landing page institucional",
+        "amount": "$3.500.000 COP"
+      }
+    ],
+    "paymentTerms": "50% al iniciar el proyecto, 50% al entregar",
+    "note": "Incluye hosting del primer año y dominio biotechbank.com.co. No incluye generación de contenido ni material fotográfico — estos deben ser proporcionados por el cliente."
+  },
+  "tiempos": {
+    "totalDuration": "3 semanas",
+    "phases": [
+      {
+        "name": "Diseño y prototipo",
+        "duration": "Semana 1",
+        "description": "Definición de estructura, diseño de interfaz y prototipo interactivo para revisión y aprobación"
+      },
+      {
+        "name": "Desarrollo frontend",
+        "duration": "Semana 2",
+        "description": "Maquetación con Next.js y Tailwind CSS, animaciones con Motion e integración de contenido aprobado"
+      },
+      {
+        "name": "Ajustes y lanzamiento",
+        "duration": "Semana 3",
+        "description": "Revisión conjunta, ajustes finales, optimización de rendimiento y despliegue a producción"
+      }
+    ]
+  },
+  "siguientePaso": {
+    "text": "Si esta propuesta se alinea con lo que buscan, el siguiente paso es agendar una llamada para afinar detalles, resolver dudas y definir fecha de arranque.",
+    "calendarUrl": "https://cal.com/andreszapata/30min"
+  },
+  "footer": {
+    "name": "Andres Zapata",
+    "email": "contacto@andreszapata.me",
+    "website": "andreszapata.me"
+  }
+}
