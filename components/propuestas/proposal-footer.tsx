@@ -12,7 +12,7 @@ export default function ProposalFooter({
   website,
 }: ProposalFooterProps) {
   return (
-    <footer className="mt-20 py-8 border-t border-gray-200 print:mt-12">
+    <footer className="mt-20 py-8 border-t border-gray-200 print:mt-8">
       <div className="text-paragraph space-y-1">
         <p className="font-semibold text-foreground">{name}</p>
         <p>

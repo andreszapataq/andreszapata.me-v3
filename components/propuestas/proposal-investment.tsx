@@ -17,7 +17,7 @@ export default function ProposalInvestment({
   const displayAmount = total ?? items[0]?.amount;
 
   return (
-    <ProposalSection title="Inversión" className="print:break-before-page">
+    <ProposalSection title="Inversión">
       <div className="bg-linear-to-br from-teal-600 to-teal-700 text-white rounded-2xl p-6 md:p-8 print:bg-teal-700 print:text-black print:border print:border-gray-300">
         {items.length > 1 ? (
           <div className="space-y-3 mb-6">
