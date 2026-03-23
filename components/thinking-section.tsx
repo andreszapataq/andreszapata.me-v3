@@ -39,6 +39,11 @@ export default function ThinkingSection() {
               {chunks}
             </TextLink>
           ),
+          cal: (chunks) => (
+            <TextLink href="https://cal.com/andreszapata/30min">
+              {chunks}
+            </TextLink>
+          ),
         })}
       </p>
       <p>{t("p6")}</p>
