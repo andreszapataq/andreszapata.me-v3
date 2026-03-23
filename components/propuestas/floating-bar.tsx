@@ -22,7 +22,7 @@ export default function FloatingBar({ calendarUrl }: FloatingBarProps) {
           href={calendarUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="group flex items-center gap-2 px-5 md:px-6 py-2.5 bg-teal-600 text-white text-sm font-medium rounded-xl hover:bg-teal-700 transition-colors"
+          className="group flex items-center gap-2 px-5 py-2.5 bg-teal-600 text-white text-sm font-medium rounded-full hover:bg-teal-700 transition-colors"
         >
           Agendar llamada
           <ArrowRight className="w-4 h-4 hidden md:block transition-transform duration-300 group-hover:-rotate-45" />
