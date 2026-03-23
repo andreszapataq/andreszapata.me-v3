@@ -41,7 +41,7 @@ export default function ProposalHeader({
         <span className="text-sm text-now-title">{formattedDate}</span>
       </div>
 
-      <p className="text-lg text-now-title mb-2">Propuesta para {clientName}</p>
+      <p className="text-lg text-now-title mb-2">Propuesta para <strong>{clientName}</strong></p>
       <h1 className="text-[32px] md:text-[40px] font-bold leading-tight mb-4">
         {projectName}
       </h1>
