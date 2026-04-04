@@ -52,6 +52,36 @@ body {
   animation: live-pulse 2s ease-out infinite;
 }
 
+@keyframes draw-circle {
+  0% {
+    stroke-dashoffset: 63;
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes draw-check {
+  0% {
+    stroke-dashoffset: 12;
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+.animate-draw-circle {
+  animation: draw-circle 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.animate-draw-check {
+  animation: draw-check 0.3s ease-out 0.5s forwards;
+}
+
 /* Print styles for propuestas */
 @media print {
   @page {
