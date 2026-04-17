@@ -19,7 +19,7 @@ export default function BuiltSection() {
             <TextLink href="https://gustavozapata.com/">{chunks}</TextLink>
           ),
           ness: (chunks) => (
-            <TextLink href="https://nessdigital.framer.website/">{chunks}</TextLink>
+            <TextLink href="https://www.nessdigital.co/">{chunks}</TextLink>
           ),
         })}
       </p>
