@@ -16,7 +16,29 @@
       "p1": "I'm the creator of <zanto>Zanto</zanto>, a clothing brand founded in 2013 together with my brother <gustavo>Gustavo</gustavo>, built around a precise balance between formal and informal. I've been involved in the creation and development of <ness>Ness Digital</ness>, a SaaS focused on centralized management and process optimization in the healthcare sector, prioritizing patient care and safety.",
       "p2": "I currently work as Operations Manager at <biotissue>BioTissue Colombia</biotissue>, where I focus on continuous improvement across processes, logistics, and operations.",
       "p3": "I've built digital projects using <nextjs>Next.js</nextjs>, like <neuronahub>NeuronaHub</neuronahub>, a strategic professional growth ecosystem. Also using <astro>Astro</astro>, I built the website for <jhonny>Jhonny Aponza</jhonny>, a motivational speaker.",
-      "p4": "Using <framer>Framer</framer>, I developed the website for <derwins>DER'S Roofing</derwins>, with a strong focus on clarity, performance, and simplicity."
+      "p4": "Using <framer>Framer</framer>, I developed the website for <derwins>DER'S Roofing</derwins>, with a strong focus on clarity, performance, and simplicity.",
+      "projects": {
+        "ness": {
+          "name": "Ness Digital",
+          "tags": "SaaS · Health",
+          "description": "Centralized management and process optimization in healthcare, prioritizing patient care and safety."
+        },
+        "neuronahub": {
+          "name": "NeuronaHub",
+          "tags": "Next.js · Growth",
+          "description": "Strategic ecosystem for professional growth."
+        },
+        "jhonny": {
+          "name": "Jhonny Aponza",
+          "tags": "Astro · Speaker",
+          "description": "Site for motivational speaker Jhonny Aponza."
+        },
+        "derwins": {
+          "name": "DER'S Roofing",
+          "tags": "Framer · Roofing",
+          "description": "Site focused on clarity, performance, and simplicity."
+        }
+      }
     },
     "thinking": {
       "title": "How I think",

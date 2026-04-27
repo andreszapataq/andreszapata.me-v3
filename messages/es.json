@@ -16,7 +16,29 @@
       "p1": "Soy creador de <zanto>Zanto</zanto>, una marca de ropa lanzada en 2013 junto a mi hermano <gustavo>Gustavo</gustavo>, la cual tiene como consigna, la mezcla precisa entre lo formal y lo informal. He participado en la creación y desarrollo de <ness>Ness Digital</ness>, un SaaS enfocado en la gestión centralizada y la optimización de procesos en el sector salud, priorizando la atención y la seguridad de los pacientes.",
       "p2": "Actualmente me desempeño como Gerente de Operaciones en <biotissue>BioTissue Colombia</biotissue>, donde trabajo en la mejora continua de procesos, logística y operaciones.",
       "p3": "He construido proyectos digitales con <nextjs>Next.js</nextjs>, como <neuronahub>NeuronaHub</neuronahub>, un ecosistema estratégico de crecimiento profesional. También con <astro>Astro</astro>, construí el sitio web de <jhonny>Jhonny Aponza</jhonny>, conferencista motivacional.",
-      "p4": "Con <framer>Framer</framer>, he desarrollado el sitio web para <derwins>DER'S Roofing</derwins>, enfocándome en la claridad, el rendimiento y la simplicidad."
+      "p4": "Con <framer>Framer</framer>, he desarrollado el sitio web para <derwins>DER'S Roofing</derwins>, enfocándome en la claridad, el rendimiento y la simplicidad.",
+      "projects": {
+        "ness": {
+          "name": "Ness Digital",
+          "tags": "SaaS · Salud",
+          "description": "Gestión centralizada y optimización de procesos en el sector salud, priorizando atención y seguridad."
+        },
+        "neuronahub": {
+          "name": "NeuronaHub",
+          "tags": "Next.js · Crecimiento",
+          "description": "Ecosistema estratégico de crecimiento profesional."
+        },
+        "jhonny": {
+          "name": "Jhonny Aponza",
+          "tags": "Astro · Conferencista",
+          "description": "Sitio del conferencista motivacional Jhonny Aponza."
+        },
+        "derwins": {
+          "name": "DER'S Roofing",
+          "tags": "Framer · Roofing",
+          "description": "Sitio enfocado en claridad, rendimiento y simplicidad."
+        }
+      }
     },
     "thinking": {
       "title": "Cómo pienso",

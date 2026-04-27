@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import Section from "./section";
 import Highlight from "./highlight";
 import TextLink from "./text-link";
+import LinkPreview from "./link-preview";
 
 export default function BuiltSection() {
   const t = useTranslations("sections.built");
@@ -19,7 +20,14 @@ export default function BuiltSection() {
             <TextLink href="https://gustavozapata.com/">{chunks}</TextLink>
           ),
           ness: (chunks) => (
-            <TextLink href="https://www.nessdigital.co/">{chunks}</TextLink>
+            <LinkPreview
+              href="https://www.nessdigital.co/"
+              name={t("projects.ness.name")}
+              tags={t("projects.ness.tags")}
+              description={t("projects.ness.description")}
+            >
+              {chunks}
+            </LinkPreview>
           ),
         })}
       </p>
@@ -36,13 +44,27 @@ export default function BuiltSection() {
             <Highlight icon="/icons/astro-icon-dark.svg">{chunks}</Highlight>
           ),
           jhonny: (chunks) => (
-            <TextLink href="https://jhonnyaponza.org/">{chunks}</TextLink>
+            <LinkPreview
+              href="https://jhonnyaponza.org/"
+              name={t("projects.jhonny.name")}
+              tags={t("projects.jhonny.tags")}
+              description={t("projects.jhonny.description")}
+            >
+              {chunks}
+            </LinkPreview>
           ),
           nextjs: (chunks) => (
             <Highlight icon="/icons/nextjs_dark.svg">{chunks}</Highlight>
           ),
           neuronahub: (chunks) => (
-            <TextLink href="https://www.neuronahub.com/">{chunks}</TextLink>
+            <LinkPreview
+              href="https://www.neuronahub.com/"
+              name={t("projects.neuronahub.name")}
+              tags={t("projects.neuronahub.tags")}
+              description={t("projects.neuronahub.description")}
+            >
+              {chunks}
+            </LinkPreview>
           ),
         })}
       </p>
@@ -52,7 +74,14 @@ export default function BuiltSection() {
             <Highlight icon="/icons/framer_dark.svg">{chunks}</Highlight>
           ),
           derwins: (chunks) => (
-            <TextLink href="https://dersroofing.com/">{chunks}</TextLink>
+            <LinkPreview
+              href="https://dersroofing.com/"
+              name={t("projects.derwins.name")}
+              tags={t("projects.derwins.tags")}
+              description={t("projects.derwins.description")}
+            >
+              {chunks}
+            </LinkPreview>
           ),
         })}
       </p>
