@@ -19,28 +19,28 @@
       "p4": "Con <framer>Framer</framer>, he desarrollado el sitio web para <derwins>DER'S Roofing</derwins>, enfocándome en la claridad, el rendimiento y la simplicidad.",
       "projects": {
         "gustavo": {
-          "name": "Input de prueba",
-          "tags": "Input de prueba"
+          "name": "Gustavo Zapata",
+          "tags": "Senior · FS Engineer"
         },
         "ness": {
           "name": "Ness Digital",
           "tags": "SaaS · Salud"
         },
         "biotissue": {
-          "name": "Input de prueba",
-          "tags": "Input de prueba"
+          "name": "BioTissue Colombia",
+          "tags": "Compañía · Salud"
         },
         "neuronahub": {
           "name": "NeuronaHub",
-          "tags": "Next.js · Crecimiento"
+          "tags": "Sistema · Ventas"
         },
         "jhonny": {
           "name": "Jhonny Aponza",
-          "tags": "Astro · Conferencista"
+          "tags": "Speaker · Motivacional"
         },
         "derwins": {
           "name": "DER'S Roofing",
-          "tags": "Framer · Roofing"
+          "tags": "Compañía · Roofing"
         }
       }
     },
