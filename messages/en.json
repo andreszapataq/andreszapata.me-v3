@@ -17,6 +17,7 @@
       "p2": "I currently work as Operations Manager at <biotissue>BioTissue Colombia</biotissue>, where I focus on continuous improvement across processes, logistics, and operations.",
       "p3": "I've built digital projects using <nextjs>Next.js</nextjs>, like <neuronahub>NeuronaHub</neuronahub>, a strategic professional growth ecosystem. Also using <astro>Astro</astro>, I built the website for <jhonny>Jhonny Aponza</jhonny>, a motivational speaker.",
       "p4": "Using <framer>Framer</framer>, I developed the website for <derwins>DER'S Roofing</derwins>, with a strong focus on clarity, performance, and simplicity.",
+      "p5": "With <html>HTML</html>, <css>CSS</css>, and <js>JavaScript</js>, I built the website for <zap>ZAP Blinds Solutions</zap>, a company dedicated to installing all kinds of blinds.",
       "projects": {
         "gustavo": {
           "name": "Gustavo Zapata",
@@ -41,6 +42,10 @@
         "derwins": {
           "name": "DER'S Roofing",
           "tags": "Company · Roofing"
+        },
+        "zap": {
+          "name": "ZAP Blinds",
+          "tags": "Company · Blinds"
         }
       }
     },

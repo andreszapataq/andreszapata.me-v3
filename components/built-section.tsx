@@ -92,6 +92,22 @@ export default function BuiltSection() {
           ),
         })}
       </p>
+      <p>
+        {t.rich("p5", {
+          html: (chunks) => <span className="font-semibold">{chunks}</span>,
+          css: (chunks) => <span className="font-semibold">{chunks}</span>,
+          js: (chunks) => <span className="font-semibold">{chunks}</span>,
+          zap: (chunks) => (
+            <LinkPreview
+              href="https://www.zapblindsusa.com/"
+              name={t("projects.zap.name")}
+              tags={t("projects.zap.tags")}
+            >
+              {chunks}
+            </LinkPreview>
+          ),
+        })}
+      </p>
     </Section>
   );
 }

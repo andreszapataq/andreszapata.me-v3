@@ -17,6 +17,7 @@
       "p2": "Actualmente me desempeño como Gerente de Operaciones en <biotissue>BioTissue Colombia</biotissue>, donde trabajo en la mejora continua de procesos, logística y operaciones.",
       "p3": "He construido proyectos digitales con <nextjs>Next.js</nextjs>, como <neuronahub>NeuronaHub</neuronahub>, un ecosistema estratégico de crecimiento profesional. También con <astro>Astro</astro>, construí el sitio web de <jhonny>Jhonny Aponza</jhonny>, conferencista motivacional.",
       "p4": "Con <framer>Framer</framer>, he desarrollado el sitio web para <derwins>DER'S Roofing</derwins>, enfocándome en la claridad, el rendimiento y la simplicidad.",
+      "p5": "Con <html>HTML</html>, <css>CSS</css> y <js>JavaScript</js>, construí el sitio web de <zap>ZAP Blinds Solutions</zap>, una compañía dedicada a la instalación de todo tipo de persianas.",
       "projects": {
         "gustavo": {
           "name": "Gustavo Zapata",
@@ -41,6 +42,10 @@
         "derwins": {
           "name": "DER'S Roofing",
           "tags": "Compañía · Roofing"
+        },
+        "zap": {
+          "name": "ZAP Blinds",
+          "tags": "Compañía · Persianas"
         }
       }
     },
