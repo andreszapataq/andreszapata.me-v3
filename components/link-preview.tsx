@@ -26,7 +26,6 @@ export default function LinkPreview({
   children,
 }: LinkPreviewProps) {
   const [isVisible, setIsVisible] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const [coords, setCoords] = useState<{
     top: number;
     left: number;
@@ -156,10 +155,6 @@ export default function LinkPreview({
 
   useEffect(() => clearTimers, []);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   const linkClass =
     "font-semibold underline underline-offset-3 decoration-1 hover:opacity-70 transition-opacity";
 
@@ -179,7 +174,7 @@ export default function LinkPreview({
       >
         {children}
       </a>
-      {mounted && isVisible &&
+      {isVisible &&
         createPortal(
           <a
             ref={cardRef}
@@ -198,7 +193,7 @@ export default function LinkPreview({
             }}
             className="link-preview-card fixed z-50 block overflow-hidden rounded-2xl border border-foreground/10 bg-background no-underline shadow-[0_14px_40px_-18px_rgba(23,23,23,0.28),0_2px_6px_-2px_rgba(23,23,23,0.06)]"
           >
-            <div className="relative aspect-[16/10] overflow-hidden border-b border-foreground/[0.06] bg-foreground/[0.025]">
+            <div className="relative aspect-16/10 overflow-hidden border-b border-foreground/6 bg-foreground/2.5">
               <PreviewMark />
             </div>
             <div className="px-4 py-3.5">
@@ -221,7 +216,7 @@ export default function LinkPreview({
 function PreviewMark() {
   return (
     <div className="absolute inset-0 grid grid-cols-[1fr_2.2fr] gap-3 p-4">
-      <div className="rounded-md bg-foreground/[0.09]" />
+      <div className="rounded-md bg-foreground/9" />
       <div className="flex flex-col gap-2 pt-1.5">
         <div className="h-2 w-2/3 rounded-full bg-foreground/25" />
         <div className="h-1.5 w-full rounded-full bg-foreground/10" />
