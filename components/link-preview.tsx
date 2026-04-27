@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
@@ -7,6 +8,7 @@ interface LinkPreviewProps {
   href: string;
   name: string;
   tags: string;
+  image?: string;
   children: React.ReactNode;
 }
 
@@ -23,6 +25,7 @@ export default function LinkPreview({
   href,
   name,
   tags,
+  image,
   children,
 }: LinkPreviewProps) {
   const [isVisible, setIsVisible] = useState(false);
@@ -194,7 +197,17 @@ export default function LinkPreview({
             className="link-preview-card fixed z-50 block overflow-hidden rounded-2xl border border-foreground/10 bg-background no-underline shadow-[0_14px_40px_-18px_rgba(23,23,23,0.28),0_2px_6px_-2px_rgba(23,23,23,0.06)]"
           >
             <div className="relative aspect-16/10 overflow-hidden border-b border-foreground/6 bg-foreground/2.5">
-              <PreviewMark />
+              {image ? (
+                <Image
+                  src={image}
+                  alt={name}
+                  fill
+                  sizes="320px"
+                  className="object-cover"
+                />
+              ) : (
+                <PreviewMark />
+              )}
             </div>
             <div className="px-4 py-3.5">
               <div className="flex items-baseline justify-between gap-3">

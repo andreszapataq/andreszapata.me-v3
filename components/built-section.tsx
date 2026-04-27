@@ -20,6 +20,7 @@ export default function BuiltSection() {
               href="https://gustavozapata.com/"
               name={t("projects.gustavo.name")}
               tags={t("projects.gustavo.tags")}
+              image="/previews/gustavo.webp"
             >
               {chunks}
             </LinkPreview>
@@ -29,6 +30,7 @@ export default function BuiltSection() {
               href="https://www.nessdigital.co/"
               name={t("projects.ness.name")}
               tags={t("projects.ness.tags")}
+              image="/previews/ness.webp"
             >
               {chunks}
             </LinkPreview>
@@ -42,6 +44,7 @@ export default function BuiltSection() {
               href="https://biotissue.com.co/"
               name={t("projects.biotissue.name")}
               tags={t("projects.biotissue.tags")}
+              image="/previews/biotissue.webp"
             >
               {chunks}
             </LinkPreview>
@@ -58,6 +61,7 @@ export default function BuiltSection() {
               href="https://jhonnyaponza.org/"
               name={t("projects.jhonny.name")}
               tags={t("projects.jhonny.tags")}
+              image="/previews/jhonny.webp"
             >
               {chunks}
             </LinkPreview>
@@ -70,6 +74,7 @@ export default function BuiltSection() {
               href="https://www.neuronahub.com/"
               name={t("projects.neuronahub.name")}
               tags={t("projects.neuronahub.tags")}
+              image="/previews/neuronahub.webp"
             >
               {chunks}
             </LinkPreview>
@@ -86,6 +91,7 @@ export default function BuiltSection() {
               href="https://dersroofing.com/"
               name={t("projects.derwins.name")}
               tags={t("projects.derwins.tags")}
+              image="/previews/ders.webp"
             >
               {chunks}
             </LinkPreview>
@@ -102,6 +108,7 @@ export default function BuiltSection() {
               href="https://www.zapblindsusa.com/"
               name={t("projects.zap.name")}
               tags={t("projects.zap.tags")}
+              image="/previews/zap.webp"
             >
               {chunks}
             </LinkPreview>
