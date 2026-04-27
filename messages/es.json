@@ -18,25 +18,29 @@
       "p3": "He construido proyectos digitales con <nextjs>Next.js</nextjs>, como <neuronahub>NeuronaHub</neuronahub>, un ecosistema estratégico de crecimiento profesional. También con <astro>Astro</astro>, construí el sitio web de <jhonny>Jhonny Aponza</jhonny>, conferencista motivacional.",
       "p4": "Con <framer>Framer</framer>, he desarrollado el sitio web para <derwins>DER'S Roofing</derwins>, enfocándome en la claridad, el rendimiento y la simplicidad.",
       "projects": {
+        "gustavo": {
+          "name": "Input de prueba",
+          "tags": "Input de prueba"
+        },
         "ness": {
           "name": "Ness Digital",
-          "tags": "SaaS · Salud",
-          "description": "Gestión centralizada y optimización de procesos en el sector salud, priorizando atención y seguridad."
+          "tags": "SaaS · Salud"
+        },
+        "biotissue": {
+          "name": "Input de prueba",
+          "tags": "Input de prueba"
         },
         "neuronahub": {
           "name": "NeuronaHub",
-          "tags": "Next.js · Crecimiento",
-          "description": "Ecosistema estratégico de crecimiento profesional."
+          "tags": "Next.js · Crecimiento"
         },
         "jhonny": {
           "name": "Jhonny Aponza",
-          "tags": "Astro · Conferencista",
-          "description": "Sitio del conferencista motivacional Jhonny Aponza."
+          "tags": "Astro · Conferencista"
         },
         "derwins": {
           "name": "DER'S Roofing",
-          "tags": "Framer · Roofing",
-          "description": "Sitio enfocado en claridad, rendimiento y simplicidad."
+          "tags": "Framer · Roofing"
         }
       }
     },

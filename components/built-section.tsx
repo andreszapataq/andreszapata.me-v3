@@ -3,7 +3,6 @@
 import { useTranslations } from "next-intl";
 import Section from "./section";
 import Highlight from "./highlight";
-import TextLink from "./text-link";
 import LinkPreview from "./link-preview";
 
 export default function BuiltSection() {
@@ -17,14 +16,19 @@ export default function BuiltSection() {
             <Highlight icon="/icons/zanto_dark.svg">{chunks}</Highlight>
           ),
           gustavo: (chunks) => (
-            <TextLink href="https://gustavozapata.com/">{chunks}</TextLink>
+            <LinkPreview
+              href="https://gustavozapata.com/"
+              name={t("projects.gustavo.name")}
+              tags={t("projects.gustavo.tags")}
+            >
+              {chunks}
+            </LinkPreview>
           ),
           ness: (chunks) => (
             <LinkPreview
               href="https://www.nessdigital.co/"
               name={t("projects.ness.name")}
               tags={t("projects.ness.tags")}
-              description={t("projects.ness.description")}
             >
               {chunks}
             </LinkPreview>
@@ -34,7 +38,13 @@ export default function BuiltSection() {
       <p>
         {t.rich("p2", {
           biotissue: (chunks) => (
-            <TextLink href="https://biotissue.com.co/">{chunks}</TextLink>
+            <LinkPreview
+              href="https://biotissue.com.co/"
+              name={t("projects.biotissue.name")}
+              tags={t("projects.biotissue.tags")}
+            >
+              {chunks}
+            </LinkPreview>
           ),
         })}
       </p>
@@ -48,7 +58,6 @@ export default function BuiltSection() {
               href="https://jhonnyaponza.org/"
               name={t("projects.jhonny.name")}
               tags={t("projects.jhonny.tags")}
-              description={t("projects.jhonny.description")}
             >
               {chunks}
             </LinkPreview>
@@ -61,7 +70,6 @@ export default function BuiltSection() {
               href="https://www.neuronahub.com/"
               name={t("projects.neuronahub.name")}
               tags={t("projects.neuronahub.tags")}
-              description={t("projects.neuronahub.description")}
             >
               {chunks}
             </LinkPreview>
@@ -78,7 +86,6 @@ export default function BuiltSection() {
               href="https://dersroofing.com/"
               name={t("projects.derwins.name")}
               tags={t("projects.derwins.tags")}
-              description={t("projects.derwins.description")}
             >
               {chunks}
             </LinkPreview>

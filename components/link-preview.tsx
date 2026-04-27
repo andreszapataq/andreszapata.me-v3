@@ -1,17 +1,17 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
 interface LinkPreviewProps {
   href: string;
   name: string;
   tags: string;
-  description: string;
   children: React.ReactNode;
 }
 
 const CARD_WIDTH = 320;
-const CARD_HEIGHT_ESTIMATE = 220;
+const CARD_HEIGHT_ESTIMATE = 170;
 const GAP = 10;
 const MARGIN = 16;
 const SHOW_DELAY = 120;
@@ -23,15 +23,16 @@ export default function LinkPreview({
   href,
   name,
   tags,
-  description,
   children,
 }: LinkPreviewProps) {
   const [isVisible, setIsVisible] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const [coords, setCoords] = useState<{
     top: number;
     left: number;
+    width: number;
     placement: Placement;
-  }>({ top: 0, left: 0, placement: "top" });
+  }>({ top: 0, left: 0, width: CARD_WIDTH, placement: "top" });
 
   const triggerRef = useRef<HTMLAnchorElement>(null);
   const cardRef = useRef<HTMLAnchorElement>(null);
@@ -43,20 +44,35 @@ export default function LinkPreview({
     if (!trigger) return;
     const rect = trigger.getBoundingClientRect();
     const vw = window.innerWidth;
+    const vh = window.innerHeight;
+
+    const cardW = Math.min(CARD_WIDTH, vw - MARGIN * 2);
+    const cardH = cardRef.current?.offsetHeight || CARD_HEIGHT_ESTIMATE;
 
     const triggerCenterX = rect.left + rect.width / 2;
-    let left = triggerCenterX - CARD_WIDTH / 2;
-    left = Math.min(Math.max(MARGIN, left), vw - CARD_WIDTH - MARGIN);
+    let left = triggerCenterX - cardW / 2;
+    left = Math.min(Math.max(MARGIN, left), vw - cardW - MARGIN);
 
-    const placement: Placement =
-      rect.top >= CARD_HEIGHT_ESTIMATE + GAP + MARGIN ? "top" : "bottom";
+    const spaceAbove = rect.top - GAP - MARGIN;
+    const spaceBelow = vh - rect.bottom - GAP - MARGIN;
 
-    const top =
-      placement === "top"
-        ? rect.top - GAP - CARD_HEIGHT_ESTIMATE
-        : rect.bottom + GAP;
+    let placement: Placement;
+    let top: number;
 
-    setCoords({ top, left, placement });
+    if (spaceAbove >= cardH) {
+      placement = "top";
+      top = rect.top - GAP - cardH;
+    } else if (spaceBelow >= cardH) {
+      placement = "bottom";
+      top = rect.bottom + GAP;
+    } else {
+      placement = spaceAbove >= spaceBelow ? "top" : "bottom";
+      const rawTop =
+        placement === "top" ? rect.top - GAP - cardH : rect.bottom + GAP;
+      top = Math.max(MARGIN, Math.min(rawTop, vh - cardH - MARGIN));
+    }
+
+    setCoords({ top, left, width: cardW, placement });
   }, []);
 
   const clearTimers = () => {
@@ -100,6 +116,11 @@ export default function LinkPreview({
     }
   };
 
+  useLayoutEffect(() => {
+    if (!isVisible) return;
+    computePosition();
+  }, [isVisible, computePosition]);
+
   useEffect(() => {
     if (!isVisible) return;
     const onChange = () => computePosition();
@@ -135,6 +156,10 @@ export default function LinkPreview({
 
   useEffect(() => clearTimers, []);
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const linkClass =
     "font-semibold underline underline-offset-3 decoration-1 hover:opacity-70 transition-opacity";
 
@@ -154,42 +179,41 @@ export default function LinkPreview({
       >
         {children}
       </a>
-      {isVisible && (
-        <a
-          ref={cardRef}
-          href={href}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`${name} — ${description}`}
-          onMouseEnter={show}
-          onMouseLeave={hide}
-          style={{
-            top: coords.top,
-            left: coords.left,
-            width: CARD_WIDTH,
-            transformOrigin:
-              coords.placement === "top" ? "bottom center" : "top center",
-          }}
-          className="link-preview-card fixed z-50 block overflow-hidden rounded-2xl border border-foreground/10 bg-background no-underline shadow-[0_14px_40px_-18px_rgba(23,23,23,0.28),0_2px_6px_-2px_rgba(23,23,23,0.06)]"
-        >
-          <div className="relative aspect-[16/10] overflow-hidden border-b border-foreground/[0.06] bg-foreground/[0.025]">
-            <PreviewMark />
-          </div>
-          <div className="px-4 pt-3 pb-4">
-            <div className="mb-1.5 flex items-baseline justify-between gap-3">
-              <span className="text-[15px] font-semibold text-foreground">
-                {name}
-              </span>
-              <span className="shrink-0 text-[10px] uppercase tracking-[0.14em] text-now-title">
-                {tags}
-              </span>
+      {mounted && isVisible &&
+        createPortal(
+          <a
+            ref={cardRef}
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`${name} — ${tags}`}
+            onMouseEnter={show}
+            onMouseLeave={hide}
+            style={{
+              top: coords.top,
+              left: coords.left,
+              width: coords.width,
+              transformOrigin:
+                coords.placement === "top" ? "bottom center" : "top center",
+            }}
+            className="link-preview-card fixed z-50 block overflow-hidden rounded-2xl border border-foreground/10 bg-background no-underline shadow-[0_14px_40px_-18px_rgba(23,23,23,0.28),0_2px_6px_-2px_rgba(23,23,23,0.06)]"
+          >
+            <div className="relative aspect-[16/10] overflow-hidden border-b border-foreground/[0.06] bg-foreground/[0.025]">
+              <PreviewMark />
             </div>
-            <p className="text-[13px] leading-snug text-paragraph">
-              {description}
-            </p>
-          </div>
-        </a>
-      )}
+            <div className="px-4 py-3.5">
+              <div className="flex items-baseline justify-between gap-3">
+                <span className="text-[15px] font-semibold text-foreground">
+                  {name}
+                </span>
+                <span className="shrink-0 text-[10px] uppercase tracking-[0.14em] text-now-title">
+                  {tags}
+                </span>
+              </div>
+            </div>
+          </a>,
+          document.body
+        )}
     </>
   );
 }
