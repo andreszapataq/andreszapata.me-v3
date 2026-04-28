@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image, { type StaticImageData } from "next/image";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
@@ -8,7 +8,7 @@ interface LinkPreviewProps {
   href: string;
   name: string;
   tags: string;
-  image?: string;
+  image?: StaticImageData;
   children: React.ReactNode;
 }
 
@@ -29,6 +29,7 @@ export default function LinkPreview({
   children,
 }: LinkPreviewProps) {
   const [isVisible, setIsVisible] = useState(false);
+  const [hasIntent, setHasIntent] = useState(false);
   const [coords, setCoords] = useState<{
     top: number;
     left: number;
@@ -88,7 +89,12 @@ export default function LinkPreview({
     }
   };
 
+  const triggerIntent = () => {
+    setHasIntent(true);
+  };
+
   const show = () => {
+    triggerIntent();
     if (hideTimer.current) {
       clearTimeout(hideTimer.current);
       hideTimer.current = null;
@@ -116,6 +122,10 @@ export default function LinkPreview({
       computePosition();
       setIsVisible(true);
     }
+  };
+
+  const handleTouchStart = () => {
+    triggerIntent();
   };
 
   useLayoutEffect(() => {
@@ -173,10 +183,39 @@ export default function LinkPreview({
         onMouseLeave={hide}
         onFocus={show}
         onBlur={hide}
+        onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
         {children}
       </a>
+      {hasIntent &&
+        image &&
+        !isVisible &&
+        typeof document !== "undefined" &&
+        createPortal(
+          <span
+            aria-hidden
+            style={{
+              position: "fixed",
+              top: -9999,
+              left: -9999,
+              width: 1,
+              height: 1,
+              overflow: "hidden",
+              pointerEvents: "none",
+            }}
+          >
+            <Image
+              src={image}
+              alt=""
+              width={640}
+              height={400}
+              sizes="320px"
+              priority
+            />
+          </span>,
+          document.body
+        )}
       {isVisible &&
         createPortal(
           <a
@@ -204,6 +243,7 @@ export default function LinkPreview({
                   fill
                   sizes="320px"
                   className="object-cover"
+                  placeholder="blur"
                 />
               ) : (
                 <PreviewMark />

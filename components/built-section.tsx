@@ -4,6 +4,13 @@ import { useTranslations } from "next-intl";
 import Section from "./section";
 import Highlight from "./highlight";
 import LinkPreview from "./link-preview";
+import gustavoImg from "@/public/previews/gustavo.webp";
+import nessImg from "@/public/previews/ness.webp";
+import biotissueImg from "@/public/previews/biotissue.webp";
+import jhonnyImg from "@/public/previews/jhonny.webp";
+import neuronahubImg from "@/public/previews/neuronahub.webp";
+import dersImg from "@/public/previews/ders.webp";
+import zapImg from "@/public/previews/zap.webp";
 
 export default function BuiltSection() {
   const t = useTranslations("sections.built");
@@ -20,7 +27,7 @@ export default function BuiltSection() {
               href="https://gustavozapata.com/"
               name={t("projects.gustavo.name")}
               tags={t("projects.gustavo.tags")}
-              image="/previews/gustavo.webp"
+              image={gustavoImg}
             >
               {chunks}
             </LinkPreview>
@@ -30,7 +37,7 @@ export default function BuiltSection() {
               href="https://www.nessdigital.co/"
               name={t("projects.ness.name")}
               tags={t("projects.ness.tags")}
-              image="/previews/ness.webp"
+              image={nessImg}
             >
               {chunks}
             </LinkPreview>
@@ -44,7 +51,7 @@ export default function BuiltSection() {
               href="https://biotissue.com.co/"
               name={t("projects.biotissue.name")}
               tags={t("projects.biotissue.tags")}
-              image="/previews/biotissue.webp"
+              image={biotissueImg}
             >
               {chunks}
             </LinkPreview>
@@ -61,7 +68,7 @@ export default function BuiltSection() {
               href="https://jhonnyaponza.org/"
               name={t("projects.jhonny.name")}
               tags={t("projects.jhonny.tags")}
-              image="/previews/jhonny.webp"
+              image={jhonnyImg}
             >
               {chunks}
             </LinkPreview>
@@ -74,7 +81,7 @@ export default function BuiltSection() {
               href="https://www.neuronahub.com/"
               name={t("projects.neuronahub.name")}
               tags={t("projects.neuronahub.tags")}
-              image="/previews/neuronahub.webp"
+              image={neuronahubImg}
             >
               {chunks}
             </LinkPreview>
@@ -91,7 +98,7 @@ export default function BuiltSection() {
               href="https://dersroofing.com/"
               name={t("projects.derwins.name")}
               tags={t("projects.derwins.tags")}
-              image="/previews/ders.webp"
+              image={dersImg}
             >
               {chunks}
             </LinkPreview>
@@ -108,7 +115,7 @@ export default function BuiltSection() {
               href="https://www.zapblindsusa.com/"
               name={t("projects.zap.name")}
               tags={t("projects.zap.tags")}
-              image="/previews/zap.webp"
+              image={zapImg}
             >
               {chunks}
             </LinkPreview>
