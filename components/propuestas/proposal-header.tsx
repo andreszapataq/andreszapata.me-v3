@@ -3,6 +3,7 @@ interface ProposalHeaderProps {
   projectName: string;
   date: string;
   validUntil?: string;
+  subtitle?: string;
 }
 
 export default function ProposalHeader({
@@ -10,6 +11,7 @@ export default function ProposalHeader({
   projectName,
   date,
   validUntil,
+  subtitle,
 }: ProposalHeaderProps) {
   const formattedDate = new Date(date + "T12:00:00").toLocaleDateString("es-ES", {
     year: "numeric",
@@ -43,8 +45,18 @@ export default function ProposalHeader({
 
       <p className="text-lg text-now-title mb-2">Propuesta para <strong>{clientName}</strong></p>
       <h1 className="text-[32px] md:text-[40px] font-bold leading-tight mb-4">
-        {projectName}
+        {projectName.split(/(\*[^*]+\*)/g).map((part, i) =>
+          part.startsWith("*") && part.endsWith("*") ? (
+            <span key={i} className="text-teal-600">{part.slice(1, -1)}</span>
+          ) : (
+            part
+          )
+        )}
       </h1>
+
+      {subtitle && (
+        <p className="text-lg text-paragraph mb-4 max-w-[640px]">{subtitle}</p>
+      )}
 
       {formattedValidUntil && (
         <p className="text-sm text-now-title">

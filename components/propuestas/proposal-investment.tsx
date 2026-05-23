@@ -1,4 +1,4 @@
-import { PropuestaInvestment } from "@/types/propuesta";
+import { PropuestaInvestment, PropuestaInvestmentRecurring } from "@/types/propuesta";
 import ProposalSection from "./proposal-section";
 
 interface ProposalInvestmentProps {
@@ -6,6 +6,7 @@ interface ProposalInvestmentProps {
   total?: string;
   paymentTerms?: string;
   note?: string;
+  recurring?: PropuestaInvestmentRecurring;
 }
 
 export default function ProposalInvestment({
@@ -13,6 +14,7 @@ export default function ProposalInvestment({
   total,
   paymentTerms,
   note,
+  recurring,
 }: ProposalInvestmentProps) {
   const displayAmount = total ?? items[0]?.amount;
 
@@ -62,6 +64,24 @@ export default function ProposalInvestment({
           <p className="text-sm mt-3 opacity-70">{note}</p>
         )}
       </div>
+
+      {recurring && (
+        <div className="bg-teal-50 border border-teal-100 rounded-2xl p-6 md:p-8 mt-4 print:border-gray-300 print:bg-white">
+          <div className="flex flex-wrap items-baseline justify-between gap-3 mb-2">
+            <p className="text-sm font-semibold uppercase tracking-wider text-teal-700">
+              {recurring.label}
+            </p>
+            <p className="text-[28px] md:text-[32px] font-bold leading-none text-teal-800">
+              {recurring.amount}
+            </p>
+          </div>
+          {recurring.description && (
+            <p className="text-paragraph text-base leading-relaxed">
+              {recurring.description}
+            </p>
+          )}
+        </div>
+      )}
     </ProposalSection>
   );
 }

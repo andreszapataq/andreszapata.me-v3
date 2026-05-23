@@ -15,6 +15,27 @@ export interface PropuestaInvestment {
   note?: string;
 }
 
+export interface PropuestaInvestmentRecurring {
+  label: string;
+  amount: string;
+  description?: string;
+}
+
+export interface PropuestaContextCard {
+  label: string;
+  value: string;
+}
+
+export interface PropuestaValueMetric {
+  value: string;
+  label: string;
+}
+
+export interface PropuestaValuePilar {
+  title: string;
+  description: string;
+}
+
 export interface Propuesta {
   slug: string;
   clientName: string;
@@ -22,7 +43,14 @@ export interface Propuesta {
   date: string;
   validUntil?: string;
 
+  subtitle?: string;
+
   contexto: {
+    paragraphs: string[];
+    cards?: PropuestaContextCard[];
+  };
+
+  comoFunciona?: {
     paragraphs: string[];
   };
 
@@ -36,11 +64,21 @@ export interface Propuesta {
     total?: string;
     paymentTerms?: string;
     note?: string;
+    recurring?: PropuestaInvestmentRecurring;
   };
 
   tiempos: {
     totalDuration: string;
     phases: PropuestaPhase[];
+  };
+
+  propuestaValor?: {
+    comparison: {
+      sin: string;
+      con: string;
+    };
+    metrics: PropuestaValueMetric[];
+    pilares: PropuestaValuePilar[];
   };
 
   siguientePaso: {

@@ -1,0 +1,150 @@
+{
+  "slug": "biofarmacia",
+  "clientName": "BioFarmacia by BioHahnemann",
+  "projectName": "Sistema de alertas de *reposición* inteligente",
+  "subtitle": "Un sistema que predice cuándo cada cliente necesita reponer su medicamento homeopático — y lo contacta en el momento justo, antes de que se quede sin él.",
+  "date": "2026-05-22",
+  "validUntil": "2026-06-22",
+  "contexto": {
+    "paragraphs": [
+      "BioFarmacia by BioHahnemann atiende una base de clientes con tratamientos continuos. Cada vez que un cliente se queda sin medicamento sin recibir un aviso, es una venta que se pierde — y muy posiblemente un cliente que termina comprando donde la competencia. Hoy ese seguimiento depende de la memoria o la iniciativa del cliente, no de un proceso sistemático.",
+      "Este sistema convierte el historial de compras que ya existe en Siigo en un activo comercial: detecta cuándo cada persona está por quedarse sin su medicamento y dispara una alerta — primero al equipo, luego al cliente — para recuperar esa venta antes de que se pierda."
+    ],
+    "cards": [
+      {
+        "label": "ERP actual",
+        "value": "Siigo — facturación, inventario y base de clientes"
+      },
+      {
+        "label": "Canal de venta",
+        "value": "Mixto — presencial y online (WhatsApp / redes)"
+      },
+      {
+        "label": "Canal de alerta al cliente",
+        "value": "WhatsApp personalizado — tasa de apertura ~90%"
+      },
+      {
+        "label": "Solución en el mercado",
+        "value": "No existe para farmacias pequeñas integradas a Siigo en Colombia"
+      }
+    ]
+  },
+  "comoFunciona": {
+    "paragraphs": [
+      "El sistema se conecta a Siigo cada noche, analiza el historial de compras por cliente y producto, calcula cuándo es probable que cada persona se quede sin medicamento, y dispara una alerta — primero a la farmacia, luego al cliente."
+    ]
+  },
+  "deliverables": {
+    "intro": "El proyecto contempla un sistema completo de detección y notificación de reposiciones, con los siguientes entregables:",
+    "items": [
+      {
+        "title": "Integración con Siigo",
+        "description": "Conexión a la API de Siigo para leer el historial de ventas por cliente y producto de forma automática cada noche. Sin exportaciones manuales, sin intervención del equipo."
+      },
+      {
+        "title": "Motor de predicción de ciclos",
+        "description": "Algoritmo que calcula el promedio de días entre compras para cada cliente y medicamento. Para clientes nuevos, usa el ciclo histórico del producto como referencia inicial, ajustándose con cada nueva compra."
+      },
+      {
+        "title": "Sistema de alertas internas",
+        "description": "Notificación diaria por WhatsApp o correo a la dueña o empleado con la lista de clientes a contactar: nombre, producto, última compra y días transcurridos. Todo listo para actuar sin buscar ni calcular nada."
+      },
+      {
+        "title": "Mensajes personalizados al cliente por WhatsApp",
+        "description": "Envío automático de mensajes cálidos y personalizados — con nombre del cliente y medicamento específico — en el momento preciso en que el tratamiento está próximo a terminarse."
+      },
+      {
+        "title": "Dashboard de seguimiento",
+        "description": "Panel web sencillo donde la farmacia ve los clientes con alerta activa, su estado (pendiente, contactado, compró) y el historial de alertas enviadas. Diseñado para que cualquier empleado lo opere sin capacitación técnica."
+      },
+      {
+        "title": "Mejora continua automática",
+        "description": "Cada venta registrada en Siigo retroalimenta el modelo. Con el tiempo, las predicciones se vuelven más precisas por cliente, sin intervención manual ni reconfiguraciones."
+      }
+    ]
+  },
+  "inversion": {
+    "items": [
+      {
+        "concept": "Desarrollo e implementación del sistema",
+        "amount": "$2.500.000 COP"
+      }
+    ],
+    "paymentTerms": "50% al iniciar el proyecto, 50% al entregar",
+    "note": "No incluye costos de WhatsApp Business API (≈ $5 USD/mes a volumen inicial). Infraestructura incluida durante el primer mes de operación.",
+    "recurring": {
+      "label": "Mantenimiento mensual",
+      "amount": "$220.000 COP/mes",
+      "description": "Cubre soporte técnico, ajustes al sistema, monitoreo de la integración con Siigo e infraestructura en producción. Menos de lo que costaría un empleado haciendo este seguimiento a mano."
+    }
+  },
+  "tiempos": {
+    "totalDuration": "4 semanas",
+    "phases": [
+      {
+        "name": "Conexión a Siigo y análisis de datos",
+        "duration": "Semana 1",
+        "description": "Integración con la API de Siigo, extracción del historial de compras, validación de la calidad de los datos disponibles y definición de los umbrales de alerta."
+      },
+      {
+        "name": "Motor de predicción y reglas de alerta",
+        "duration": "Semana 2",
+        "description": "Desarrollo del algoritmo de ciclos de recompra, lógica para clientes nuevos y configuración de las reglas que disparan cada alerta."
+      },
+      {
+        "name": "Canales de notificación y dashboard",
+        "duration": "Semana 3",
+        "description": "Integración con WhatsApp Business API, configuración de mensajes personalizados y desarrollo del panel de seguimiento para el equipo de la farmacia."
+      },
+      {
+        "name": "Pruebas, ajustes y lanzamiento",
+        "duration": "Semana 4",
+        "description": "Revisión conjunta con el equipo, ajustes de mensajes y umbrales según retroalimentación real, y despliegue a producción con acompañamiento."
+      }
+    ]
+  },
+  "propuestaValor": {
+    "comparison": {
+      "sin": "La farmacia espera que el cliente vuelva solo. Nadie sabe quién está a punto de quedarse sin medicamento. Las ventas de reposición se pierden en silencio.",
+      "con": "La farmacia contacta al cliente antes de que se quede sin medicamento. Recupera la venta, refuerza la relación y se posiciona como aliado del tratamiento."
+    },
+    "metrics": [
+      {
+        "value": "+30%",
+        "label": "aumento estimado en ventas de reposición en los primeros 6 meses"
+      },
+      {
+        "value": "90%",
+        "label": "tasa de apertura de WhatsApp vs 20–30% del correo"
+      },
+      {
+        "value": "0",
+        "label": "horas manuales para detectar quién necesita reponer"
+      }
+    ],
+    "pilares": [
+      {
+        "title": "Más ventas sin más esfuerzo de ventas",
+        "description": "El sistema trabaja solo mientras la farmacia atiende su negocio. Cada mañana llega una lista de clientes a contactar — sin buscar, sin calcular, sin olvidar a nadie."
+      },
+      {
+        "title": "Fidelización real, no descuentos",
+        "description": "Un cliente que recibe un mensaje con su nombre y su medicamento no siente que le están vendiendo — siente que la farmacia lo conoce y le importa su salud. Eso construye lealtad duradera."
+      },
+      {
+        "title": "Ventaja que la competencia no tiene",
+        "description": "Ninguna farmacia homeopática en Colombia tiene hoy un sistema así integrado a Siigo. Mientras la competencia espera, BioFarmacia va a buscar al cliente."
+      }
+    ]
+  },
+  "siguientePaso": {
+    "text": "Si esta propuesta se alinea con lo que buscan, el siguiente paso es agendar una llamada corta para afinar detalles, resolver dudas y definir la fecha de inicio.",
+    "calendarUrl": "https://cal.com/andreszapata/15min"
+  },
+  "footer": {
+    "name": "Andres Zapata",
+    "email": "contacto@andreszapata.me",
+    "website": "andreszapata.me",
+    "phone": "+57 311 3559747"
+  }
+}
