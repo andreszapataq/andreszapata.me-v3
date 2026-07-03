@@ -15,7 +15,7 @@
       "title": "Things I've built",
       "p1": "I'm the creator of <zanto>Zanto</zanto>, a clothing brand founded in 2013 together with my brother <gustavo>Gustavo</gustavo>, built around a precise balance between formal and informal. I've been involved in the creation and development of <ness>Ness Digital</ness>, a SaaS focused on centralized management and process optimization in the healthcare sector, prioritizing patient care and safety.",
       "p2": "I currently work as Operations Manager at <biotissue>BioTissue Colombia</biotissue>, where I focus on continuous improvement across processes, logistics, and operations.",
-      "p3": "I've built digital projects using <nextjs>Next.js</nextjs>, like <neuronahub>NeuronaHub</neuronahub>, a strategic professional growth ecosystem. Also using <astro>Astro</astro>, I built the website for <jhonny>Jhonny Aponza</jhonny>, a motivational speaker.",
+      "p3": "I've built digital projects using <nextjs>Next.js</nextjs>, like <neuronahub>NeuronaHub</neuronahub>, a strategic professional growth ecosystem. Also using <astro>Astro</astro>, I built the website for <jhonny>Jhonny Aponza</jhonny>, a motivational speaker, and for <nab>NAB Financial Consulting LLC</nab>, a company dedicated to tax preparation.",
       "p4": "Using <framer>Framer</framer>, I developed the website for <derwins>DER'S Roofing</derwins>, with a strong focus on clarity, performance, and simplicity.",
       "p5": "With <html>HTML</html>, <css>CSS</css>, and <js>JavaScript</js>, I built the website for <zap>ZAP Blinds Solutions</zap>, a company dedicated to installing all kinds of blinds.",
       "projects": {
@@ -38,6 +38,10 @@
         "jhonny": {
           "name": "Jhonny Aponza",
           "tags": "Speaker · Motivational"
+        },
+        "nab": {
+          "name": "NAB Financial",
+          "tags": "Company · Taxes"
         },
         "derwins": {
           "name": "DER'S Roofing",

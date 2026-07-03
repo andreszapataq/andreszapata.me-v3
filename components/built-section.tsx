@@ -9,6 +9,7 @@ import nessImg from "@/public/previews/ness.webp";
 import biotissueImg from "@/public/previews/biotissue.webp";
 import jhonnyImg from "@/public/previews/jhonny.webp";
 import neuronahubImg from "@/public/previews/neuronahub.webp";
+import nabImg from "@/public/previews/nab.webp";
 import dersImg from "@/public/previews/ders.webp";
 import zapImg from "@/public/previews/zap.webp";
 
@@ -69,6 +70,16 @@ export default function BuiltSection() {
               name={t("projects.jhonny.name")}
               tags={t("projects.jhonny.tags")}
               image={jhonnyImg}
+            >
+              {chunks}
+            </LinkPreview>
+          ),
+          nab: (chunks) => (
+            <LinkPreview
+              href="https://www.nabfinancialusa.com/"
+              name={t("projects.nab.name")}
+              tags={t("projects.nab.tags")}
+              image={nabImg}
             >
               {chunks}
             </LinkPreview>
