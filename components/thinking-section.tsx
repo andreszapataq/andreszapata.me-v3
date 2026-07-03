@@ -13,8 +13,11 @@ export default function ThinkingSection() {
       <p>{t("p1")}</p>
       <p>
         {t.rich("p2", {
-          cursor: (chunks) => (
-            <Highlight icon="/icons/cursor_dark.svg">{chunks}</Highlight>
+          vscode: (chunks) => (
+            <Highlight icon="/icons/vscode.svg">{chunks}</Highlight>
+          ),
+          claudecode: (chunks) => (
+            <Highlight icon="/icons/claude-code.svg">{chunks}</Highlight>
           ),
           supabase: (chunks) => (
             <Highlight icon="/icons/supabase.svg">{chunks}</Highlight>

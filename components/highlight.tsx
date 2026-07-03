@@ -37,7 +37,7 @@ export default function Highlight({ children, icon }: HighlightProps) {
   return (
     <span
       ref={spanRef}
-      className="font-semibold cursor-help border-b border-dotted border-foreground/40 relative"
+      className="font-semibold cursor-help border-b border-dotted border-foreground/40 relative whitespace-nowrap"
       onTouchEnd={handleTouchEnd}
       onMouseEnter={() => setIsVisible(true)}
       onMouseLeave={() => setIsVisible(false)}
