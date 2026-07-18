@@ -33,7 +33,7 @@ export async function generateMetadata({
   const plainProjectName = propuesta.projectName.replace(/\*/g, "");
 
   return {
-    title: `Propuesta — ${plainProjectName} | Andrés Zapata`,
+    title: `Propuesta — ${plainProjectName} | Andres Zapata`,
     description: `Propuesta para ${propuesta.clientName}: ${plainProjectName}`,
   };
 }
