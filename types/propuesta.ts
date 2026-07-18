@@ -36,6 +36,17 @@ export interface PropuestaValuePilar {
   description: string;
 }
 
+export interface PropuestaRequisitoItem {
+  title: string;
+  description?: string;
+}
+
+export interface PropuestaRoadmapPhase {
+  label: string;
+  title: string;
+  description: string;
+}
+
 export interface Propuesta {
   slug: string;
   clientName: string;
@@ -57,6 +68,12 @@ export interface Propuesta {
   deliverables: {
     intro?: string;
     items: PropuestaDeliverable[];
+  };
+
+  requisitosCliente?: {
+    intro?: string;
+    items: PropuestaRequisitoItem[];
+    note?: string;
   };
 
   inversion: {
@@ -81,9 +98,16 @@ export interface Propuesta {
     pilares: PropuestaValuePilar[];
   };
 
+  roadmap?: {
+    intro?: string;
+    phases: PropuestaRoadmapPhase[];
+    closing?: string;
+  };
+
   siguientePaso: {
     text: string;
     calendarUrl: string;
+    ctaLabel?: string;
   };
 
   footer: {

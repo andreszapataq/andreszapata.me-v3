@@ -1,0 +1,134 @@
+{
+  "slug": "ricardo-gomez",
+  "clientName": "Ricardo Gómez",
+  "projectName": "Tienda online de *café*",
+  "date": "2026-07-18",
+  "validUntil": "2026-08-18",
+  "contexto": {
+    "paragraphs": [
+      "Ricardo Gómez está lanzando una tienda de café online con un enfoque moderno y curado, inspirada en experiencias de compra premium como Trade Coffee, donde el diseño y la facilidad de compra son el verdadero diferencial. No se trata solo de vender café, sino de construir una experiencia digital que transmita cuidado, calidad y personalidad de marca desde el primer clic.",
+      "El objetivo de esta primera fase es tener una tienda funcional, atractiva y lista para vender: un catálogo bien presentado, un flujo de compra claro y un diseño a medida que se sienta profesional en cualquier dispositivo. La prioridad es salir al mercado rápido y con una base sólida sobre la cual seguir creciendo.",
+      "En este alcance no se construyen todavía las capas más avanzadas del negocio —suscripciones recurrentes, quiz de personalización, portal de cliente—, que quedan planteadas como evolución futura una vez la tienda esté validada y vendiendo. Primero, una tienda que funcione y convierta; después, las capas que la convierten en un negocio de recompra."
+    ]
+  },
+  "deliverables": {
+    "intro": "Este alcance contempla la puesta en marcha de una tienda online completa sobre Shopify, con los siguientes entregables:",
+    "items": [
+      {
+        "title": "Prototipo interactivo",
+        "description": "Diseño de interfaz con prototipo navegable para validar estructura, jerarquía de contenido y flujo de compra antes de escribir una sola línea de código"
+      },
+      {
+        "title": "Tienda funcional en Shopify",
+        "description": "Configuración de tienda sobre Shopify: catálogo de productos, colecciones, carrito y checkout, todo con diseño personalizado y no una plantilla genérica de Shopify"
+      },
+      {
+        "title": "Diseño a medida",
+        "description": "Interfaz moderna y personalizada, con animaciones profesionales, adaptada a la identidad de marca de Ricardo"
+      },
+      {
+        "title": "Hosting y dominio",
+        "description": "Configuración y puesta en marcha del dominio (proporcionado por el cliente) con hosting incluido durante el primer año de operación"
+      },
+      {
+        "title": "Optimización SEO",
+        "description": "Estructura semántica, meta tags, sitemap y optimización de performance para posicionamiento en buscadores"
+      },
+      {
+        "title": "Diseño responsive",
+        "description": "Adaptación completa y testeada para móviles, tablets y escritorio, garantizando una experiencia consistente en cualquier dispositivo"
+      }
+    ]
+  },
+  "requisitosCliente": {
+    "intro": "Este proyecto cubre el diseño y desarrollo de la tienda, pero no incluye la generación de contenido ni la identidad de marca. Para que la tienda quede completa y lista para vender, Ricardo debe proporcionar los siguientes insumos:",
+    "items": [
+      {
+        "title": "Logo e identidad de marca",
+        "description": "Logo en alta calidad, o la definición de que se necesita crearlo si aún no existe"
+      },
+      {
+        "title": "Paleta de colores y lineamientos visuales",
+        "description": "Colores, tipografías y guías de estilo que definan el look de la marca"
+      },
+      {
+        "title": "Fotografías de producto",
+        "description": "Imágenes de producto en alta resolución para catálogo y secciones destacadas"
+      },
+      {
+        "title": "Videos",
+        "description": "Material audiovisual, si aplica, para el hero o secciones destacadas de la tienda"
+      },
+      {
+        "title": "Textos y copy",
+        "description": "Textos de producto y de marca: descripciones, mensajes y contenido editorial"
+      },
+      {
+        "title": "Redes sociales",
+        "description": "Enlaces a las redes sociales activas de la marca"
+      },
+      {
+        "title": "Listado inicial de productos",
+        "description": "Productos con precios y variantes (talla, presentación, molienda, etc.) para cargar el catálogo"
+      }
+    ],
+    "note": "Sin este material el equipo puede avanzar con la estructura y el desarrollo de la tienda, pero el diseño final y el contenido dependen de que Ricardo entregue estos insumos. Entregarlos a tiempo es clave para cumplir con los tiempos estimados del proyecto."
+  },
+  "inversion": {
+    "items": [
+      {
+        "concept": "Tienda online de café",
+        "amount": "$4.700.000 COP"
+      }
+    ],
+    "paymentTerms": "50% al iniciar el proyecto, 50% al entregar",
+    "note": "Incluye hosting del primer año y la configuración del dominio; el dominio en sí lo proporciona el cliente. No incluye generación de contenido, fotografía, video ni identidad de marca — estos deben ser proporcionados por el cliente. No incluye apps de pago de Shopify (planes de suscripción, apps de terceros) ni comisiones de Shopify, que corren por cuenta del cliente."
+  },
+  "tiempos": {
+    "totalDuration": "3 semanas",
+    "phases": [
+      {
+        "name": "Diseño y prototipo",
+        "duration": "Semana 1",
+        "description": "Definición de estructura, diseño de interfaz y prototipo interactivo para revisión y aprobación"
+      },
+      {
+        "name": "Desarrollo y configuración de tienda",
+        "duration": "Semana 2",
+        "description": "Configuración de Shopify, maquetación del diseño personalizado, integración de catálogo y checkout"
+      },
+      {
+        "name": "Ajustes y lanzamiento",
+        "duration": "Semana 3",
+        "description": "Revisión conjunta, ajustes finales, optimización de rendimiento y salida a producción"
+      }
+    ]
+  },
+  "roadmap": {
+    "intro": "Esta primera tienda es la base. Una vez esté validada y vendiendo, hay dos caminos naturales de crecimiento que vale la pena tener en el horizonte:",
+    "phases": [
+      {
+        "label": "Fase 2",
+        "title": "Tienda con suscripciones y personalización",
+        "description": "Con la tienda ya funcionando, se puede sumar un sistema de suscripción recurrente de café (roasted-to-order), un quiz de personalización que recomiende café según el gusto de cada cliente, un portal de cuenta para gestionar pedidos y preferencias, y sistemas de regalos y referidos. Esto convierte la tienda en un negocio de recompra automática, no solo de compras puntuales."
+      },
+      {
+        "label": "Fase 3",
+        "title": "Plataforma a medida",
+        "description": "Cuando el negocio esté en una escala mayor, se puede evaluar una versión completamente a la medida —con backend propio y experiencia headless—, con mayor control y capacidades que no dependan de las limitaciones de las apps de Shopify."
+      }
+    ],
+    "closing": "No hay que decidir nada de esto ahora. Son caminos para conversar más adelante, cuando la tienda ya esté en marcha y los números pidan el siguiente paso."
+  },
+  "siguientePaso": {
+    "text": "Si esta propuesta se alinea con lo que buscas, el siguiente paso es agendar una sesión estratégica para afinar detalles, resolver dudas y definir fecha de arranque.",
+    "calendarUrl": "https://cal.com/andreszapata/15min",
+    "ctaLabel": "Agendar sesión"
+  },
+  "footer": {
+    "name": "Andrés Zapata",
+    "email": "contacto@andreszapata.me",
+    "website": "andreszapata.me",
+    "phone": "+57 311 3559747"
+  }
+}

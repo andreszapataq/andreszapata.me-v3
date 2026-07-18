@@ -5,9 +5,11 @@ import ProposalHeader from "@/components/propuestas/proposal-header";
 import ProposalContext from "@/components/propuestas/proposal-context";
 import ProposalHowItWorks from "@/components/propuestas/proposal-how-it-works";
 import ProposalDeliverables from "@/components/propuestas/proposal-deliverables";
+import ProposalClientRequirements from "@/components/propuestas/proposal-client-requirements";
 import ProposalInvestment from "@/components/propuestas/proposal-investment";
 import ProposalTimeline from "@/components/propuestas/proposal-timeline";
 import ProposalValue from "@/components/propuestas/proposal-value";
+import ProposalRoadmap from "@/components/propuestas/proposal-roadmap";
 import ProposalCta from "@/components/propuestas/proposal-cta";
 import ProposalFooter from "@/components/propuestas/proposal-footer";
 import FloatingBar from "@/components/propuestas/floating-bar";
@@ -73,6 +75,14 @@ export default async function PropuestaPage({
           items={propuesta.deliverables.items}
         />
 
+        {propuesta.requisitosCliente && (
+          <ProposalClientRequirements
+            intro={propuesta.requisitosCliente.intro}
+            items={propuesta.requisitosCliente.items}
+            note={propuesta.requisitosCliente.note}
+          />
+        )}
+
         <ProposalInvestment
           items={propuesta.inversion.items}
           total={propuesta.inversion.total}
@@ -94,9 +104,18 @@ export default async function PropuestaPage({
           />
         )}
 
+        {propuesta.roadmap && (
+          <ProposalRoadmap
+            intro={propuesta.roadmap.intro}
+            phases={propuesta.roadmap.phases}
+            closing={propuesta.roadmap.closing}
+          />
+        )}
+
         <ProposalCta
           text={propuesta.siguientePaso.text}
           calendarUrl={propuesta.siguientePaso.calendarUrl}
+          label={propuesta.siguientePaso.ctaLabel}
         />
 
         <ProposalFooter
@@ -107,7 +126,10 @@ export default async function PropuestaPage({
         />
       </main>
 
-      <FloatingBar calendarUrl={propuesta.siguientePaso.calendarUrl} />
+      <FloatingBar
+        calendarUrl={propuesta.siguientePaso.calendarUrl}
+        label={propuesta.siguientePaso.ctaLabel}
+      />
     </>
   );
 }

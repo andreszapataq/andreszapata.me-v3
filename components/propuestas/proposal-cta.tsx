@@ -4,9 +4,14 @@ import ProposalSection from "./proposal-section";
 interface ProposalCtaProps {
   text: string;
   calendarUrl: string;
+  label?: string;
 }
 
-export default function ProposalCta({ text, calendarUrl }: ProposalCtaProps) {
+export default function ProposalCta({
+  text,
+  calendarUrl,
+  label = "Agendar llamada",
+}: ProposalCtaProps) {
   return (
     <ProposalSection title="Siguiente paso">
       <p>{text}</p>
@@ -17,7 +22,7 @@ export default function ProposalCta({ text, calendarUrl }: ProposalCtaProps) {
           rel="noopener noreferrer"
           className="group inline-flex items-center gap-2 bg-teal-600 text-white rounded-xl px-8 py-4 text-lg font-semibold hover:bg-teal-700 transition-colors"
         >
-          Agendar llamada
+          {label}
           <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:-rotate-45" />
         </a>
       </div>
