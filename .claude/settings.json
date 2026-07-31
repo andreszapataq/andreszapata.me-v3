@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e \"const p=require\\('./data/propuestas/pw-colombia.json'\\); console.log\\('OK', p.slug, '|', p.projectName, '|', p.inversion.items[0].amount\\)\")",
+      "Bash(node -e \"const p=require\\('./data/propuestas/pw-colombia.json'\\); console.log\\('OK |', p.deliverables.items.length,'entregables |', p.requisitosCliente.items.length,'requisitos |', p.inversion.items[0].amount\\)\")",
+      "Bash(node -e \"const p=require\\('./data/propuestas/pw-colombia.json'\\); console.log\\('OK |', p.inversion.items[0].amount, '|', p.tiempos.totalDuration, '|', p.deliverables.items.length,'entregables |', p.requisitosCliente.items.length,'requisitos'\\)\")"
+    ]
+  }
+}
