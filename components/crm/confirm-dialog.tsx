@@ -32,6 +32,7 @@ export default function ConfirmDialog({
   ariaLabel?: string;
 }) {
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
   const { pending } = useFormStatus();
   // Cada nota de la bitácora monta su propia hoja: el id no puede ser fijo.
@@ -41,8 +42,17 @@ export default function ConfirmDialog({
     const dialog = dialogRef.current;
     if (!dialog) return;
 
-    if (open) dialog.showModal();
-    else if (dialog.open) dialog.close();
+    if (open) {
+      dialog.showModal();
+      // showModal() manda el foco al primer elemento enfocable, que sería
+      // «cancelar»: se vería preseleccionado con su anillo azul. El foco tiene
+      // que entrar igual (si no, teclado y lectores de pantalla se quedan
+      // afuera), así que lo recibe el contenido, que no es accionable. De paso
+      // Enter no dispara nada, que es lo que uno quiere en un borrado.
+      contentRef.current?.focus();
+    } else if (dialog.open) {
+      dialog.close();
+    }
 
     // showModal() bloquea el clic detrás, pero no el scroll: en el iPhone la
     // página se sigue moviendo bajo la hoja si no lo frenamos aquí.
@@ -90,7 +100,14 @@ export default function ConfirmDialog({
           if (e.target === dialogRef.current && !pending) setOpen(false);
         }}
       >
-        <div className="min-h-0 overflow-y-auto px-6 pt-6 pb-5">
+        {/* tabIndex -1: recibe el foco al abrir, pero no entra en el recorrido
+            del tabulador. Sin anillo porque no es un control, y porque no se
+            puede llegar aquí tabulando: la hoja misma ya es la señal. */}
+        <div
+          ref={contentRef}
+          tabIndex={-1}
+          className="min-h-0 overflow-y-auto px-6 pt-6 pb-5 focus:outline-none"
+        >
           <p id={titleId} className="font-medium">
             {title}
           </p>
