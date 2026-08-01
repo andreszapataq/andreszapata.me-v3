@@ -67,7 +67,7 @@ function DealLine({ deal, index }: { deal: Deal; index: number }) {
   return (
     <Link
       href={crmPath(`/${deal.id}`)}
-      className="crm-row block border-b border-crm-line px-3 py-4 transition-colors hover:bg-black/[0.02]"
+      className="crm-row block border-b border-crm-line px-3 py-4 transition-colors hover:bg-black/2"
       style={{ animationDelay: `${Math.min(index, 12) * 35}ms` }}
     >
       <div className="flex items-baseline justify-between gap-3">
@@ -118,7 +118,7 @@ export default async function CrmPage({
 
   if (error) {
     return (
-      <main className="mx-auto w-full max-w-[34rem] px-6 py-16 crm-page">
+      <main className="mx-auto w-full max-w-crm px-6 py-16 crm-page">
         <p className="text-crm-red">No se pudo leer el CRM: {error.message}</p>
       </main>
     );
@@ -144,7 +144,7 @@ export default async function CrmPage({
   ).length;
 
   return (
-    <main className="mx-auto w-full max-w-[34rem] px-6 pt-12 pb-20 crm-page">
+    <main className="mx-auto w-full max-w-crm px-6 pt-12 pb-20 crm-page">
       <header className="flex items-baseline justify-between">
         <h1 className="text-2xl font-medium tracking-tight">crm</h1>
         <form action={signOut}>

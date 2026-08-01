@@ -23,6 +23,12 @@
   --color-crm-accent: #0d9488;
   --color-crm-amber: #b45309;
   --color-crm-red: #c2410c;
+
+  /* Ancho de lectura del CRM: la medida que hace que una línea de texto no
+     pase de unos 70 caracteres. Es una medida tipográfica, no un múltiplo de
+     la escala de espaciado, y por eso vive aquí y no como max-w-136. */
+  --container-crm: 34rem;
+
   --font-mono: var(--font-plex-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 

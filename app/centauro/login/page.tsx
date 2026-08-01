@@ -9,7 +9,7 @@ export default async function LoginPage({
   const { next } = await searchParams;
 
   return (
-    <main className="mx-auto min-h-dvh w-full max-w-[34rem] px-6 pt-24 pb-16 crm-page">
+    <main className="mx-auto min-h-dvh w-full max-w-crm px-6 pt-24 pb-16 crm-page">
       <p className="text-crm-faint">andreszapata.me</p>
       <h1 className="mt-1 text-2xl font-medium tracking-tight">crm</h1>
       <p className="mt-6 max-w-[26rem] text-crm-dim">
