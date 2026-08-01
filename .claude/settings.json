@@ -43,7 +43,11 @@
       "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3000/crm/login)",
       "mcp__plugin_supabase_supabase__get_organization",
       "Bash(python3 -)",
-      "Bash(grep -rn '\"/crm\\\\|'\"'\"'/crm\\\\|`/crm' app components lib next.config.ts proxy.ts --include=\"*.ts\" --include=\"*.tsx\")"
+      "Bash(grep -rn '\"/crm\\\\|'\"'\"'/crm\\\\|`/crm' app components lib next.config.ts proxy.ts --include=\"*.ts\" --include=\"*.tsx\")",
+      "WebSearch",
+      "WebFetch(domain:www.shopify.com)",
+      "WebFetch(domain:stripe.com)",
+      "Bash(node -e \"const p=require\\('./data/propuestas/biofarmacia.json'\\); console.log\\(p.projectName\\); console.log\\(JSON.stringify\\(p.deliverables.items,null,1\\)\\); console.log\\(p.comoFunciona ? JSON.stringify\\(p.comoFunciona,null,1\\) : 'sin comoFunciona'\\)\")"
     ],
     "additionalDirectories": [
       "/Users/andreszapata/Downloads/Projects/NextJS/andreszapata.me-v3",

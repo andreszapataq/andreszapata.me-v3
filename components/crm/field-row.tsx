@@ -9,7 +9,7 @@ export default function FieldRow({
 }) {
   return (
     <div
-      className={`grid grid-cols-[5.5rem_1fr] gap-x-3 py-2.5 ${
+      className={`grid grid-cols-[5rem_1fr] gap-x-3 py-2.5 sm:grid-cols-[5.5rem_1fr] ${
         align === "start" ? "items-start" : "items-baseline"
       }`}
     >

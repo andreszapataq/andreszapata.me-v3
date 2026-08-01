@@ -67,7 +67,7 @@ function DealLine({ deal, index }: { deal: Deal; index: number }) {
   return (
     <Link
       href={crmPath(`/${deal.id}`)}
-      className="crm-row block border-b border-crm-line py-4 transition-colors hover:bg-black/[0.02]"
+      className="crm-row block border-b border-crm-line px-3 py-4 transition-colors hover:bg-black/[0.02]"
       style={{ animationDelay: `${Math.min(index, 12) * 35}ms` }}
     >
       <div className="flex items-baseline justify-between gap-3">
@@ -196,9 +196,11 @@ export default async function CrmPage({
         ))}
       </nav>
 
-      <section className="mt-4 border-t border-crm-line">
+      {/* La lista se sale 12px a cada lado del texto: así el fondo del hover
+          respira alrededor de la fila sin que el contenido se corra. */}
+      <section className="-mx-3 mt-4 border-t border-crm-line">
         {visible.length === 0 ? (
-          <p className="py-8 text-crm-faint">
+          <p className="px-3 py-8 text-crm-faint">
             {deals.length === 0
               ? "El CRM está vacío."
               : `Nada en «${view}».`}

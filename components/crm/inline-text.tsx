@@ -15,6 +15,7 @@ export default function InlineText({
   label,
   type = "text",
   multiline = false,
+  wrap = false,
   className = "",
 }: {
   dealId: number;
@@ -24,6 +25,8 @@ export default function InlineText({
   label: string;
   type?: "text" | "tel" | "email";
   multiline?: boolean;
+  /** Un solo valor, pero que puede bajar de línea si no cabe a lo ancho. */
+  wrap?: boolean;
   className?: string;
 }) {
   const {
@@ -46,7 +49,10 @@ export default function InlineText({
 
   const fieldClass = `crm-field ${pending ? "text-crm-dim" : ""} ${className}`;
 
-  if (multiline) {
+  // Un <input> esconde lo que no cabe: un correo largo se lee a medias y no hay
+  // forma de ver el final. El textarea que ya usamos para el texto libre sirve
+  // igual para un valor de una línea, dejándolo bajar de renglón.
+  if (multiline || wrap) {
     return (
       <textarea
         ref={areaRef}
@@ -54,9 +60,22 @@ export default function InlineText({
         placeholder={placeholder}
         aria-label={label}
         rows={1}
-        onChange={(e) => setText(e.target.value)}
+        inputMode={type === "email" ? "email" : undefined}
+        autoCapitalize={type === "email" ? "none" : "sentences"}
+        spellCheck={type === "text" && !wrap}
+        // Pegar texto de varias líneas en un campo de una sola no debería
+        // partirlo: se aplana al entrar.
+        onChange={(e) =>
+          setText(wrap ? e.target.value.replace(/\s*\n\s*/g, " ") : e.target.value)
+        }
         onBlur={() => save(text.trim())}
-        className={`${fieldClass} resize-none`}
+        onKeyDown={(e) => {
+          if (wrap && e.key === "Enter") {
+            e.preventDefault();
+            e.currentTarget.blur();
+          }
+        }}
+        className={`${fieldClass} resize-none ${wrap ? "wrap-anywhere" : ""}`}
       />
     );
   }

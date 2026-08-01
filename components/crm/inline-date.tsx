@@ -36,8 +36,27 @@ export default function InlineDate({
     pending,
   } = useFieldState(dealId, field, value ?? "");
 
+  const trailing =
+    suffix ??
+    (showRelative && date ? (
+      <span className="crm-mono text-sm text-crm-faint">
+        {relativeDays(date)}
+      </span>
+    ) : null);
+
+  const clear = clearable && date && (
+    <button
+      type="button"
+      onClick={() => save("")}
+      aria-label={`Borrar ${label}`}
+      className="px-1 text-crm-faint hover:text-crm-red"
+    >
+      ×
+    </button>
+  );
+
   return (
-    <span className="inline-flex flex-wrap items-baseline gap-x-2">
+    <span className="inline-flex flex-wrap items-baseline gap-x-2 gap-y-1">
       <span className="relative inline-block py-1">
         <span className={`crm-mono crm-tap ${pending ? "text-crm-dim" : ""}`}>
           {date ? formatDate(date) : placeholder}
@@ -69,22 +88,13 @@ export default function InlineDate({
         />
       </span>
 
-      {suffix ??
-        (showRelative && date && (
-          <span className="crm-mono text-sm text-crm-faint">
-            {relativeDays(date)}
-          </span>
-        ))}
-
-      {clearable && date && (
-        <button
-          type="button"
-          onClick={() => save("")}
-          aria-label={`Borrar ${label}`}
-          className="px-1 text-crm-faint hover:text-crm-red"
-        >
-          ×
-        </button>
+      {/* La glosa y la × viajan juntas: si la línea no alcanza, bajan como una
+          sola pieza en vez de dejar la × sola contra el margen. */}
+      {(trailing || clear) && (
+        <span className="inline-flex items-baseline gap-x-2 whitespace-nowrap">
+          {trailing}
+          {clear}
+        </span>
       )}
     </span>
   );

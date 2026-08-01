@@ -251,6 +251,7 @@ export default async function DealPage({
               label="Correo del contacto"
               placeholder="sin correo"
               type="email"
+              wrap
               className="crm-mono basis-full"
             />
             {deal.contact_email && (
