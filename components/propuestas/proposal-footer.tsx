@@ -23,7 +23,16 @@ export default function ProposalFooter({
             {email}
           </a>
         </p>
-        {phone && <p>{phone}</p>}
+        {phone && (
+          <p>
+            <a
+              href={`tel:${phone.replace(/[^\d+]/g, "")}`}
+              className="hover:underline"
+            >
+              {phone}
+            </a>
+          </p>
+        )}
         {website && (
           <p>
             <a

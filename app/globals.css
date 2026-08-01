@@ -13,6 +13,17 @@
   --color-paragraph: var(--paragraph);
   --color-now-title: var(--now-title);
   --font-sans: var(--font-satoshi);
+
+  /* CRM privado: mismo papel y mismo teal del sitio, en clave de libro de
+     registro. Ámbar y rojo oscurecidos para que contrasten sobre blanco. */
+  --color-crm-line: #e6e6e6;
+  --color-crm-text: var(--foreground);
+  --color-crm-dim: #5c5c5c;
+  --color-crm-faint: #949494;
+  --color-crm-accent: #0d9488;
+  --color-crm-amber: #b45309;
+  --color-crm-red: #c2410c;
+  --font-mono: var(--font-plex-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -99,6 +110,125 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .link-preview-card {
+    animation: none;
+  }
+}
+
+/* ─── CRM ──────────────────────────────────────────────────────────────
+   Todo es texto: no hay botones ni tarjetas, solo palabras que responden.
+
+   Las clases van en @layer components a propósito: si estuvieran sin capa,
+   el `font: inherit` de .crm-field le ganaría a utilidades como text-2xl y
+   los títulos editables se verían del mismo tamaño que el cuerpo.          */
+
+body.crm-body {
+  color-scheme: light;
+  -webkit-tap-highlight-color: transparent;
+  overflow-wrap: break-word;
+}
+
+body.crm-body ::selection {
+  background: #0d9488;
+  color: #ffffff;
+}
+
+@layer components {
+  /* Texto accionable: se lee como texto, se comporta como control. */
+  .crm-tap {
+    border-bottom: 1px dashed rgba(13, 148, 136, 0.45);
+    transition: border-color 140ms ease, color 140ms ease;
+  }
+
+  .crm-tap:hover,
+  .crm-tap:focus-visible {
+    border-bottom-color: #0d9488;
+    color: #0d9488;
+  }
+
+  /* Campos que se editan en el sitio donde se leen. */
+  .crm-field {
+    width: 100%;
+    padding: 0;
+    border: 0;
+    border-bottom: 1px dashed transparent;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    border-radius: 0;
+    appearance: none;
+  }
+
+  /* Se ajusta a su contenido (vía atributo `size`) en vez de estirarse. */
+  .crm-field-hug {
+    width: auto;
+  }
+
+  .crm-field::placeholder {
+    color: #a3a3a3;
+  }
+
+  .crm-field:hover {
+    border-bottom-color: rgba(13, 148, 136, 0.3);
+  }
+
+  .crm-field:focus {
+    outline: none;
+    border-bottom-color: #0d9488;
+  }
+
+  /* Los datos van en mono: es lo que alinea cifras y fechas en columna. Va
+     después de .crm-field a propósito, para ganarle a su `font: inherit`. */
+  /* Plex Mono ya trae el cero con punto por defecto, así que no hace falta
+     pedir la feature `zero`: 0 y O se distinguen solos al leer montos. */
+  .crm-mono {
+    font-family: var(--font-plex-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+    /* Plex Mono tiene una x grande: al mismo px pesa más que Satoshi. */
+    font-size: 0.925em;
+  }
+
+  /* El control nativo (date/select) se superpone invisible sobre el texto:
+     abre el selector del sistema sin romper la estética de documento. */
+  .crm-native {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    appearance: none;
+    border: 0;
+    background: transparent;
+    font: inherit;
+    color: transparent;
+  }
+
+  .crm-native::-webkit-calendar-picker-indicator {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+}
+
+@keyframes crm-row-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.crm-row {
+  animation: crm-row-in 340ms cubic-bezier(0.2, 0, 0, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .crm-row {
     animation: none;
   }
 }
