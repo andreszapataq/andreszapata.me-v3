@@ -10,7 +10,7 @@ export const dynamic = "force-dynamic";
 
 export default function NuevoPage() {
   return (
-    <main className="mx-auto w-full max-w-[34rem] px-6 pt-12 pb-24 text-base leading-relaxed">
+    <main className="mx-auto w-full max-w-[34rem] px-6 pt-12 pb-24 crm-page">
       <Link href={CRM_BASE} className="crm-mono text-sm text-crm-faint crm-tap">
         ← crm
       </Link>

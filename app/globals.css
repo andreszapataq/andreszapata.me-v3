@@ -179,11 +179,22 @@ body.crm-body ::selection {
   /* Los datos van en mono: es lo que alinea cifras y fechas en columna. Va
      después de .crm-field a propósito, para ganarle a su `font: inherit`. */
   /* Plex Mono ya trae el cero con punto por defecto, así que no hace falta
-     pedir la feature `zero`: 0 y O se distinguen solos al leer montos. */
+     pedir la feature `zero`: 0 y O se distinguen solos al leer montos.
+
+     El tamaño es fijo en 1rem, no relativo: Plex Mono tiene una x grande y
+     necesita ir por debajo de Satoshi para pesar igual, pero Safari en iOS
+     hace zoom sobre la página al enfocar cualquier control por debajo de
+     16px. Compensamos subiendo Satoshi (ver .crm-page) en vez de bajar la
+     mono, y así los campos de datos nunca disparan el zoom. */
   .crm-mono {
     font-family: var(--font-plex-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
-    /* Plex Mono tiene una x grande: al mismo px pesa más que Satoshi. */
-    font-size: 0.925em;
+    font-size: 1rem;
+  }
+
+  /* Cuerpo del CRM: Satoshi un punto por encima de la mono. */
+  .crm-page {
+    font-size: 1.0625rem;
+    line-height: 1.65;
   }
 
   /* El control nativo (date/select) se superpone invisible sobre el texto:

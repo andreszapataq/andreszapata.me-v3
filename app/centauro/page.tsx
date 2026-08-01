@@ -118,7 +118,7 @@ export default async function CrmPage({
 
   if (error) {
     return (
-      <main className="mx-auto w-full max-w-[34rem] px-6 py-16 text-base">
+      <main className="mx-auto w-full max-w-[34rem] px-6 py-16 crm-page">
         <p className="text-crm-red">No se pudo leer el CRM: {error.message}</p>
       </main>
     );
@@ -144,7 +144,7 @@ export default async function CrmPage({
   ).length;
 
   return (
-    <main className="mx-auto w-full max-w-[34rem] px-6 pt-12 pb-20 text-base leading-relaxed">
+    <main className="mx-auto w-full max-w-[34rem] px-6 pt-12 pb-20 crm-page">
       <header className="flex items-baseline justify-between">
         <h1 className="text-2xl font-medium tracking-tight">crm</h1>
         <form action={signOut}>
