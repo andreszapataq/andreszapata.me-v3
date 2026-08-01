@@ -47,7 +47,10 @@
       "WebSearch",
       "WebFetch(domain:www.shopify.com)",
       "WebFetch(domain:stripe.com)",
-      "Bash(node -e \"const p=require\\('./data/propuestas/biofarmacia.json'\\); console.log\\(p.projectName\\); console.log\\(JSON.stringify\\(p.deliverables.items,null,1\\)\\); console.log\\(p.comoFunciona ? JSON.stringify\\(p.comoFunciona,null,1\\) : 'sin comoFunciona'\\)\")"
+      "Bash(node -e \"const p=require\\('./data/propuestas/biofarmacia.json'\\); console.log\\(p.projectName\\); console.log\\(JSON.stringify\\(p.deliverables.items,null,1\\)\\); console.log\\(p.comoFunciona ? JSON.stringify\\(p.comoFunciona,null,1\\) : 'sin comoFunciona'\\)\")",
+      "Bash(timeout 300 pnpm build)",
+      "Bash(pnpm build *)",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__new_page"
     ],
     "additionalDirectories": [
       "/Users/andreszapata/Downloads/Projects/NextJS/andreszapata.me-v3",

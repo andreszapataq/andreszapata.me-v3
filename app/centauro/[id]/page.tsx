@@ -8,7 +8,7 @@ import InlineDate from "@/components/crm/inline-date";
 import InlineSelect from "@/components/crm/inline-select";
 import InlineAmount from "@/components/crm/inline-amount";
 import NoteComposer from "@/components/crm/note-composer";
-import ConfirmButton from "@/components/crm/confirm-button";
+import ConfirmDialog from "@/components/crm/confirm-dialog";
 import {
   NOTE_GLYPH,
   STATUS_TONE,
@@ -328,14 +328,16 @@ export default async function DealPage({
               <form action={deleteNote} className="shrink-0">
                 <input type="hidden" name="id" value={note.id} />
                 <input type="hidden" name="deal_id" value={deal.id} />
-                <ConfirmButton
-                  message="¿Borrar esta nota?"
-                  pendingLabel="…"
+                <ConfirmDialog
+                  title="¿Borrar esta nota?"
+                  detail={note.body}
+                  confirmLabel="borrar →"
+                  pendingLabel="borrando…"
                   ariaLabel="Borrar nota"
                   className="px-1 text-crm-faint transition-colors hover:text-crm-red"
                 >
                   ×
-                </ConfirmButton>
+                </ConfirmDialog>
               </form>
             </li>
           ))}
@@ -347,13 +349,19 @@ export default async function DealPage({
       <footer className="mt-14 border-t border-crm-line pt-4">
         <form action={deleteDeal}>
           <input type="hidden" name="id" value={deal.id} />
-          <ConfirmButton
-            message={`¿Borrar «${deal.client_name}» y toda su bitácora? No se puede deshacer.`}
+          <ConfirmDialog
+            title={`¿Borrar «${deal.client_name}»?`}
+            detail={`Se va también su bitácora${
+              notes.length > 0
+                ? ` (${notes.length} ${notes.length === 1 ? "entrada" : "entradas"})`
+                : ""
+            }. No se puede deshacer.`}
+            confirmLabel="borrar →"
             pendingLabel="borrando…"
             className="text-sm text-crm-faint transition-colors hover:text-crm-red"
           >
             borrar este negocio
-          </ConfirmButton>
+          </ConfirmDialog>
         </form>
       </footer>
     </main>
