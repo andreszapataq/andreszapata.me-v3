@@ -88,6 +88,7 @@ export default async function DealPage({
           value={deal.client_name}
           label="Cliente"
           placeholder="Cliente"
+          wrap
           className="text-2xl font-medium tracking-tight"
         />
         <InlineText
@@ -96,6 +97,7 @@ export default async function DealPage({
           value={deal.project_name}
           label="Proyecto"
           placeholder="sin proyecto"
+          wrap
           className="mt-1 text-crm-dim"
         />
       </header>
@@ -191,6 +193,7 @@ export default async function DealPage({
             value={deal.source}
             label="Origen del negocio"
             placeholder="de dónde salió"
+            wrap
           />
         </FieldRow>
 
@@ -216,6 +219,7 @@ export default async function DealPage({
             value={deal.contact_name}
             label="Nombre del contacto"
             placeholder="sin contacto"
+            wrap
           />
         </FieldRow>
 

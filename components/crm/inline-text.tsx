@@ -44,16 +44,30 @@ export default function InlineText({
 
   const fieldClass = `crm-field ${pending ? "text-crm-dim" : ""} ${className}`;
 
-  const clear = clearable && text !== "" && (
-    <button
-      type="button"
-      onClick={() => save("")}
-      aria-label={`Borrar ${label}`}
-      className="shrink-0 px-1 text-crm-faint hover:text-crm-red"
-    >
-      ×
-    </button>
-  );
+  /**
+   * La × aparece y desaparece con el contenido, pero el envoltorio no: si el
+   * árbol cambiara de forma al vaciar el campo, React desmontaría el textarea
+   * con el foco adentro y lo que se escribiera después nunca llegaría a
+   * guardarse, porque el blur no llega a dispararse.
+   */
+  const withClear = (control: React.ReactNode, align: string) =>
+    clearable ? (
+      <span className={`flex gap-1 ${align}`}>
+        {control}
+        {text !== "" && (
+          <button
+            type="button"
+            onClick={() => save("")}
+            aria-label={`Borrar ${label}`}
+            className="shrink-0 px-1 text-crm-faint hover:text-crm-red"
+          >
+            ×
+          </button>
+        )}
+      </span>
+    ) : (
+      control
+    );
 
   // Un <input> esconde lo que no cabe: un correo largo se lee a medias y no hay
   // forma de ver el final. El textarea que ya usamos para el texto libre sirve
@@ -89,14 +103,7 @@ export default function InlineText({
       />
     );
 
-    if (!clear) return area;
-
-    return (
-      <span className="flex items-start gap-1">
-        {area}
-        {clear}
-      </span>
-    );
+    return withClear(area, "items-start");
   }
 
   const input = (
@@ -123,12 +130,5 @@ export default function InlineText({
     />
   );
 
-  if (!clear) return input;
-
-  return (
-    <span className="flex items-baseline gap-1">
-      {input}
-      {clear}
-    </span>
-  );
+  return withClear(input, "items-baseline");
 }
