@@ -3,13 +3,18 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { readPropuestasAsDeals } from "@/lib/crm/seed";
+import {
+  pendingChanges,
+  readPropuestasAsDeals,
+  readPropuestasBySlug,
+} from "@/lib/crm/seed";
 import { todayISO } from "@/lib/crm/format";
 import {
   CURRENCIES,
   DEAL_STATUSES,
   NOTE_KINDS,
   type Currency,
+  type Deal,
   type DealStatus,
   type NoteKind,
 } from "@/types/crm";
@@ -244,6 +249,92 @@ export async function seedFromPropuestas() {
   if (error) throw new Error(`No se pudieron importar: ${error.message}`);
 
   revalidatePath(CRM_BASE);
+}
+
+/** Trae el negocio junto a la propuesta de la que salió. */
+async function loadPropuesta(
+  supabase: Awaited<ReturnType<typeof requireClient>>,
+  id: number
+) {
+  const { data, error } = await supabase
+    .from("crm_deals")
+    .select("*")
+    .eq("id", id)
+    .maybeSingle();
+
+  if (error) throw new Error(`No se pudo leer el negocio: ${error.message}`);
+
+  const deal = data as Deal | null;
+  if (!deal?.slug) return null;
+
+  const seed = readPropuestasBySlug().get(deal.slug);
+  return seed ? { deal, seed } : null;
+}
+
+/**
+ * Baja al negocio los campos que cambiaron en su propuesta.
+ *
+ * Los cambios se recalculan aquí y no se leen del formulario: lo que llega del
+ * cliente es solo el id, así nadie puede pedir que se escriba otra cosa.
+ */
+export async function syncDealFromPropuesta(formData: FormData) {
+  const supabase = await requireClient();
+
+  const id = Number(formData.get("id"));
+  if (!Number.isInteger(id)) return;
+
+  const state = await loadPropuesta(supabase, id);
+  if (!state) return;
+
+  const changes = pendingChanges(state.deal, state.seed);
+  if (changes.length === 0) return;
+
+  const patch: Record<string, string | number | null> = {
+    propuesta_hash: state.seed.propuesta_hash,
+  };
+  for (const { field } of changes) patch[field] = state.seed[field];
+
+  const { error } = await supabase.from("crm_deals").update(patch).eq("id", id);
+  if (error) throw new Error(`No se pudo sincronizar: ${error.message}`);
+
+  // Queda en la bitácora qué se movió: si el monto baja, uno quiere poder
+  // volver meses después y ver de dónde salió el número.
+  await supabase.from("crm_notes").insert({
+    deal_id: id,
+    kind: "nota",
+    body: [
+      "Sincronizado con la propuesta",
+      ...changes.map((c) => `${c.label}: ${c.from} → ${c.to}`),
+    ].join("\n"),
+  });
+
+  revalidatePath(CRM_BASE);
+  revalidatePath(crmPath(`/${id}`));
+}
+
+/**
+ * Marca la versión actual de la propuesta como vista sin copiar nada. El aviso
+ * vuelve si la propuesta cambia otra vez, pero deja de insistir con lo que ya
+ * decidiste no traer.
+ */
+export async function ignorePropuestaChanges(formData: FormData) {
+  const supabase = await requireClient();
+
+  const id = Number(formData.get("id"));
+  if (!Number.isInteger(id)) return;
+
+  const state = await loadPropuesta(supabase, id);
+  if (!state) return;
+
+  const { error } = await supabase
+    .from("crm_deals")
+    .update({ propuesta_hash: state.seed.propuesta_hash })
+    .eq("id", id);
+
+  if (error) throw new Error(`No se pudo ignorar el cambio: ${error.message}`);
+
+  revalidatePath(CRM_BASE);
+  revalidatePath(crmPath(`/${id}`));
 }
 
 export async function signOut() {

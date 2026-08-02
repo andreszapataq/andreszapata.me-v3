@@ -1,6 +1,10 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
-import { readPropuestasAsDeals } from "@/lib/crm/seed";
+import {
+  pendingChanges,
+  readPropuestasAsDeals,
+  readPropuestasBySlug,
+} from "@/lib/crm/seed";
 import { seedFromPropuestas, signOut } from "@/lib/crm/actions";
 import {
   STATUS_TONE,
@@ -50,7 +54,15 @@ function matchesView(deal: Deal, view: View) {
   return deal.status === (view === "ganadas" ? "ganada" : "perdida");
 }
 
-function DealLine({ deal, index }: { deal: Deal; index: number }) {
+function DealLine({
+  deal,
+  index,
+  outdated,
+}: {
+  deal: Deal;
+  index: number;
+  outdated: boolean;
+}) {
   const dueIn = daysFromToday(deal.next_step_at);
   const validIn = isOpen(deal) ? daysFromToday(deal.valid_until) : null;
 
@@ -88,6 +100,12 @@ function DealLine({ deal, index }: { deal: Deal; index: number }) {
           }`}
         >
           {meta.join(" · ")}
+        </p>
+      )}
+
+      {outdated && (
+        <p className="crm-mono mt-1 text-sm text-crm-accent">
+          ⟳ la propuesta cambió
         </p>
       )}
 
@@ -143,6 +161,17 @@ export default async function CrmPage({
     (p) => !knownSlugs.has(p.slug)
   ).length;
 
+  // Las propuestas viven en el repo, así que basta con releerlas en cada carga:
+  // no hay nada que avisar desde afuera cuando cambia un JSON.
+  const propuestas = readPropuestasBySlug();
+  const outdated = new Set(
+    deals
+      .filter(
+        (d) => d.slug && pendingChanges(d, propuestas.get(d.slug)).length > 0
+      )
+      .map((d) => d.id)
+  );
+
   return (
     <main className="mx-auto w-full max-w-crm px-6 pt-12 pb-20 crm-page">
       <header className="flex items-baseline justify-between">
@@ -160,21 +189,35 @@ export default async function CrmPage({
           : `${open.length} ${open.length === 1 ? "abierta" : "abiertas"} · ${sumByCurrency(open)} en juego`}
       </p>
 
-      {(dueToday > 0 || expired > 0) && (
+      {(dueToday > 0 || expired > 0 || outdated.size > 0) && (
         <p className="crm-mono mt-1 text-sm">
-          {dueToday > 0 && (
-            <span className="text-crm-amber">
-              {dueToday} {dueToday === 1 ? "pendiente" : "pendientes"} para hoy
-            </span>
-          )}
-          {dueToday > 0 && expired > 0 && (
-            <span className="text-crm-faint"> · </span>
-          )}
-          {expired > 0 && (
-            <span className="text-crm-red">
-              {expired} {expired === 1 ? "vencida" : "vencidas"}
-            </span>
-          )}
+          {[
+            dueToday > 0 && (
+              <span key="due" className="text-crm-amber">
+                {dueToday} {dueToday === 1 ? "pendiente" : "pendientes"} para hoy
+              </span>
+            ),
+            expired > 0 && (
+              <span key="expired" className="text-crm-red">
+                {expired} {expired === 1 ? "vencida" : "vencidas"}
+              </span>
+            ),
+            outdated.size > 0 && (
+              <span key="outdated" className="text-crm-accent">
+                {outdated.size}{" "}
+                {outdated.size === 1
+                  ? "propuesta cambió"
+                  : "propuestas cambiaron"}
+              </span>
+            ),
+          ]
+            .filter(Boolean)
+            .map((item, i) => (
+              <span key={i}>
+                {i > 0 && <span className="text-crm-faint"> · </span>}
+                {item}
+              </span>
+            ))}
         </p>
       )}
 
@@ -207,7 +250,12 @@ export default async function CrmPage({
           </p>
         ) : (
           visible.map((deal, i) => (
-            <DealLine key={deal.id} deal={deal} index={i} />
+            <DealLine
+              key={deal.id}
+              deal={deal}
+              index={i}
+              outdated={outdated.has(deal.id)}
+            />
           ))
         )}
       </section>

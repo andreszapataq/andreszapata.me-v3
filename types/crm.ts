@@ -49,8 +49,37 @@ export interface Deal {
   next_step: string | null;
   next_step_at: string | null;
   closed_at: string | null;
+  /**
+   * Firma de la propuesta con la que este negocio quedó sincronizado. Si no
+   * coincide con la firma del JSON actual, es que la propuesta cambió después.
+   */
+  propuesta_hash: string | null;
   created_at: string;
   updated_at: string;
+}
+
+/** Campos que el CRM hereda de la propuesta, con su etiqueta en la interfaz. */
+export const SYNCED_FIELDS = {
+  client_name: "cliente",
+  project_name: "proyecto",
+  amount: "monto",
+  currency: "moneda",
+  sent_at: "enviada",
+  valid_until: "vence",
+} as const;
+
+export type SyncedField = keyof typeof SYNCED_FIELDS;
+
+/**
+ * Un campo que la propuesta trae distinto de lo que hay en el CRM.
+ * `from` y `to` vienen ya formateados: solo son para mostrar, porque quien
+ * aplica el cambio lo recalcula del lado del servidor.
+ */
+export interface PropuestaChange {
+  field: SyncedField;
+  label: string;
+  from: string;
+  to: string;
 }
 
 export interface Note {

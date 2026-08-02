@@ -9,6 +9,8 @@ import InlineSelect from "@/components/crm/inline-select";
 import InlineAmount from "@/components/crm/inline-amount";
 import NoteComposer from "@/components/crm/note-composer";
 import ConfirmDialog from "@/components/crm/confirm-dialog";
+import PropuestaSync from "@/components/crm/propuesta-sync";
+import { pendingChanges, readPropuestasBySlug } from "@/lib/crm/seed";
 import {
   NOTE_GLYPH,
   STATUS_TONE,
@@ -64,6 +66,10 @@ export default async function DealPage({
   const validIn = daysFromToday(deal.valid_until);
   const dueIn = daysFromToday(deal.next_step_at);
 
+  const changes = deal.slug
+    ? pendingChanges(deal, readPropuestasBySlug().get(deal.slug))
+    : [];
+
   return (
     <main className="mx-auto w-full max-w-crm px-6 pt-12 pb-24 crm-page">
       <Link href={CRM_BASE} className="crm-mono text-sm text-crm-faint crm-tap">
@@ -88,6 +94,10 @@ export default async function DealPage({
           className="mt-1 text-crm-dim"
         />
       </header>
+
+      {changes.length > 0 && (
+        <PropuestaSync dealId={deal.id} changes={changes} />
+      )}
 
       <section className="mt-7">
         <FieldRow label="estado">
