@@ -55,6 +55,8 @@ export async function generateMetadata({
     },
     twitter: {
       card: 'summary_large_image',
+      site: '@andreszapata_me',
+      creator: '@andreszapata_me',
       title: messages.metadata.title,
       description: messages.metadata.description,
       images: ['/og-image.png'],
