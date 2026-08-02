@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { useFormStatus } from "react-dom";
 import { addNote } from "@/lib/crm/actions";
 import { NOTE_GLYPH, todayISO, formatDateShort } from "@/lib/crm/format";
 import { NOTE_KINDS, type NoteKind } from "@/types/crm";
+import { useAutoGrow } from "./use-auto-grow";
 
 function SaveLine({ empty }: { empty: boolean }) {
   const { pending } = useFormStatus();
@@ -23,15 +24,8 @@ export default function NoteComposer({ dealId }: { dealId: number }) {
   const [kind, setKind] = useState<NoteKind>("nota");
   const [when, setWhen] = useState(todayISO());
   const [body, setBody] = useState("");
-  const areaRef = useRef<HTMLTextAreaElement>(null);
-
   // Crece con lo escrito y vuelve a su tamaño mínimo al guardar.
-  useEffect(() => {
-    const area = areaRef.current;
-    if (!area) return;
-    area.style.height = "auto";
-    area.style.height = `${area.scrollHeight}px`;
-  }, [body]);
+  const areaRef = useAutoGrow(body);
 
   return (
     <form

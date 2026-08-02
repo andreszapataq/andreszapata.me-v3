@@ -55,7 +55,16 @@ export function formatDateShort(value: string | null): string {
  * inventar precisión. Cerca de hoy se dice en palabras.
  */
 export function formatNoteDate(value: string): string {
-  const iso = toLocalISO(new Date(value));
+  return formatDay(noteDay(value));
+}
+
+/** El día de Bogotá en que quedó una nota, como 'YYYY-MM-DD'. */
+export function noteDay(value: string): string {
+  return toLocalISO(new Date(value));
+}
+
+/** Un día suelto ('YYYY-MM-DD') dicho como lo dice la bitácora. */
+export function formatDay(iso: string): string {
   const diff = daysFromToday(iso);
   if (diff === 0) return "hoy";
   if (diff === -1) return "ayer";

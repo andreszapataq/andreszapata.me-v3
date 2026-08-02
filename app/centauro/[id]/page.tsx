@@ -8,6 +8,7 @@ import InlineDate from "@/components/crm/inline-date";
 import InlineSelect from "@/components/crm/inline-select";
 import InlineAmount from "@/components/crm/inline-amount";
 import NoteComposer from "@/components/crm/note-composer";
+import NoteEntry from "@/components/crm/note-entry";
 import ConfirmDialog from "@/components/crm/confirm-dialog";
 import PropuestaSync from "@/components/crm/propuesta-sync";
 import { pendingChanges, readPropuestasBySlug } from "@/lib/crm/seed";
@@ -15,7 +16,6 @@ import {
   NOTE_GLYPH,
   STATUS_TONE,
   daysFromToday,
-  formatNoteDate,
   phoneHref,
   whatsappHref,
 } from "@/lib/crm/format";
@@ -54,7 +54,12 @@ export default async function DealPage({
       .from("crm_notes")
       .select("*")
       .eq("deal_id", dealId)
-      .order("occurred_at", { ascending: false }),
+      // Las notas escritas a mano se anclan al mediodía de su día, así que
+      // varias del mismo día empatan en occurred_at. Sin este desempate el
+      // orden dentro de un día lo decide Postgres; con él manda el orden en
+      // que se registraron, que es como uno recuerda lo que pasó.
+      .order("occurred_at", { ascending: false })
+      .order("created_at", { ascending: false }),
   ]);
 
   if (dealResult.error) throw new Error(dealResult.error.message);
@@ -286,6 +291,7 @@ export default async function DealPage({
             label="Siguiente paso"
             placeholder="qué sigue…"
             multiline
+            clearable
           />
         </FieldRow>
 
@@ -329,12 +335,7 @@ export default async function DealPage({
               >
                 {NOTE_GLYPH[note.kind]}
               </span>
-              <div className="min-w-0 flex-1">
-                <p className="whitespace-pre-wrap">{note.body}</p>
-                <p className="crm-mono mt-0.5 text-sm text-crm-faint">
-                  {formatNoteDate(note.occurred_at)} · {note.kind}
-                </p>
-              </div>
+              <NoteEntry note={note} />
               <form action={deleteNote} className="shrink-0">
                 <input type="hidden" name="id" value={note.id} />
                 <input type="hidden" name="deal_id" value={deal.id} />

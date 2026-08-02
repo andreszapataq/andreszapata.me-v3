@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useAutoGrow } from "./use-auto-grow";
 import { useFieldState } from "./use-field-state";
 
 /**
@@ -16,6 +16,7 @@ export default function InlineText({
   type = "text",
   multiline = false,
   wrap = false,
+  clearable = false,
   className = "",
 }: {
   dealId: number;
@@ -27,6 +28,8 @@ export default function InlineText({
   multiline?: boolean;
   /** Un solo valor, pero que puede bajar de línea si no cabe a lo ancho. */
   wrap?: boolean;
+  /** Una × para vaciarlo de un toque: en un texto largo, borrar a mano es un castigo. */
+  clearable?: boolean;
   className?: string;
 }) {
   const {
@@ -37,23 +40,26 @@ export default function InlineText({
     pending,
   } = useFieldState(dealId, field, value ?? "");
 
-  const areaRef = useRef<HTMLTextAreaElement>(null);
-
-  // El textarea crece con el texto: nada de notas recortadas a una línea.
-  useEffect(() => {
-    const area = areaRef.current;
-    if (!area) return;
-    area.style.height = "auto";
-    area.style.height = `${area.scrollHeight}px`;
-  }, [text]);
+  const areaRef = useAutoGrow(text);
 
   const fieldClass = `crm-field ${pending ? "text-crm-dim" : ""} ${className}`;
+
+  const clear = clearable && text !== "" && (
+    <button
+      type="button"
+      onClick={() => save("")}
+      aria-label={`Borrar ${label}`}
+      className="shrink-0 px-1 text-crm-faint hover:text-crm-red"
+    >
+      ×
+    </button>
+  );
 
   // Un <input> esconde lo que no cabe: un correo largo se lee a medias y no hay
   // forma de ver el final. El textarea que ya usamos para el texto libre sirve
   // igual para un valor de una línea, dejándolo bajar de renglón.
   if (multiline || wrap) {
-    return (
+    const area = (
       <textarea
         ref={areaRef}
         value={text}
@@ -74,13 +80,26 @@ export default function InlineText({
             e.preventDefault();
             e.currentTarget.blur();
           }
+          if (e.key === "Escape") {
+            setText(committed);
+            e.currentTarget.blur();
+          }
         }}
         className={`${fieldClass} resize-none ${wrap ? "wrap-anywhere" : ""}`}
       />
     );
+
+    if (!clear) return area;
+
+    return (
+      <span className="flex items-start gap-1">
+        {area}
+        {clear}
+      </span>
+    );
   }
 
-  return (
+  const input = (
     <input
       type={type}
       value={text}
@@ -102,5 +121,14 @@ export default function InlineText({
       }}
       className={fieldClass}
     />
+  );
+
+  if (!clear) return input;
+
+  return (
+    <span className="flex items-baseline gap-1">
+      {input}
+      {clear}
+    </span>
   );
 }

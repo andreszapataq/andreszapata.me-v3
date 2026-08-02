@@ -10,10 +10,9 @@ import { updateDealField } from "@/lib/crm/actions";
  * el servidor. Comparar contra lo que acabamos de escribir revertiría la
  * edición antes de que la server action alcance a responder.
  */
-export function useFieldState(
-  dealId: number,
-  field: string,
-  incoming: string
+export function useSavedField(
+  incoming: string,
+  commit: (next: string) => void
 ) {
   const [lastProp, setLastProp] = useState(incoming);
   const [value, setValue] = useState(incoming);
@@ -31,13 +30,19 @@ export function useFieldState(
     setValue(next);
     if (next === committed) return;
     setCommitted(next);
+    startTransition(() => commit(next));
+  }
 
+  return { value, setValue, committed, save, pending };
+}
+
+/** Un campo de crm_deals, que es lo que edita casi toda la ficha. */
+export function useFieldState(dealId: number, field: string, incoming: string) {
+  return useSavedField(incoming, (next) => {
     const data = new FormData();
     data.set("id", String(dealId));
     data.set("field", field);
     data.set("value", next);
-    startTransition(() => updateDealField(data));
-  }
-
-  return { value, setValue, committed, save, pending };
+    updateDealField(data);
+  });
 }

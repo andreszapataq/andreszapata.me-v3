@@ -148,6 +148,49 @@ export async function addNote(formData: FormData) {
   revalidatePath(crmPath(`/${dealId}`));
 }
 
+/**
+ * Corrige una nota ya escrita: el cuerpo, el día, o los dos.
+ *
+ * Las notas `estado` quedan por fuera a propósito. Esas no las escribiste tú
+ * sino el CRM al mover el negocio, y si se pudieran editar la bitácora dejaría
+ * de ser prueba de lo que pasó.
+ */
+export async function updateNote(formData: FormData) {
+  const supabase = await requireClient();
+
+  const id = Number(formData.get("id"));
+  const dealId = Number(formData.get("deal_id"));
+  if (!Number.isInteger(id)) return;
+
+  const patch: Record<string, string> = {};
+
+  if (formData.has("body")) {
+    const body = String(formData.get("body") ?? "").trim();
+    // El cuerpo es obligatorio en la tabla: una nota vacía se borra, no se guarda.
+    if (body === "") return;
+    patch.body = body;
+  }
+
+  if (formData.has("occurred_on")) {
+    const occurredOn = String(formData.get("occurred_on") ?? "").trim();
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(occurredOn)) return;
+    // Mismo anclaje que al crearla: mediodía UTC para que el día no se corra.
+    patch.occurred_at = `${occurredOn}T12:00:00Z`;
+  }
+
+  if (Object.keys(patch).length === 0) return;
+
+  const { error } = await supabase
+    .from("crm_notes")
+    .update(patch)
+    .eq("id", id)
+    .neq("kind", "estado");
+
+  if (error) throw new Error(`No se pudo actualizar la nota: ${error.message}`);
+
+  revalidatePath(crmPath(`/${dealId}`));
+}
+
 export async function deleteNote(formData: FormData) {
   const supabase = await requireClient();
 
