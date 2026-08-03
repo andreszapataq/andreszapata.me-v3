@@ -266,6 +266,36 @@ body.crm-body ::selection {
       border: 1px solid #e6e6e6;
     }
   }
+
+  /* Avisos de los pasos siguientes. Se apilan abajo, donde el pulgar llega,
+     y flotan sobre la lista sin empujarla. */
+  .crm-toasts {
+    position: fixed;
+    left: 50%;
+    bottom: calc(1rem + env(safe-area-inset-bottom));
+    z-index: 50;
+    display: flex;
+    width: min(100% - 1.5rem, var(--container-crm));
+    flex-direction: column;
+    gap: 0.5rem;
+    transform: translateX(-50%);
+    /* La columna ocupa todo el ancho aunque los avisos sean bajos: sin esto,
+       la franja vacía de al lado se comería los clics de la fila de abajo. */
+    pointer-events: none;
+  }
+
+  .crm-toasts > * {
+    pointer-events: auto;
+  }
+
+  .crm-toast {
+    border: 1px solid #e6e6e6;
+    background: var(--background);
+    /* La única sombra del CRM. Lo que flota sobre el documento tiene que
+       despegarse de él, y el borde solo no alcanza cuando cae encima de una
+       fila que además se ilumina al pasar por encima. */
+    box-shadow: 0 6px 20px rgba(23, 23, 23, 0.09);
+  }
 }
 
 @keyframes crm-row-in {
@@ -312,9 +342,26 @@ body.crm-body ::selection {
   }
 }
 
+/* El aviso sube desde el borde de abajo, como la hoja de confirmación. */
+@keyframes crm-toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.crm-toast {
+  animation: crm-toast-in 260ms cubic-bezier(0.2, 0, 0, 1) both;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .crm-row,
-  .crm-dialog[open] {
+  .crm-dialog[open],
+  .crm-toast {
     animation: none;
   }
 }
