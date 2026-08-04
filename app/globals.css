@@ -303,13 +303,10 @@ body.crm-body ::selection {
        y .crm-dialog —la otra superficie que flota sobre el documento— tampoco
        las tiene. El radio que había aquí venía de las propuestas, del mismo
        sitio que el degradado. */
+    /* Sin sombra: el CRM no tiene ninguna, y el salto de blanco a teal ya
+       separa el aviso de la lista sin necesidad de simular altura. */
     background: #0f766e;
     color: #ffffff;
-    /* La única sombra del CRM. Lo que flota sobre el documento tiene que
-       despegarse de él, y encima teñida del mismo teal para que no se lea
-       como una caja gris pegada de otra parte. El diálogo se separa con su
-       backdrop; aquí no hay backdrop que valga, porque no bloquea nada. */
-    box-shadow: 0 8px 24px rgba(15, 118, 110, 0.32);
   }
 
   /* Texto accionable sobre el teal: .crm-tap se volvería invisible ahí, porque
