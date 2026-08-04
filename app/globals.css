@@ -288,13 +288,41 @@ body.crm-body ::selection {
     pointer-events: auto;
   }
 
+  /* El único bloque del CRM que rompe la estética de documento, y a propósito:
+     un aviso interrumpe, así que tiene que leerse distinto de lo que hay
+     debajo.
+
+     Teal plano y no el degradado de las propuestas por dos razones. La de
+     forma: el CRM no tiene un solo degradado: es un libro de registro, y el
+     degradado de `proposal-investment` hace un trabajo de venta que aquí no
+     hay que hacerle a nadie. La de fondo: sobre el extremo claro (#0d9488) el
+     texto blanco queda en 3.7:1, por debajo del mínimo AA, así que medio aviso
+     se leía peor que el otro medio. Plano en el tono oscuro sube a 5.5:1. */
   .crm-toast {
-    border: 1px solid #e6e6e6;
-    background: var(--background);
+    /* Sin esquinas redondeadas, como todo lo demás: .crm-field las resetea a 0
+       y .crm-dialog —la otra superficie que flota sobre el documento— tampoco
+       las tiene. El radio que había aquí venía de las propuestas, del mismo
+       sitio que el degradado. */
+    background: #0f766e;
+    color: #ffffff;
     /* La única sombra del CRM. Lo que flota sobre el documento tiene que
-       despegarse de él, y el borde solo no alcanza cuando cae encima de una
-       fila que además se ilumina al pasar por encima. */
-    box-shadow: 0 6px 20px rgba(23, 23, 23, 0.09);
+       despegarse de él, y encima teñida del mismo teal para que no se lea
+       como una caja gris pegada de otra parte. El diálogo se separa con su
+       backdrop; aquí no hay backdrop que valga, porque no bloquea nada. */
+    box-shadow: 0 8px 24px rgba(15, 118, 110, 0.32);
+  }
+
+  /* Texto accionable sobre el teal: .crm-tap se volvería invisible ahí, porque
+     su subrayado y su hover son justamente de este color. */
+  .crm-tap-invert {
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.6);
+    transition: border-color 140ms ease, color 140ms ease;
+  }
+
+  .crm-tap-invert:hover,
+  .crm-tap-invert:focus-visible {
+    border-bottom-color: #ffffff;
+    color: #ffffff;
   }
 }
 
@@ -358,10 +386,29 @@ body.crm-body ::selection {
   animation: crm-toast-in 260ms cubic-bezier(0.2, 0, 0, 1) both;
 }
 
+/* Al cerrarlo se va por donde vino, un poco más rápido: la salida no tiene
+   nada que anunciar. El componente lo retira cuando termina esta animación. */
+@keyframes crm-toast-out {
+  from {
+    opacity: 1;
+    transform: none;
+  }
+  to {
+    opacity: 0;
+    transform: translateY(8px) scale(0.97);
+  }
+}
+
+.crm-toast-leaving {
+  animation: crm-toast-out 190ms ease-in both;
+  pointer-events: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .crm-row,
   .crm-dialog[open],
-  .crm-toast {
+  .crm-toast,
+  .crm-toast-leaving {
     animation: none;
   }
 }

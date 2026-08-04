@@ -380,6 +380,42 @@ export async function ignorePropuestaChanges(formData: FormData) {
   revalidatePath(crmPath(`/${id}`));
 }
 
+/**
+ * Cierra el aviso de un paso siguiente: marca como vista la fecha que tiene
+ * puesta ahora mismo.
+ *
+ * La fecha se lee aquí y no llega del cliente a propósito. Si entre el clic y
+ * la escritura el paso se reprogramó, esto marca visto el día viejo —que ya no
+ * es el vigente— en vez de silenciar de una la fecha nueva.
+ *
+ * Al vivir en la tabla y no en el navegador, cerrar el aviso en el teléfono
+ * también lo cierra en el escritorio.
+ */
+export async function dismissTaskAlert(id: number) {
+  const supabase = await requireClient();
+  if (!Number.isInteger(id)) return;
+
+  const { data, error: readError } = await supabase
+    .from("crm_deals")
+    .select("next_step_at")
+    .eq("id", id)
+    .maybeSingle();
+
+  if (readError) throw new Error(`No se pudo leer el paso: ${readError.message}`);
+  if (!data?.next_step_at) return;
+
+  const { error } = await supabase
+    .from("crm_deals")
+    .update({ next_step_seen_at: data.next_step_at })
+    .eq("id", id);
+
+  if (error) throw new Error(`No se pudo cerrar el aviso: ${error.message}`);
+
+  // "layout" y no la ruta a secas: los avisos se leen en el layout del CRM,
+  // así que revalidar solo la página los dejaría intactos.
+  revalidatePath(CRM_BASE, "layout");
+}
+
 export async function signOut() {
   const supabase = await createClient();
   await supabase.auth.signOut();

@@ -1,75 +1,28 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useSyncExternalStore } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState, useSyncExternalStore, useTransition } from "react";
 import { crmPath } from "@/lib/crm/route";
 import { relativeDays } from "@/lib/crm/format";
+import { dismissTaskAlert } from "@/lib/crm/actions";
 import type { TaskAlert } from "@/lib/crm/alerts";
 
 /** Cuántos avisos se ven a la vez; el resto se resume en una línea. */
 const MAX_VISIBLE = 3;
 
-const SEEN_PREFIX = "crm:visto:";
-
 /**
- * Clave de «ya vi esto». Lleva el día del paso y no el día en que se cerró el
- * aviso, y ahí está toda la diferencia: cerrar significa «visto para esta
- * fecha», no «no me molestes hoy». Una tarea vencida que no reprogramas se
- * queda callada —la lista la sigue marcando en ámbar— y en el momento en que
- * le pones fecha nueva la clave cambia y el aviso se re-arma solo.
+ * El reloj del teléfono, que es lo único que decide si un aviso ya llegó a su
+ * hora. Vive fuera de React porque es justamente eso —un sistema externo— y
+ * porque useSyncExternalStore deja que el servidor pinte «nada» sin inventarse
+ * una hora que allá no existe. Es módulo y no estado del componente porque el
+ * toaster está montado una sola vez, en el layout del CRM.
  */
-function seenKey(alert: TaskAlert): string {
-  return `${SEEN_PREFIX}${alert.id}:${alert.next_step_at}`;
-}
-
-/**
- * Lee lo ya descartado y de paso barre lo que sobró: como cada clave lleva su
- * fecha, reprogramar deja atrás la anterior y nadie la volvería a consultar.
- */
-function readSeen(alerts: TaskAlert[]): Set<string> {
-  const live = new Set(alerts.map(seenKey));
-  const seen = new Set<string>();
-
-  try {
-    const stale: string[] = [];
-    for (let i = 0; i < window.localStorage.length; i++) {
-      const key = window.localStorage.key(i);
-      if (key === null || !key.startsWith(SEEN_PREFIX)) continue;
-      if (live.has(key)) seen.add(key);
-      else stale.push(key);
-    }
-    for (const key of stale) window.localStorage.removeItem(key);
-  } catch {
-    // Sin localStorage (incógnito, cuota llena) no hay nada descartado y se
-    // muestran todos. Es el lado seguro del error para un recordatorio.
-  }
-
-  return seen;
-}
-
-/**
- * Lo que el CRM no puede saber hasta que corre en el teléfono: qué hora es y
- * qué avisos ya cerraste.
- *
- * Vive fuera de React porque eso es literalmente lo que es —el reloj y
- * localStorage—, y porque useSyncExternalStore es lo que deja que el servidor
- * pinte «nada» sin inventarse un estado que allá no existe. Es módulo y no
- * estado del componente porque el toaster está montado una sola vez, en el
- * layout del CRM.
- */
-interface Reading {
-  /** Epoch ms de la última lectura del reloj. 0 = todavía no se ha leído. */
-  now: number;
-  seen: ReadonlySet<string>;
-}
-
-const UNREAD: Reading = { now: 0, seen: new Set() };
-
-let reading: Reading = UNREAD;
+let clock = 0;
 const listeners = new Set<() => void>();
 
-function publish(next: Reading) {
-  reading = next;
+function readClock() {
+  clock = Date.now();
   for (const listener of listeners) listener();
 }
 
@@ -80,19 +33,8 @@ function subscribe(listener: () => void) {
   };
 }
 
-const getReading = () => reading;
-const getServerReading = () => UNREAD;
-
-function dismiss(alert: TaskAlert) {
-  const key = seenKey(alert);
-  publish({ now: reading.now, seen: new Set(reading.seen).add(key) });
-
-  try {
-    window.localStorage.setItem(key, "1");
-  } catch {
-    // Si no se puede guardar, el aviso igual se cierra en esta sesión.
-  }
-}
+const getClock = () => clock;
+const getServerClock = () => 0;
 
 /**
  * Los pasos siguientes que ya reclamaron su hora, apilados abajo.
@@ -102,28 +44,34 @@ function dismiss(alert: TaskAlert) {
  * lo que acabas de cerrar.
  */
 export default function TaskToasts({ alerts }: { alerts: TaskAlert[] }) {
-  const { now, seen } = useSyncExternalStore(
-    subscribe,
-    getReading,
-    getServerReading
-  );
+  const now = useSyncExternalStore(subscribe, getClock, getServerClock);
+  const router = useRouter();
+  const [, startDismiss] = useTransition();
 
-  // Primera lectura del reloj y de lo ya descartado. Es un efecto que escribe
-  // en un sistema externo, no estado de React que se sincroniza solo.
+  // Cerrar un aviso es un viaje al servidor. Estos dos conjuntos hacen que la
+  // tarjeta responda de una: `leaving` la anima hacia afuera y `gone` la retira
+  // cuando termina. Al volver la acción, el aviso ya no llega en `alerts` y los
+  // dos sobran —por eso no hace falta limpiarlos.
+  const [leaving, setLeaving] = useState<ReadonlySet<number>>(new Set());
+  const [gone, setGone] = useState<ReadonlySet<number>>(new Set());
+
+  // Primera lectura del reloj. Es un efecto que escribe en un sistema externo,
+  // no estado de React que se sincroniza solo.
   useEffect(() => {
-    publish({ now: Date.now(), seen: readSeen(alerts) });
-  }, [alerts]);
+    readClock();
+  }, []);
 
   useEffect(() => {
     if (now === 0) return;
 
-    const read = () => publish({ now: Date.now(), seen: reading.seen });
-
     // Chrome en móvil congela los timers de las pestañas que quedan atrás: si
     // las 9:00 pasan con el CRM detrás de otra app, el setTimeout no dispara.
-    // Por eso el reloj también se relee al volver a la pestaña.
     const onVisibility = () => {
-      if (document.visibilityState === "visible") read();
+      if (document.visibilityState !== "visible") return;
+      readClock();
+      // Y como los avisos cerrados viven en la tabla, otra pantalla pudo cerrar
+      // uno mientras esta pestaña estaba atrás: al volver se vuelven a pedir.
+      router.refresh();
     };
     document.addEventListener("visibilitychange", onVisibility);
 
@@ -133,19 +81,33 @@ export default function TaskToasts({ alerts }: { alerts: TaskAlert[] }) {
     const timer =
       next === undefined
         ? undefined
-        : window.setTimeout(read, next.due_at - now + 500);
+        : window.setTimeout(readClock, next.due_at - now + 500);
 
     return () => {
       document.removeEventListener("visibilitychange", onVisibility);
       if (timer !== undefined) window.clearTimeout(timer);
     };
-  }, [alerts, now]);
+  }, [alerts, now, router]);
+
+  function dismiss(alert: TaskAlert) {
+    startDismiss(async () => {
+      await dismissTaskAlert(alert.id);
+    });
+
+    // Sin animación no hay `animationend` que esperar: se retira de una.
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setGone((prev) => new Set(prev).add(alert.id));
+      return;
+    }
+
+    setLeaving((prev) => new Set(prev).add(alert.id));
+  }
 
   if (now === 0) return null;
 
   // `alerts` ya viene ordenada por vencimiento: lo más atrasado primero.
   const due = alerts.filter(
-    (alert) => alert.due_at <= now && !seen.has(seenKey(alert))
+    (alert) => alert.due_at <= now && !gone.has(alert.id)
   );
   if (due.length === 0) return null;
 
@@ -162,9 +124,13 @@ export default function TaskToasts({ alerts }: { alerts: TaskAlert[] }) {
 
       {visible.map((alert, i) => (
         <article
-          key={seenKey(alert)}
-          className="crm-toast relative"
-          style={{ animationDelay: `${i * 60}ms` }}
+          key={alert.id}
+          className={`crm-toast ${leaving.has(alert.id) ? "crm-toast-leaving" : ""}`}
+          style={{ animationDelay: leaving.has(alert.id) ? "0ms" : `${i * 60}ms` }}
+          onAnimationEnd={(e) => {
+            if (e.animationName !== "crm-toast-out") return;
+            setGone((prev) => new Set(prev).add(alert.id));
+          }}
         >
           <div className="px-4 pt-3 pb-1">
             <div className="flex items-baseline justify-between gap-3">
@@ -178,13 +144,16 @@ export default function TaskToasts({ alerts }: { alerts: TaskAlert[] }) {
               >
                 {alert.client}
               </Link>
-              <span className="crm-mono shrink-0 text-sm text-crm-amber">
+              {/* Blanco al 90% y no más abajo: sobre el teal, por debajo de
+                  ahí el texto pequeño cae del mínimo AA. La jerarquía la hace
+                  el tamaño y la mono, no la transparencia. */}
+              <span className="crm-mono shrink-0 text-sm text-white/90">
                 {relativeDays(alert.next_step_at)}
               </span>
             </div>
 
             {/* Un paso largo no puede estirar el aviso hasta tapar la pantalla. */}
-            <p className="mt-0.5 line-clamp-2 text-crm-dim">
+            <p className="mt-0.5 line-clamp-2 text-white/90">
               → {alert.next_step}
             </p>
           </div>
@@ -195,7 +164,7 @@ export default function TaskToasts({ alerts }: { alerts: TaskAlert[] }) {
             <button
               type="button"
               onClick={() => dismiss(alert)}
-              className="crm-mono ml-auto text-sm text-crm-faint crm-tap"
+              className="crm-mono ml-auto text-sm text-white/90 crm-tap-invert"
             >
               cerrar
             </button>

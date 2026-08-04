@@ -22,11 +22,17 @@ const BOGOTA_OFFSET = "-05:00";
  */
 type AlertSource = Pick<
   Deal,
-  "id" | "client_name" | "project_name" | "status" | "next_step" | "next_step_at"
+  | "id"
+  | "client_name"
+  | "project_name"
+  | "status"
+  | "next_step"
+  | "next_step_at"
+  | "next_step_seen_at"
 >;
 
 export const ALERT_COLUMNS =
-  "id, client_name, project_name, status, next_step, next_step_at";
+  "id, client_name, project_name, status, next_step, next_step_at, next_step_seen_at";
 
 /** Un paso siguiente con el momento en que reclama atención. */
 export interface TaskAlert {
@@ -45,10 +51,12 @@ export function dueAt(nextStepAt: string): number {
 }
 
 /**
- * Los pasos siguientes que pueden avisar: negocio vivo, con tarea escrita y
- * con día puesto. No filtra por vencimiento a propósito —eso depende del reloj
- * de quien mira, que en el servidor no se conoce— sino que manda la lista
- * completa para que el cliente decida cuáles ya llegaron.
+ * Los pasos siguientes que pueden avisar: negocio vivo, con tarea escrita, con
+ * día puesto y sin cerrar todavía para ese día.
+ *
+ * No filtra por vencimiento a propósito —eso depende del reloj de quien mira,
+ * que en el servidor no se conoce— sino que manda la lista completa para que
+ * el cliente decida cuáles ya llegaron.
  */
 export function toTaskAlerts(deals: AlertSource[]): TaskAlert[] {
   return deals
@@ -56,7 +64,10 @@ export function toTaskAlerts(deals: AlertSource[]): TaskAlert[] {
       (deal) =>
         OPEN_STATUSES.includes(deal.status) &&
         deal.next_step !== null &&
-        deal.next_step_at !== null
+        deal.next_step_at !== null &&
+        // Cerrar el aviso marca la fecha vista. Reprogramar la mueve, deja de
+        // coincidir, y el aviso vuelve sin que haya que limpiar nada.
+        deal.next_step_seen_at !== deal.next_step_at
     )
     .map((deal) => ({
       id: deal.id,

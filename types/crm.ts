@@ -48,6 +48,14 @@ export interface Deal {
   valid_until: string | null;
   next_step: string | null;
   next_step_at: string | null;
+  /**
+   * El `next_step_at` que ya se dio por visto al cerrar su aviso. Guarda la
+   * fecha y no un booleano a propósito: cuando el paso se reprograma, deja de
+   * coincidir con `next_step_at` y el aviso se re-arma solo. Vive en la tabla
+   * y no en el navegador para que cerrarlo en el teléfono también lo cierre
+   * en el escritorio.
+   */
+  next_step_seen_at: string | null;
   closed_at: string | null;
   /**
    * Firma de la propuesta con la que este negocio quedó sincronizado. Si no
