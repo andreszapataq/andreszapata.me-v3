@@ -114,8 +114,12 @@ export async function updateDealField(formData: FormData) {
     });
   }
 
-  revalidatePath(CRM_BASE);
-  revalidatePath(crmPath(`/${id}`));
+  // "layout" y no las rutas a secas: reprogramar el paso siguiente cambia lo
+  // que el aviso tiene que decir, y los avisos se leen en el layout del CRM.
+  // Revalidar solo las páginas dejaría en pantalla un aviso con la fecha vieja.
+  // El layout cubre además el listado y la pantalla del negocio, que cuelgan
+  // de él, así que reemplaza a las dos llamadas en vez de sumarse a ellas.
+  revalidatePath(CRM_BASE, "layout");
 }
 
 export async function addNote(formData: FormData) {
