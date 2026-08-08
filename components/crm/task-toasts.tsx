@@ -185,7 +185,7 @@ export default function TaskToasts({ alerts }: { alerts: TaskAlert[] }) {
             setGone((prev) => new Set(prev).add(alert.id));
           }}
         >
-          <div className="px-4 pt-3 pb-1">
+          <div className="px-4 pt-3 pb-2">
             <div className="flex items-baseline justify-between gap-3">
               {/* El enlace se estira sobre toda la tarjeta (after:inset-0): el
                   aviso entero abre el negocio, sin gastar una línea en decir
@@ -214,13 +214,13 @@ export default function TaskToasts({ alerts }: { alerts: TaskAlert[] }) {
                 siempre, así sean dos avisos o tres y sea teléfono o escritorio.
                 Lo que se corta lo lees completo al abrir el negocio, que está a
                 un toque en cualquier punto de la tarjeta. */}
-            <p className="mt-0.5 truncate text-white/90">→ {alert.next_step}</p>
+            <p className="mt-1.5 truncate text-white/90">→ {alert.next_step}</p>
           </div>
 
           {/* z-10 para quedar por encima del enlace estirado. Las dos palabras
               van a los extremos para que no se confundan al pulsar: ocultar es
               cosa de esta pantalla, cerrar se escribe en la tabla. */}
-          <div className="relative z-10 flex items-baseline justify-between px-4 pb-2.5">
+          <div className="relative z-10 flex items-baseline justify-between px-4 pb-3">
             <button
               type="button"
               onClick={() => hide(alert)}
