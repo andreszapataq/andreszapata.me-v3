@@ -6,6 +6,11 @@ import { useEffect, useState, useSyncExternalStore, useTransition } from "react"
 import { crmPath } from "@/lib/crm/route";
 import { relativeDays } from "@/lib/crm/format";
 import { dismissTaskAlert } from "@/lib/crm/actions";
+import {
+  hideAlert,
+  pruneHiddenAlerts,
+  useHiddenAlerts,
+} from "@/components/crm/hidden-alerts";
 import type { TaskAlert } from "@/lib/crm/alerts";
 
 /** Cuántos avisos se ven a la vez; el resto se resume en una línea. */
@@ -45,6 +50,7 @@ const getServerClock = () => 0;
  */
 export default function TaskToasts({ alerts }: { alerts: TaskAlert[] }) {
   const now = useSyncExternalStore(subscribe, getClock, getServerClock);
+  const hiddenIds = useHiddenAlerts();
   const router = useRouter();
   const [, startDismiss] = useTransition();
 
@@ -55,11 +61,22 @@ export default function TaskToasts({ alerts }: { alerts: TaskAlert[] }) {
   const [leaving, setLeaving] = useState<ReadonlySet<number>>(new Set());
   const [gone, setGone] = useState<ReadonlySet<number>>(new Set());
 
+  // Ocultar usa la misma animación de salida que cerrar, pero termina en otro
+  // sitio: el aviso pasa al contador del encabezado en vez de irse a la tabla.
+  // Este conjunto solo dura lo que dura la animación.
+  const [hiding, setHiding] = useState<ReadonlySet<number>>(new Set());
+
   // Primera lectura del reloj. Es un efecto que escribe en un sistema externo,
   // no estado de React que se sincroniza solo.
   useEffect(() => {
     readClock();
   }, []);
+
+  // Lo que se ocultó pero ya dejó de existir no puede seguir sumando en el
+  // encabezado: sería un número que al presionarlo no devuelve nada.
+  useEffect(() => {
+    pruneHiddenAlerts(new Set(alerts.map((alert) => alert.id)));
+  }, [alerts]);
 
   useEffect(() => {
     if (now === 0) return;
@@ -103,22 +120,33 @@ export default function TaskToasts({ alerts }: { alerts: TaskAlert[] }) {
     setLeaving((prev) => new Set(prev).add(alert.id));
   }
 
+  function hide(alert: TaskAlert) {
+    // Nada que esperar del servidor: ocultar no sale de esta pestaña.
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      hideAlert(alert.id);
+      return;
+    }
+
+    setHiding((prev) => new Set(prev).add(alert.id));
+  }
+
   if (now === 0) return null;
 
   // `alerts` ya viene ordenada por vencimiento: lo más atrasado primero.
   const due = alerts.filter(
-    (alert) => alert.due_at <= now && !gone.has(alert.id)
+    (alert) =>
+      alert.due_at <= now && !gone.has(alert.id) && !hiddenIds.has(alert.id)
   );
   if (due.length === 0) return null;
 
   const visible = due.slice(0, MAX_VISIBLE);
-  const hidden = due.length - visible.length;
+  const overflow = due.length - visible.length;
 
   return (
     <div className="crm-toasts crm-page" role="status" aria-live="polite">
-      {hidden > 0 && (
+      {overflow > 0 && (
         <p className="crm-mono px-1 text-sm text-crm-faint">
-          + {hidden} {hidden === 1 ? "pendiente más" : "pendientes más"}
+          + {overflow} {overflow === 1 ? "pendiente más" : "pendientes más"}
         </p>
       )}
 
@@ -128,10 +156,32 @@ export default function TaskToasts({ alerts }: { alerts: TaskAlert[] }) {
           // `relative` para que el enlace estirado de adentro se mida contra
           // esta tarjeta. Sin esto se mide contra .crm-toasts, que es la
           // columna fija, y la capa de un aviso tapa a los de arriba.
-          className={`crm-toast relative ${leaving.has(alert.id) ? "crm-toast-leaving" : ""}`}
-          style={{ animationDelay: leaving.has(alert.id) ? "0ms" : `${i * 60}ms` }}
+          className={`crm-toast relative ${
+            leaving.has(alert.id) || hiding.has(alert.id)
+              ? "crm-toast-leaving"
+              : ""
+          }`}
+          style={{
+            animationDelay:
+              leaving.has(alert.id) || hiding.has(alert.id) ? "0ms" : `${i * 60}ms`,
+          }}
+          // La animación de salida es la misma para las dos acciones; lo que
+          // cambia es dónde termina el aviso. Ocultar lo pasa al contador del
+          // encabezado (y suelta el `hiding`, que ya cumplió); cerrar lo retira
+          // del todo, porque el servidor ya no lo va a devolver.
           onAnimationEnd={(e) => {
             if (e.animationName !== "crm-toast-out") return;
+
+            if (hiding.has(alert.id)) {
+              hideAlert(alert.id);
+              setHiding((prev) => {
+                const next = new Set(prev);
+                next.delete(alert.id);
+                return next;
+              });
+              return;
+            }
+
             setGone((prev) => new Set(prev).add(alert.id));
           }}
         >
@@ -160,19 +210,28 @@ export default function TaskToasts({ alerts }: { alerts: TaskAlert[] }) {
               </span>
             </div>
 
-            {/* Un paso largo no puede estirar el aviso hasta tapar la pantalla. */}
-            <p className="mt-0.5 line-clamp-2 text-white/90">
-              → {alert.next_step}
-            </p>
+            {/* Una sola línea, igual que el nombre: el aviso mide lo mismo
+                siempre, así sean dos avisos o tres y sea teléfono o escritorio.
+                Lo que se corta lo lees completo al abrir el negocio, que está a
+                un toque en cualquier punto de la tarjeta. */}
+            <p className="mt-0.5 truncate text-white/90">→ {alert.next_step}</p>
           </div>
 
-          {/* z-10 para quedar por encima del enlace estirado, y ml-auto para
-              que el área de «cerrar» sea la palabra y no la franja entera. */}
-          <div className="relative z-10 flex px-4 pb-2.5">
+          {/* z-10 para quedar por encima del enlace estirado. Las dos palabras
+              van a los extremos para que no se confundan al pulsar: ocultar es
+              cosa de esta pantalla, cerrar se escribe en la tabla. */}
+          <div className="relative z-10 flex items-baseline justify-between px-4 pb-2.5">
+            <button
+              type="button"
+              onClick={() => hide(alert)}
+              className="crm-mono text-sm text-white/90 crm-tap-invert"
+            >
+              ocultar
+            </button>
             <button
               type="button"
               onClick={() => dismiss(alert)}
-              className="crm-mono ml-auto text-sm text-white/90 crm-tap-invert"
+              className="crm-mono text-sm text-white/90 crm-tap-invert"
             >
               cerrar
             </button>

@@ -16,6 +16,7 @@ import {
 } from "@/lib/crm/format";
 import { OPEN_STATUSES, type Deal } from "@/types/crm";
 import { CRM_BASE, crmPath } from "@/lib/crm/route";
+import { HiddenAlertsBadge } from "@/components/crm/hidden-alerts";
 
 export const dynamic = "force-dynamic";
 
@@ -175,7 +176,10 @@ export default async function CrmPage({
   return (
     <main className="mx-auto w-full max-w-crm px-6 pt-12 pb-20 crm-page">
       <header className="flex items-baseline justify-between">
-        <h1 className="text-2xl font-medium tracking-tight">crm</h1>
+        <h1 className="text-2xl font-medium tracking-tight">
+          crm
+          <HiddenAlertsBadge />
+        </h1>
         <form action={signOut}>
           <button type="submit" className="crm-mono text-sm text-crm-faint crm-tap">
             salir
