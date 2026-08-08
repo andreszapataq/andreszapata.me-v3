@@ -125,7 +125,10 @@ export default function TaskToasts({ alerts }: { alerts: TaskAlert[] }) {
       {visible.map((alert, i) => (
         <article
           key={alert.id}
-          className={`crm-toast ${leaving.has(alert.id) ? "crm-toast-leaving" : ""}`}
+          // `relative` para que el enlace estirado de adentro se mida contra
+          // esta tarjeta. Sin esto se mide contra .crm-toasts, que es la
+          // columna fija, y la capa de un aviso tapa a los de arriba.
+          className={`crm-toast relative ${leaving.has(alert.id) ? "crm-toast-leaving" : ""}`}
           style={{ animationDelay: leaving.has(alert.id) ? "0ms" : `${i * 60}ms` }}
           onAnimationEnd={(e) => {
             if (e.animationName !== "crm-toast-out") return;
@@ -138,11 +141,16 @@ export default function TaskToasts({ alerts }: { alerts: TaskAlert[] }) {
                   aviso entero abre el negocio, sin gastar una línea en decir
                   «abrir». El proyecto tampoco va: en un empujón basta con de
                   quién es y qué toca hacer. */}
+              {/* El nombre no parte en dos líneas: en un teléfono angosto un
+                  cliente de nombre largo estiraba el aviso hasta el doble de
+                  alto. Recortado sigue reconociéndose, que es todo lo que un
+                  empujón necesita. El overflow va en el span y no en el enlace
+                  porque sobre el enlace recortaría también su propia capa. */}
               <Link
                 href={crmPath(`/${alert.id}`)}
-                className="font-medium after:absolute after:inset-0"
+                className="min-w-0 font-medium after:absolute after:inset-0"
               >
-                {alert.client}
+                <span className="block truncate">{alert.client}</span>
               </Link>
               {/* Blanco al 90% y no más abajo: sobre el teal, por debajo de
                   ahí el texto pequeño cae del mínimo AA. La jerarquía la hace
