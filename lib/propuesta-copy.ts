@@ -10,7 +10,12 @@
  * (proposal-cta) como uno de cliente (floating-bar).
  */
 
+/**
+ * Sin segunda persona a propósito: el resto de la propuesta habla en tercera
+ * ("la farmacia", "el equipo"), y así la misma línea sirve igual para una
+ * persona natural que para una empresa, sin tener que elegir tú/ustedes.
+ */
 export const CIERRE_ESTANDAR =
-  "Si esta propuesta se alinea con lo que buscas, el siguiente paso es agendar una sesión estratégica para afinar detalles, resolver dudas y definir fecha de arranque.";
+  "Si el enfoque tiene sentido, el siguiente paso es agendar una sesión estratégica para afinar detalles, resolver dudas y definir la fecha de arranque.";
 
 export const CTA_ESTANDAR = "Agendar sesión";
