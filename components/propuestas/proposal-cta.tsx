@@ -1,16 +1,17 @@
 import { ArrowRight } from "lucide-react";
 import ProposalSection from "./proposal-section";
+import { CIERRE_ESTANDAR, CTA_ESTANDAR } from "@/lib/propuesta-copy";
 
 interface ProposalCtaProps {
-  text: string;
+  text?: string;
   calendarUrl: string;
   label?: string;
 }
 
 export default function ProposalCta({
-  text,
+  text = CIERRE_ESTANDAR,
   calendarUrl,
-  label = "Agendar llamada",
+  label = CTA_ESTANDAR,
 }: ProposalCtaProps) {
   return (
     <ProposalSection title="Siguiente paso">

@@ -104,9 +104,13 @@ export interface Propuesta {
     closing?: string;
   };
 
+  /**
+   * `text` y `ctaLabel` son opcionales: sin ellos se usa el cierre estándar de
+   * lib/propuesta-copy. Solo se llenan cuando una propuesta cierra distinto.
+   */
   siguientePaso: {
-    text: string;
     calendarUrl: string;
+    text?: string;
     ctaLabel?: string;
   };
 

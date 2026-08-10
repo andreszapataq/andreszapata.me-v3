@@ -1,6 +1,7 @@
 "use client";
 
 import { Printer, ArrowRight } from "lucide-react";
+import { CTA_ESTANDAR } from "@/lib/propuesta-copy";
 
 interface FloatingBarProps {
   calendarUrl: string;
@@ -9,7 +10,7 @@ interface FloatingBarProps {
 
 export default function FloatingBar({
   calendarUrl,
-  label = "Agendar llamada",
+  label = CTA_ESTANDAR,
 }: FloatingBarProps) {
   return (
     <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 print:hidden">

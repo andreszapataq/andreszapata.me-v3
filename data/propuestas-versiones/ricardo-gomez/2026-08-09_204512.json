@@ -121,7 +121,9 @@
     "closing": "No hay que decidir nada de esto ahora. Son caminos para conversar más adelante, cuando la tienda ya esté en marcha y los números pidan el siguiente paso."
   },
   "siguientePaso": {
-    "calendarUrl": "https://cal.com/andreszapata/15min"
+    "text": "Si esta propuesta se alinea con lo que buscas, el siguiente paso es agendar una sesión estratégica para afinar detalles, resolver dudas y definir fecha de arranque.",
+    "calendarUrl": "https://cal.com/andreszapata/15min",
+    "ctaLabel": "Agendar sesión"
   },
   "footer": {
     "name": "Andres Zapata",
