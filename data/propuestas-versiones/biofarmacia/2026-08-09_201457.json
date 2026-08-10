@@ -3,8 +3,8 @@
   "clientName": "BioFarmacia by BioHahnemann",
   "projectName": "Sistema de alertas de *reposición* inteligente",
   "subtitle": "Un sistema que predice cuándo cada cliente necesita reponer su medicamento homeopático — y lo contacta en el momento justo, antes de que se quede sin él.",
-  "date": "2026-08-09",
-  "validUntil": "2026-09-09",
+  "date": "2026-05-22",
+  "validUntil": "2026-06-22",
   "contexto": {
     "paragraphs": [
       "BioFarmacia by BioHahnemann atiende una base de clientes con tratamientos continuos. Cada vez que un cliente se queda sin medicamento sin recibir un aviso, es una venta que se pierde — y muy posiblemente un cliente que termina comprando donde la competencia. Hoy ese seguimiento depende de la memoria o la iniciativa del cliente, no de un proceso sistemático.",

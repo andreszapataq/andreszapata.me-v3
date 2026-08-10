@@ -1,4 +1,18 @@
 {
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PROJECT_DIR:-.}/scripts/archivar-propuesta.mjs\" 2>/dev/null || true",
+            "statusMessage": "Archivando versión de la propuesta..."
+          }
+        ]
+      }
+    ]
+  },
   "permissions": {
     "allow": [
       "Bash(node -e \"const p=require\\('./data/propuestas/pw-colombia.json'\\); console.log\\('OK', p.slug, '|', p.projectName, '|', p.inversion.items[0].amount\\)\")",
