@@ -16,6 +16,6 @@
  * persona natural que para una empresa, sin tener que elegir tú/ustedes.
  */
 export const CIERRE_ESTANDAR =
-  "Si el enfoque tiene sentido, el siguiente paso es agendar una sesión estratégica para afinar detalles, resolver dudas y definir la fecha de arranque.";
+  "El siguiente paso es agendar una sesión estratégica para afinar detalles, resolver dudas y definir la fecha de inicio.";
 
 export const CTA_ESTANDAR = "Agendar sesión";
