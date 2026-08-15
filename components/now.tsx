@@ -12,6 +12,7 @@ interface SpotifyData {
   album?: string;
   albumImageUrl?: string;
   songUrl?: string;
+  error?: string;
 }
 
 interface NowStatusData {
@@ -32,6 +33,8 @@ export default function Now() {
         setSpotify(data);
       } catch (error) {
         console.error("Error fetching Spotify data:", error);
+        // Sin esto el valor queda en "..." para siempre y parece que sigue cargando
+        setSpotify({ isPlaying: false, error: "fetch_failed" });
       }
     }
 
@@ -52,9 +55,13 @@ export default function Now() {
     return () => clearInterval(spotifyInterval);
   }, []);
 
-  const listeningValue = spotify?.title
-    ? `${spotify.title} - ${spotify.artist}`
-    : "...";
+  // null = todavía cargando. Si ya resolvió y no hay título es porque falló:
+  // cuando no suena nada, el route cae a recently-played y sí manda canción.
+  const listeningValue = !spotify
+    ? "..."
+    : spotify.title
+      ? `${spotify.title} - ${spotify.artist}`
+      : t("unavailable");
 
   return (
     <section className="mt-16">
@@ -63,16 +70,23 @@ export default function Now() {
         <span className="live-dot inline-block w-2 h-2 bg-green-500 rounded-full" />
       </h2>
       <div className="space-y-6">
-        <NowItem icon={Disc3} label={t("listening")} value={listeningValue} />
+        <NowItem
+          icon={Disc3}
+          label={t("listening")}
+          value={listeningValue}
+          muted={!spotify?.title}
+        />
         <NowItem
           icon={Clapperboard}
           label={t("watching")}
           value={nowStatus?.watching ?? "..."}
+          muted={!nowStatus?.watching}
         />
         <NowItem
           icon={BookOpen}
           label={t("reading")}
           value={nowStatus?.reading ?? "..."}
+          muted={!nowStatus?.reading}
         />
       </div>
     </section>

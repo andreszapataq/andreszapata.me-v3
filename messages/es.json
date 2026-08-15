@@ -66,6 +66,7 @@
   "now": {
     "title": "Ahora",
     "listening": "Escuchando",
+    "unavailable": "No disponible por ahora",
     "watching": "Viendo",
     "reading": "Leyendo"
   }

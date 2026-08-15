@@ -12,6 +12,27 @@ const refresh_token = process.env.SPOTIFY_REFRESH_TOKEN!;
 
 const basic = Buffer.from(`${client_id}:${client_secret}`).toString("base64");
 
+// Depende de credenciales en runtime: nunca debe prerenderizarse en build
+export const dynamic = "force-dynamic";
+
+interface SpotifyTrack {
+  name: string;
+  artists: { name: string }[];
+  album: { name: string; images?: { url: string }[] };
+  external_urls: { spotify: string };
+}
+
+function formatTrack(track: SpotifyTrack, isPlaying: boolean) {
+  return {
+    isPlaying,
+    title: track.name,
+    artist: track.artists.map((a) => a.name).join(", "),
+    album: track.album.name,
+    albumImageUrl: track.album.images?.[0]?.url,
+    songUrl: track.external_urls.spotify,
+  };
+}
+
 async function getAccessToken() {
   const response = await fetch(SPOTIFY_TOKEN_URL, {
     method: "POST",
@@ -23,67 +44,79 @@ async function getAccessToken() {
       grant_type: "refresh_token",
       refresh_token,
     }),
+    cache: "no-store",
   });
 
-  return response.json();
+  const data = await response.json();
+
+  if (!response.ok || !data.access_token) {
+    // invalid_grant = refresh token expirado o revocado. Spotify los caduca a los
+    // 6 meses de la autorización, así que esto se repite: hay que rehacer el
+    // Authorization Code flow y actualizar SPOTIFY_REFRESH_TOKEN.
+    if (data.error === "invalid_grant") {
+      throw new Error(
+        `refresh token inválido (${data.error_description ?? "invalid_grant"}). Regenera SPOTIFY_REFRESH_TOKEN.`
+      );
+    }
+
+    throw new Error(
+      `token endpoint respondió ${response.status}: ${data.error ?? "error desconocido"}`
+    );
+  }
+
+  return data.access_token as string;
 }
 
 export async function GET() {
   try {
-    const { access_token } = await getAccessToken();
+    const access_token = await getAccessToken();
+    const headers = { Authorization: `Bearer ${access_token}` };
 
     const nowPlayingResponse = await fetch(SPOTIFY_NOW_PLAYING_URL, {
-      headers: { Authorization: `Bearer ${access_token}` },
+      headers,
+      cache: "no-store",
     });
 
-    // 204 = no content (nada reproduciéndose)
-    if (
-      nowPlayingResponse.status === 204 ||
-      nowPlayingResponse.status > 400
-    ) {
-      const recentResponse = await fetch(SPOTIFY_RECENTLY_PLAYED_URL, {
-        headers: { Authorization: `Bearer ${access_token}` },
-      });
-      const recentData = await recentResponse.json();
-      const track = recentData.items?.[0]?.track;
-
-      if (track) {
-        return NextResponse.json({
-          isPlaying: false,
-          title: track.name,
-          artist: track.artists
-            .map((a: { name: string }) => a.name)
-            .join(", "),
-          album: track.album.name,
-          albumImageUrl: track.album.images?.[0]?.url,
-          songUrl: track.external_urls.spotify,
-        });
+    // 204 = no content (nada reproduciéndose). Cualquier otro no-2xx sí es un fallo real
+    if (nowPlayingResponse.status !== 204) {
+      if (!nowPlayingResponse.ok) {
+        throw new Error(
+          `currently-playing respondió ${nowPlayingResponse.status}`
+        );
       }
 
-      return NextResponse.json({ isPlaying: false });
+      const data = await nowPlayingResponse.json();
+
+      if (data.item) {
+        return NextResponse.json(formatTrack(data.item, data.is_playing));
+      }
     }
 
-    const data = await nowPlayingResponse.json();
-
-    if (!data.item) {
-      return NextResponse.json({ isPlaying: false });
-    }
-
-    return NextResponse.json({
-      isPlaying: data.is_playing,
-      title: data.item.name,
-      artist: data.item.artists
-        .map((a: { name: string }) => a.name)
-        .join(", "),
-      album: data.item.album.name,
-      albumImageUrl: data.item.album.images?.[0]?.url,
-      songUrl: data.item.external_urls.spotify,
+    // Nada sonando: caemos al último tema reproducido
+    const recentResponse = await fetch(SPOTIFY_RECENTLY_PLAYED_URL, {
+      headers,
+      cache: "no-store",
     });
-  } catch (error) {
-    console.error("Error fetching Spotify data:", error);
+
+    if (!recentResponse.ok) {
+      throw new Error(`recently-played respondió ${recentResponse.status}`);
+    }
+
+    const recentData = await recentResponse.json();
+    const track = recentData.items?.[0]?.track;
+
     return NextResponse.json(
-      { isPlaying: false, error: "Failed to fetch Spotify data" },
-      { status: 500 }
+      track ? formatTrack(track, false) : { isPlaying: false }
+    );
+  } catch (error) {
+    console.error(
+      "[spotify]",
+      error instanceof Error ? error.message : error
+    );
+
+    return NextResponse.json(
+      { isPlaying: false, error: "spotify_unavailable" },
+      { status: 503 }
     );
   }
 }
