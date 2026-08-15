@@ -13,7 +13,18 @@ export function useAutoGrow(value: string) {
     const area = ref.current;
     if (!area) return;
     area.style.height = "auto";
-    area.style.height = `${area.scrollHeight}px`;
+
+    // scrollHeight mide el contenido sin contar el borde, pero la altura que le
+    // asignamos sí lo incluye (box-sizing: border-box). Sin compensar esa
+    // diferencia el campo queda un pixel corto y el navegador lo da por
+    // scrolleable: en el móvil, cada campo se traga el gesto de la página y
+    // arrastrar solo funciona por los bordes de la pantalla.
+    const borde = area.offsetHeight - area.clientHeight;
+    area.style.height = `${area.scrollHeight + borde}px`;
+
+    // Y por si la altura de línea deja fracciones sueltas al redondear: un
+    // campo que crece con su contenido nunca tiene nada que desplazar.
+    area.style.overflowY = "hidden";
   }, [value]);
 
   return ref;
