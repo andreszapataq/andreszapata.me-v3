@@ -67,7 +67,7 @@ export default async function CrmLayout({
 }) {
   // Va en el layout y no en la lista para que los avisos sobrevivan la
   // navegación hacia un negocio: montados por pantalla, volverían a aparecer
-  // los que acabas de cerrar.
+  // los que acabas de marcar hechos.
   const alerts = await readTaskAlerts();
 
   return (

@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState, useSyncExternalStore, useTransition } from "react";
 import { crmPath } from "@/lib/crm/route";
 import { relativeDays } from "@/lib/crm/format";
-import { dismissTaskAlert } from "@/lib/crm/actions";
+import { completeTask } from "@/lib/crm/actions";
 import {
   hideAlert,
   pruneHiddenAlerts,
@@ -46,23 +46,23 @@ const getServerClock = () => 0;
  *
  * Vive en el layout y no en la lista para que sobreviva la navegación entre el
  * listado y un negocio: si se remontara en cada pantalla, volvería a aparecer
- * lo que acabas de cerrar.
+ * lo que acabas de marcar hecho.
  */
 export default function TaskToasts({ alerts }: { alerts: TaskAlert[] }) {
   const now = useSyncExternalStore(subscribe, getClock, getServerClock);
   const hiddenIds = useHiddenAlerts();
   const router = useRouter();
-  const [, startDismiss] = useTransition();
+  const [, startComplete] = useTransition();
 
-  // Cerrar un aviso es un viaje al servidor. Estos dos conjuntos hacen que la
+  // Marcar hecho es un viaje al servidor. Estos dos conjuntos hacen que la
   // tarjeta responda de una: `leaving` la anima hacia afuera y `gone` la retira
   // cuando termina. Al volver la acción, el aviso ya no llega en `alerts` y los
   // dos sobran —por eso no hace falta limpiarlos.
   const [leaving, setLeaving] = useState<ReadonlySet<number>>(new Set());
   const [gone, setGone] = useState<ReadonlySet<number>>(new Set());
 
-  // Ocultar usa la misma animación de salida que cerrar, pero termina en otro
-  // sitio: el aviso pasa al contador del encabezado en vez de irse a la tabla.
+  // Ocultar usa la misma animación de salida que hecho, pero termina en otro
+  // sitio: el aviso pasa al contador del encabezado en vez de vaciar el paso.
   // Este conjunto solo dura lo que dura la animación.
   const [hiding, setHiding] = useState<ReadonlySet<number>>(new Set());
 
@@ -86,7 +86,7 @@ export default function TaskToasts({ alerts }: { alerts: TaskAlert[] }) {
     const onVisibility = () => {
       if (document.visibilityState !== "visible") return;
       readClock();
-      // Y como los avisos cerrados viven en la tabla, otra pantalla pudo cerrar
+      // Y como cumplir un paso lo vacía en la tabla, otra pantalla pudo marcar
       // uno mientras esta pestaña estaba atrás: al volver se vuelven a pedir.
       router.refresh();
     };
@@ -106,9 +106,9 @@ export default function TaskToasts({ alerts }: { alerts: TaskAlert[] }) {
     };
   }, [alerts, now, router]);
 
-  function dismiss(alert: TaskAlert) {
-    startDismiss(async () => {
-      await dismissTaskAlert(alert.id);
+  function complete(alert: TaskAlert) {
+    startComplete(async () => {
+      await completeTask(alert.id);
     });
 
     // Sin animación no hay `animationend` que esperar: se retira de una.
@@ -167,8 +167,8 @@ export default function TaskToasts({ alerts }: { alerts: TaskAlert[] }) {
           }}
           // La animación de salida es la misma para las dos acciones; lo que
           // cambia es dónde termina el aviso. Ocultar lo pasa al contador del
-          // encabezado (y suelta el `hiding`, que ya cumplió); cerrar lo retira
-          // del todo, porque el servidor ya no lo va a devolver.
+          // encabezado (y suelta el `hiding`, que ya cumplió); hecho lo retira
+          // del todo, porque el paso quedó vacío y el servidor ya no lo devuelve.
           onAnimationEnd={(e) => {
             if (e.animationName !== "crm-toast-out") return;
 
@@ -219,7 +219,7 @@ export default function TaskToasts({ alerts }: { alerts: TaskAlert[] }) {
 
           {/* z-10 para quedar por encima del enlace estirado. Las dos palabras
               van a los extremos para que no se confundan al pulsar: ocultar es
-              cosa de esta pantalla, cerrar se escribe en la tabla. */}
+              cosa de esta pantalla, hecho vacía el paso en la tabla. */}
           <div className="relative z-10 flex items-baseline justify-between px-4 pb-3">
             <button
               type="button"
@@ -230,10 +230,10 @@ export default function TaskToasts({ alerts }: { alerts: TaskAlert[] }) {
             </button>
             <button
               type="button"
-              onClick={() => dismiss(alert)}
+              onClick={() => complete(alert)}
               className="crm-mono text-sm text-white/90 crm-tap-invert"
             >
-              cerrar
+              hecho
             </button>
           </div>
         </article>

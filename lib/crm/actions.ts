@@ -395,25 +395,27 @@ export async function ignorePropuestaChanges(formData: FormData) {
  * Al vivir en la tabla y no en el navegador, cerrar el aviso en el teléfono
  * también lo cierra en el escritorio.
  */
-export async function dismissTaskAlert(id: number) {
+/**
+ * Da por cumplido el paso siguiente: lo vacía.
+ *
+ * No escribe nada en la bitácora. «✓ preguntar a Jhonny por la hora» registra
+ * que te lo propusiste, no lo que averiguaste —y a dos o tres por semana ahoga
+ * las notas que sí escribiste—. Lo que vale de una tarea cumplida se escribe a
+ * mano o no valía la pena.
+ *
+ * Vaciar el paso es todo el registro que hace falta: el negocio queda pidiendo
+ * el siguiente, y eso se ve en la lista.
+ */
+export async function completeTask(id: number) {
   const supabase = await requireClient();
   if (!Number.isInteger(id)) return;
 
-  const { data, error: readError } = await supabase
-    .from("crm_deals")
-    .select("next_step_at")
-    .eq("id", id)
-    .maybeSingle();
-
-  if (readError) throw new Error(`No se pudo leer el paso: ${readError.message}`);
-  if (!data?.next_step_at) return;
-
   const { error } = await supabase
     .from("crm_deals")
-    .update({ next_step_seen_at: data.next_step_at })
+    .update({ next_step: null, next_step_at: null })
     .eq("id", id);
 
-  if (error) throw new Error(`No se pudo cerrar el aviso: ${error.message}`);
+  if (error) throw new Error(`No se pudo cumplir el paso: ${error.message}`);
 
   // "layout" y no la ruta a secas: los avisos se leen en el layout del CRM,
   // así que revalidar solo la página los dejaría intactos.

@@ -22,17 +22,11 @@ const BOGOTA_OFFSET = "-05:00";
  */
 type AlertSource = Pick<
   Deal,
-  | "id"
-  | "client_name"
-  | "project_name"
-  | "status"
-  | "next_step"
-  | "next_step_at"
-  | "next_step_seen_at"
+  "id" | "client_name" | "project_name" | "status" | "next_step" | "next_step_at"
 >;
 
 export const ALERT_COLUMNS =
-  "id, client_name, project_name, status, next_step, next_step_at, next_step_seen_at";
+  "id, client_name, project_name, status, next_step, next_step_at";
 
 /** Un paso siguiente con el momento en que reclama atención. */
 export interface TaskAlert {
@@ -51,8 +45,13 @@ export function dueAt(nextStepAt: string): number {
 }
 
 /**
- * Los pasos siguientes que pueden avisar: negocio vivo, con tarea escrita, con
- * día puesto y sin cerrar todavía para ese día.
+ * Los pasos siguientes que pueden avisar: negocio vivo, con tarea escrita y con
+ * día puesto.
+ *
+ * No hay estado «visto»: un paso cumplido se vacía, así que dejar de avisar y
+ * dejar de existir son la misma cosa. Mientras el paso siga escrito, el aviso
+ * sigue apareciendo —recargar es empezar a mirar de nuevo—, y las dos salidas
+ * son hacerlo o reprogramarlo. Aplazar sin decir cuándo no es una de ellas.
  *
  * No filtra por vencimiento a propósito —eso depende del reloj de quien mira,
  * que en el servidor no se conoce— sino que manda la lista completa para que
@@ -64,10 +63,7 @@ export function toTaskAlerts(deals: AlertSource[]): TaskAlert[] {
       (deal) =>
         OPEN_STATUSES.includes(deal.status) &&
         deal.next_step !== null &&
-        deal.next_step_at !== null &&
-        // Cerrar el aviso marca la fecha vista. Reprogramar la mueve, deja de
-        // coincidir, y el aviso vuelve sin que haya que limpiar nada.
-        deal.next_step_seen_at !== deal.next_step_at
+        deal.next_step_at !== null
     )
     .map((deal) => ({
       id: deal.id,

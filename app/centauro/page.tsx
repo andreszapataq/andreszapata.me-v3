@@ -13,6 +13,7 @@ import {
   formatMoney,
   relativeDays,
   sumByCurrency,
+  todayISO,
 } from "@/lib/crm/format";
 import { OPEN_STATUSES, type Deal } from "@/types/crm";
 import { CRM_BASE, crmPath } from "@/lib/crm/route";
@@ -40,8 +41,12 @@ function sortDeals(a: Deal, b: Deal) {
   if (isOpen(a) !== isOpen(b)) return isOpen(a) ? -1 : 1;
 
   if (isOpen(a)) {
-    const aDue = a.next_step_at ?? "9999-12-31";
-    const bDue = b.next_step_at ?? "9999-12-31";
+    // Sin paso vale hoy, no el fin de los tiempos: un negocio abierto al que no
+    // le queda nada por hacer es justo el que hay que decidir. Con el fondo de
+    // la lista como destino, cada tarea cumplida hundiría su negocio.
+    const today = todayISO();
+    const aDue = a.next_step_at ?? today;
+    const bDue = b.next_step_at ?? today;
     if (aDue !== bDue) return aDue.localeCompare(bDue);
     return (b.sent_at ?? "").localeCompare(a.sent_at ?? "");
   }
@@ -110,7 +115,7 @@ function DealLine({
         </p>
       )}
 
-      {deal.next_step && (
+      {deal.next_step ? (
         <p
           className={`mt-1.5 text-sm ${
             dueIn !== null && dueIn <= 0 ? "text-crm-amber" : "text-crm-dim"
@@ -119,6 +124,13 @@ function DealLine({
           → {deal.next_step}
           {deal.next_step_at && ` · ${formatDateShort(deal.next_step_at)}`}
         </p>
+      ) : (
+        // El silencio era peor: un negocio abierto sin paso siguiente está a la
+        // deriva y no se distinguía de uno atendido. En faint porque es una
+        // ausencia, no una urgencia. Los cerrados no lo piden.
+        isOpen(deal) && (
+          <p className="mt-1.5 text-sm text-crm-faint">→ sin próximo paso</p>
+        )
       )}
     </Link>
   );
@@ -150,11 +162,6 @@ export default async function CrmPage({
   const dueToday = open.filter((d) => {
     const diff = daysFromToday(d.next_step_at);
     return diff !== null && diff <= 0;
-  }).length;
-
-  const expired = open.filter((d) => {
-    const diff = daysFromToday(d.valid_until);
-    return diff !== null && diff < 0;
   }).length;
 
   const knownSlugs = new Set(deals.map((d) => d.slug).filter(Boolean));
@@ -193,21 +200,23 @@ export default async function CrmPage({
           : `${open.length} ${open.length === 1 ? "abierta" : "abiertas"} · ${sumByCurrency(open)} en juego`}
       </p>
 
-      {(dueToday > 0 || expired > 0 || outdated.size > 0) && (
+      {/* Las propuestas vencidas no se cuentan aquí: la fila ya las grita en
+          rojo y el orden las sube. Un contador de lo que ya se ve al hojear es
+          ruido, y era el que empujaba esta línea a un segundo renglón.
+
+          `whitespace-nowrap` en cada contador para que, cuando dos coincidan y
+          no quepan (~46 caracteres contra los ~38 de un teléfono angosto), la
+          línea parta en el separador y no a mitad de frase. */}
+      {(dueToday > 0 || outdated.size > 0) && (
         <p className="crm-mono mt-1 text-sm">
           {[
             dueToday > 0 && (
-              <span key="due" className="text-crm-amber">
+              <span key="due" className="whitespace-nowrap text-crm-amber">
                 {dueToday} {dueToday === 1 ? "pendiente" : "pendientes"} para hoy
               </span>
             ),
-            expired > 0 && (
-              <span key="expired" className="text-crm-red">
-                {expired} {expired === 1 ? "vencida" : "vencidas"}
-              </span>
-            ),
             outdated.size > 0 && (
-              <span key="outdated" className="text-crm-accent">
+              <span key="outdated" className="whitespace-nowrap text-crm-accent">
                 {outdated.size}{" "}
                 {outdated.size === 1
                   ? "propuesta cambió"

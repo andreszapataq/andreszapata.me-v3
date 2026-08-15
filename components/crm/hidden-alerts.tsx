@@ -5,11 +5,14 @@ import { useSyncExternalStore } from "react";
 /**
  * Los avisos que apartaste de la pantalla sin darlos por atendidos.
  *
- * Ocultar y cerrar son cosas distintas a propósito: cerrar dice «esto ya lo
- * hice» y se escribe en la tabla (next_step_seen_at); ocultar dice «ahora no,
- * déjame ver la lista» y no sale de la pestaña. Por eso esto vive en memoria y
- * no en la base ni en localStorage: si recargas, los avisos vuelven, porque una
- * recarga es empezar a mirar de nuevo.
+ * Ocultar y hecho son cosas distintas a propósito: hecho dice «esto ya lo hice»
+ * y vacía el paso en la tabla; ocultar dice «ahora no, déjame ver la lista» y no
+ * sale de la pestaña. Por eso esto vive en memoria y no en la base ni en
+ * localStorage: si recargas, los avisos vuelven, porque una recarga es empezar a
+ * mirar de nuevo.
+ *
+ * Que no haya un ocultar permanente es la decisión, no un pendiente: un paso que
+ * no puedes hacer hoy se reprograma, y así queda escrito cuándo lo retomas.
  *
  * Es un módulo y no un contexto porque los dos que lo leen —el toaster, montado
  * en el layout, y el número del encabezado, que pinta la lista— son hermanos,
