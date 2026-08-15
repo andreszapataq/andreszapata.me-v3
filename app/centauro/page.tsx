@@ -201,8 +201,8 @@ export default async function CrmPage({
       </p>
 
       {/* Las propuestas vencidas no se cuentan aquí: la fila ya las grita en
-          rojo y el orden las sube. Un contador de lo que ya se ve al hojear es
-          ruido, y era el que empujaba esta línea a un segundo renglón.
+          rojo, y un contador de lo que se ve al hojear es ruido —era el que
+          empujaba esta línea a un segundo renglón.
 
           `whitespace-nowrap` en cada contador para que, cuando dos coincidan y
           no quepan (~46 caracteres contra los ~38 de un teléfono angosto), la
