@@ -7,22 +7,30 @@ import {
 } from "@/lib/crm/seed";
 import { seedFromPropuestas, signOut } from "@/lib/crm/actions";
 import {
+  NOTE_GLYPH,
   STATUS_TONE,
   daysFromToday,
   formatDateShort,
+  formatDay,
   formatMoney,
+  noteDay,
   relativeDays,
   sumByCurrency,
   todayISO,
 } from "@/lib/crm/format";
-import { OPEN_STATUSES, type Deal } from "@/types/crm";
-import { CRM_BASE, crmPath } from "@/lib/crm/route";
+import type { Deal } from "@/types/crm";
+import { crmPath } from "@/lib/crm/route";
+import { VIEWS, isOpen, matchesView, type View } from "@/lib/crm/views";
+import {
+  searchDeals,
+  type NoteHit,
+  type SearchableNote,
+  type SearchResult,
+} from "@/lib/crm/search";
 import { HiddenAlertsBadge } from "@/components/crm/hidden-alerts";
+import SearchRow from "@/components/crm/search-row";
 
 export const dynamic = "force-dynamic";
-
-const VIEWS = ["abiertas", "todas", "ganadas", "perdidas"] as const;
-type View = (typeof VIEWS)[number];
 
 const TONE_CLASS = {
   dim: "text-crm-dim",
@@ -31,10 +39,6 @@ const TONE_CLASS = {
   amber: "text-crm-amber",
   red: "text-crm-red",
 } as const;
-
-function isOpen(deal: Deal) {
-  return OPEN_STATUSES.includes(deal.status);
-}
 
 /** Abiertos arriba, ordenados por lo que hay que hacer antes. */
 function sortDeals(a: Deal, b: Deal) {
@@ -54,20 +58,45 @@ function sortDeals(a: Deal, b: Deal) {
   return (b.closed_at ?? b.updated_at).localeCompare(a.closed_at ?? a.updated_at);
 }
 
-function matchesView(deal: Deal, view: View) {
-  if (view === "todas") return true;
-  if (view === "abiertas") return isOpen(deal);
-  return deal.status === (view === "ganadas" ? "ganada" : "perdida");
+/**
+ * La nota que trajo a este negocio a los resultados, con lo buscado resaltado.
+ *
+ * Va debajo de la fila y no en lugar de ella: así un negocio con tres notas
+ * que coinciden sigue siendo una línea en la lista y no tres.
+ */
+function NoteMatch({ hit, extra }: { hit: NoteHit; extra: number }) {
+  return (
+    <p className="mt-1.5 text-sm text-crm-faint">
+      <span aria-hidden className="crm-mono">
+        {NOTE_GLYPH[hit.kind]}{" "}
+      </span>
+      {hit.before}
+      {/* Sin fondo amarillo: aquí resaltar es pesar más que lo de al lado. */}
+      <mark className="bg-transparent font-medium text-crm-text">
+        {hit.match}
+      </mark>
+      {hit.after}
+      <span className="crm-mono">
+        {" · "}
+        {formatDay(noteDay(hit.occurred_at))}
+        {extra > 0 && ` · +${extra}`}
+      </span>
+    </p>
+  );
 }
 
 function DealLine({
   deal,
   index,
   outdated,
+  hit = null,
+  extra = 0,
 }: {
   deal: Deal;
   index: number;
   outdated: boolean;
+  hit?: NoteHit | null;
+  extra?: number;
 }) {
   const dueIn = daysFromToday(deal.next_step_at);
   const validIn = isOpen(deal) ? daysFromToday(deal.valid_until) : null;
@@ -132,17 +161,49 @@ function DealLine({
           <p className="mt-1.5 text-sm text-crm-faint">→ sin próximo paso</p>
         )
       )}
+
+      {hit && <NoteMatch hit={hit} extra={extra} />}
     </Link>
   );
+}
+
+/**
+ * Las notas en las que se puede buscar: las que escribiste tú.
+ *
+ * Se traen todas y se filtran aquí, en vez de pedirle el `ilike` a Postgres,
+ * porque el plegado de tildes tiene que ser el mismo que el de los nombres:
+ * `ilike` no encontraría «Bogotá» buscando «bogota» y la búsqueda se
+ * comportaría distinto según dónde estuviera la palabra. A esta escala —unos
+ * cientos de notas cortas— traerlas sale más barato que la inconsistencia; el
+ * día que sean miles, la salida es la extensión `unaccent` y un índice.
+ */
+async function readSearchableNotes(
+  supabase: Awaited<ReturnType<typeof createClient>>
+): Promise<SearchableNote[]> {
+  const { data } = await supabase
+    .from("crm_notes")
+    .select("deal_id, kind, body, occurred_at")
+    // Las de `estado` las escribió el CRM al mover el negocio, no tú: buscar
+    // «ganada» sacaría media bitácora sin decir nada que la lista no diga ya.
+    .neq("kind", "estado")
+    .order("occurred_at", { ascending: false })
+    .order("created_at", { ascending: false });
+
+  return (data ?? []) as SearchableNote[];
 }
 
 export default async function CrmPage({
   searchParams,
 }: {
-  searchParams: Promise<{ ver?: string }>;
+  searchParams: Promise<{ ver?: string; q?: string }>;
 }) {
-  const { ver } = await searchParams;
+  const { ver, q } = await searchParams;
   const view: View = VIEWS.includes(ver as View) ? (ver as View) : "abiertas";
+
+  // Buscar ignora el corte: cuando uno no encuentra algo, lo último que quiere
+  // es que la respuesta esté escondida detrás de la pestaña equivocada.
+  const query = (q ?? "").trim();
+  const searching = query !== "";
 
   const supabase = await createClient();
   const { data, error } = await supabase.from("crm_deals").select("*");
@@ -157,7 +218,15 @@ export default async function CrmPage({
 
   const deals = (data ?? []) as Deal[];
   const open = deals.filter(isOpen);
-  const visible = deals.filter((d) => matchesView(d, view)).sort(sortDeals);
+
+  const visible: SearchResult[] = searching
+    ? searchDeals(deals, await readSearchableNotes(supabase), query).sort(
+        (a, b) => sortDeals(a.deal, b.deal)
+      )
+    : deals
+        .filter((d) => matchesView(d, view))
+        .sort(sortDeals)
+        .map((deal) => ({ deal, hit: null, extra: 0 }));
 
   const dueToday = open.filter((d) => {
     const diff = daysFromToday(d.next_step_at);
@@ -234,40 +303,28 @@ export default async function CrmPage({
         </p>
       )}
 
-      <nav className="crm-mono mt-8 flex flex-wrap gap-x-3 gap-y-1 text-sm">
-        {VIEWS.map((option, i) => (
-          <span key={option} className="flex items-baseline gap-3">
-            {i > 0 && <span className="text-crm-line">·</span>}
-            <Link
-              href={option === "abiertas" ? CRM_BASE : `${CRM_BASE}?ver=${option}`}
-              className={
-                option === view
-                  ? "text-crm-text underline decoration-crm-accent underline-offset-4"
-                  : "text-crm-faint hover:text-crm-dim"
-              }
-            >
-              {option}
-            </Link>
-          </span>
-        ))}
-      </nav>
+      <SearchRow view={view} query={query} />
 
       {/* La lista se sale 12px a cada lado del texto: así el fondo del hover
           respira alrededor de la fila sin que el contenido se corra. */}
       <section className="-mx-3 mt-4 border-t border-crm-line">
         {visible.length === 0 ? (
           <p className="px-3 py-8 text-crm-faint">
-            {deals.length === 0
-              ? "El CRM está vacío."
-              : `Nada en «${view}».`}
+            {searching
+              ? `Nada con «${query}».`
+              : deals.length === 0
+                ? "El CRM está vacío."
+                : `Nada en «${view}».`}
           </p>
         ) : (
-          visible.map((deal, i) => (
+          visible.map(({ deal, hit, extra }, i) => (
             <DealLine
               key={deal.id}
               deal={deal}
               index={i}
               outdated={outdated.has(deal.id)}
+              hit={hit}
+              extra={extra}
             />
           ))
         )}

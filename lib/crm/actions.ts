@@ -385,17 +385,6 @@ export async function ignorePropuestaChanges(formData: FormData) {
 }
 
 /**
- * Cierra el aviso de un paso siguiente: marca como vista la fecha que tiene
- * puesta ahora mismo.
- *
- * La fecha se lee aquí y no llega del cliente a propósito. Si entre el clic y
- * la escritura el paso se reprogramó, esto marca visto el día viejo —que ya no
- * es el vigente— en vez de silenciar de una la fecha nueva.
- *
- * Al vivir en la tabla y no en el navegador, cerrar el aviso en el teléfono
- * también lo cierra en el escritorio.
- */
-/**
  * Da por cumplido el paso siguiente: lo vacía.
  *
  * No escribe nada en la bitácora. «✓ preguntar a Jhonny por la hora» registra
